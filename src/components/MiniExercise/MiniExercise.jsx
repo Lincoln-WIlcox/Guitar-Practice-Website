@@ -24,7 +24,7 @@ const MiniExercise = ({ title, skill, author, description }) =>
                     setAuthorText(gottenAuthor.username)
                 }
             )
-        }, [author]
+        }, [skill, author]
     )
 
     const onExerciseClicked = () =>
