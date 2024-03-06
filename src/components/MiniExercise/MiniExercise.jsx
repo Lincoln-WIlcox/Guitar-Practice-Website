@@ -1,9 +1,31 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./MiniExercise.css"
+import { getUserById } from "../../services/userService"
+import { getSkillById } from "../../services/skillsService"
 
-const MiniExercise = () =>
+const MiniExercise = ({ title, skill, author, description }) =>
 {
     const [expanded, setExpanded] = useState(false)
+    const [skillText, setSkillText] = useState("Skill")
+    const [authorText, setAuthorText] = useState("AUser")
+
+    useEffect(
+        () =>
+        {
+            getSkillById(skill).then(
+                (gottenSkill) =>
+                {
+                    setSkillText(gottenSkill.skill)
+                }
+            )
+            getUserById(author).then(
+                (gottenAuthor) =>
+                {
+                    setAuthorText(gottenAuthor.username)
+                }
+            )
+        }, [author]
+    )
 
     const onExerciseClicked = () =>
     {
@@ -15,14 +37,12 @@ const MiniExercise = () =>
     return (
         <div data-testid="MiniExercise" onClick={onExerciseClicked} className={"w-7/12 overflow-hidden m-2 " + (exerciseHeight)}>
             <div className="flex justify-between mb-2">
-                <h2>Exercise Title</h2>
-                <h3>Skill</h3>
-                <h3>Made By User</h3>
+                <h2>{title ? title : "Exercise Title"}</h2>
+                <h3>{skillText}</h3>
+                <h3>Made By {authorText}</h3>
             </div>
             <div>
-                <p>exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about
-                    exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about exercise about
-                </p>
+                <p>{description}</p>
             </div>
 
         </div>

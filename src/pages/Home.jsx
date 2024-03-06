@@ -31,7 +31,7 @@ const Home = () =>
     }
 
     return (
-        <div data-testid="home-page" className="flex flex-col items-center">
+        <div className="flex flex-col items-center">
             <div className="flex flex-col items-center m-16">
                 <h1>Welcome, User</h1>
                 <h2>Let's get practicing!</h2>

@@ -1,21 +1,55 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { render } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import Exercises from '../src/pages/Exercises'
+import { act } from 'react-test-renderer'
 
-test('should render exercise',
+jest.mock("../src/components/ExercisesList/ExercisesList.jsx")
+import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'
+import Exercises from '../src/pages/Exercises.jsx'
+
+beforeEach(
+    ExercisesList.mockReturnValue(<></>)
+)
+
+afterEach(
     () =>
     {
-        const exercises = render(
-            <MemoryRouter>
-                <Routes>
-                    <Route path="/" element={<Exercises />} />
-                </Routes>
-            </MemoryRouter>
-        )
-
-        expect(exercises.container).toBeInTheDocument()
+        cleanup()
+        jest.clearAllMocks()
     }
 )
 
+const testRender = async () =>
+{
+    let returnRender
+    await act(
+        async () =>
+        {
+            returnRender = await render(
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<Exercises />} />
+                    </Routes>
+                </MemoryRouter>
+            )
+        }
+    )
+    return returnRender
+}
+
+it("renders exercise",
+    async () =>
+    {
+        const tree = await testRender()
+
+        expect(tree.container).toBeInTheDocument()
+    }
+)
+
+it("gets exercises",
+    () =>
+    {
+
+    }
+)

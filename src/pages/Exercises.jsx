@@ -1,17 +1,29 @@
-import MiniExercise from "../components/MiniExercise/MiniExercise"
+import ExercisesList from "../components/ExercisesList/ExercisesList"
 import "./Exercises.css"
 
 const Exercises = () =>
 {
-    return (
-        <div data-testid="exercises-page" className="flex justify-center items-center flex-col">
-            <MiniExercise />
-            <MiniExercise />
-            <MiniExercise />
-            <MiniExercise />
-            <MiniExercise />
-            <MiniExercise />
 
+    return (
+        <div className="flex justify-center items-center flex-col">
+            <ExercisesList exercises={[
+        {
+            "id": 1,
+            "userId": 1,
+            "skillId": 1,
+            "name": "Exercise 1",
+            "description": "Test exercise",
+            "hidden": false
+        },
+        {
+            "id": 2,
+            "userId": 2,
+            "skillId": 2,
+            "name": "Exercise 2",
+            "description": "Test exercise (the sequel)",
+            "hidden": true
+        }
+    ]}/>
         </div>
     )
 }
