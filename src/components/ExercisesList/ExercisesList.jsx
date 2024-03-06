@@ -4,7 +4,7 @@ import "./ExercisesList.css"
 const ExercisesList = ({ exercises }) =>
 {
     return (
-        <div className="flex justify-center items-center flex-col">
+        <>
             {
                 exercises?.map(
                     (exercise) =>
@@ -13,7 +13,7 @@ const ExercisesList = ({ exercises }) =>
                     }
                 )
             }
-        </div>
+        </>
     )
 }
 

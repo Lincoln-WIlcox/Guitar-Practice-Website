@@ -3,13 +3,53 @@ import '@testing-library/jest-dom'
 import { cleanup, render } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { act } from 'react-test-renderer'
+import Exercises from '../src/pages/Exercises.jsx'
 
 jest.mock("../src/components/ExercisesList/ExercisesList.jsx")
 import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'
-import Exercises from '../src/pages/Exercises.jsx'
+
+jest.mock("../src/services/exerciseServices.js")
+import { getExercises } from '../src/services/exerciseServices.js'
+
+const fakeExercises = [
+    {
+        "id": 1,
+        "userId": 1,
+        "skillId": 1,
+        "name": "Exercise 1",
+        "description": "Test",
+        "hidden": false
+    },
+    {
+        "id": 2,
+        "userId": 2,
+        "skillId": 2,
+        "name": "Exercise 2",
+        "description": "Test",
+        "hidden": true
+    },
+    {
+        "id": 3,
+        "userId": 1,
+        "skillId": 2,
+        "name": "Exercise 3",
+        "description": "Test",
+        "hidden": true
+    }
+]
 
 beforeEach(
-    ExercisesList.mockReturnValue(<></>)
+    async () =>
+    {
+        ExercisesList.mockReturnValue(<></>)
+
+        getExercises.mockImplementation(
+            async () =>
+            {
+                return fakeExercises
+            }
+        )
+    }
 )
 
 afterEach(
@@ -48,8 +88,10 @@ it("renders exercise",
 )
 
 it("gets exercises",
-    () =>
+    async () =>
     {
+        const tree = await testRender()
 
+        expect(getExercises).toHaveBeenCalled()
     }
 )

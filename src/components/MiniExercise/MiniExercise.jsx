@@ -7,7 +7,7 @@ const MiniExercise = ({ title, skill, author, description }) =>
 {
     const [expanded, setExpanded] = useState(false)
     const [skillText, setSkillText] = useState("Skill")
-    const [authorText, setAuthorText] = useState("AUser")
+    const [authorText, setAuthorText] = useState("User")
 
     useEffect(
         () =>
