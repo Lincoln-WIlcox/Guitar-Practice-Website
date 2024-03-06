@@ -24,7 +24,7 @@ const Navbar = () =>
         navigate("/exercises")
     }
 
-    return <div data-testid="Navbar" className="fixed w-32 
+    return <div className="fixed w-32 
     flex flex-col">
         <button onClick={onPlaylistClicked}>Playlist</button>
         <button onClick={onPracticeClicked}>Practice</button>

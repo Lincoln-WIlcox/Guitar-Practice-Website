@@ -5,6 +5,38 @@ import { Router } from 'react-router-dom'
 import { render, cleanup } from '@testing-library/react'
 import { createMemoryHistory } from 'history';
 
+jest.mock('../src/pages/Home')
+import Home from '../src/pages/Home'
+
+jest.mock('../src/pages/Exercises')
+import Exercises from '../src/pages/Exercises'
+
+jest.mock('../src/components/Navbar/Navbar')
+import Navbar from '../src/components/Navbar/Navbar'
+
+beforeEach(
+    () =>
+    {
+        Home.mockReturnValue(
+            <div data-testid="home-page"></div>
+        )
+        Exercises.mockReturnValue(
+            <div data-testid="exercises-page"></div>
+        )
+        Navbar.mockReturnValue(
+            <div data-testid="Navbar"></div>
+        )
+    }
+)
+
+afterEach(
+    () =>
+    {
+        cleanup()
+        jest.clearAllMocks()
+    }
+)
+
 describe('pages should render when navigated to',
     () =>
     {
@@ -17,8 +49,6 @@ describe('pages should render when navigated to',
                 </Router>
             )
         }
-
-        afterEach(cleanup)
 
         it('displays home page',
             () =>
@@ -68,7 +98,7 @@ describe('pages should render when navigated to',
                 const history = createMemoryHistory({ initialEntries: ['/'] })
                 const tree = testRender(history)
 
-                expect(() => {tree.getByTestId('Navbar')}).toThrow()
+                expect(() => { tree.getByTestId('Navbar') }).toThrow()
             }
         )
     }
