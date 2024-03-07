@@ -104,7 +104,7 @@ describe("exercises works",
             {
                 const tree = await testRender()
 
-
+                expect(ExercisesList).toHaveBeenLastCalledWith({exercises: fakeExercises}, {})
             }
         )
     }
