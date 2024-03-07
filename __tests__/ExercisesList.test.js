@@ -5,8 +5,8 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'
 import { act } from 'react-test-renderer'
 
-jest.mock("../src/components/MiniExercise/MiniExercise.jsx")
-import MiniExercise from "../src/components/MiniExercise/MiniExercise.jsx"
+jest.mock('../src/components/MiniExercise/MiniExercise.jsx')
+import MiniExercise from '../src/components/MiniExercise/MiniExercise.jsx'
 
 const fakeExercises = [
     {

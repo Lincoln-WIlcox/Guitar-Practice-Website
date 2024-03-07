@@ -5,11 +5,14 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { act } from 'react-test-renderer'
 import Exercises from '../src/pages/Exercises.jsx'
 
-jest.mock("../src/components/ExercisesList/ExercisesList.jsx")
+jest.mock('../src/components/ExercisesList/ExercisesList.jsx')
 import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'
 
-jest.mock("../src/services/exerciseServices.js")
+jest.mock('../src/services/exerciseServices.js')
 import { getExercises } from '../src/services/exerciseServices.js'
+
+jest.mock('../src/components/CreateExercise/CreateExercise.jsx')
+import CreateExercise from '../src/components/CreateExercise/CreateExercise.jsx'
 
 const fakeExercises = [
     {
@@ -104,7 +107,14 @@ describe("exercises works",
             {
                 const tree = await testRender()
 
-                expect(ExercisesList).toHaveBeenLastCalledWith({exercises: fakeExercises}, {})
+                expect(ExercisesList).toHaveBeenLastCalledWith({ exercises: fakeExercises }, {})
+            }
+        )
+
+        it("renders a create exercise button",
+            async () =>
+            {
+                const tree = await testRender()
             }
         )
     }
