@@ -7,7 +7,7 @@ const MiniExercise = ({ title, skill, author, description }) =>
 {
     const [expanded, setExpanded] = useState(false)
     const [skillText, setSkillText] = useState("Skill")
-    const [authorText, setAuthorText] = useState("AUser")
+    const [authorText, setAuthorText] = useState("User")
 
     useEffect(
         () =>
@@ -35,14 +35,16 @@ const MiniExercise = ({ title, skill, author, description }) =>
     const exerciseHeight = expanded ? "expanded" : "h-6"
 
     return (
-        <div data-testid="MiniExercise" onClick={onExerciseClicked} className={"w-7/12 overflow-hidden m-2 " + (exerciseHeight)}>
-            <div className="flex justify-between mb-2">
+        <div data-testid="MiniExercise" onClick={onExerciseClicked} className={`flex flex-col 
+        justify-start items-center
+        w-7/12 overflow-hidden m-2  ` + (exerciseHeight)}>
+            <div className="flex w-9/12">
                 <h2>{title ? title : "Exercise Title"}</h2>
-                <h3>{skillText}</h3>
-                <h3>Made By {authorText}</h3>
+                <h3 className="skillText">{skillText}</h3>
+                <h3 className="authorText">Made By {authorText}</h3>
             </div>
-            <div>
-                <p>{description}</p>
+            <div className="w-9/12">
+                <p className="text-wrap overflow-hidden h-fit">{description}</p>
             </div>
 
         </div>
