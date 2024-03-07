@@ -83,45 +83,37 @@ const testRender = async () =>
     return returnRender
 }
 
-describe("exercises works",
-    () =>
+it("renders exercise",
+    async () =>
     {
-        it("renders exercises",
-            async () =>
-            {
-                const tree = await testRender()
-
-                expect(tree.container).toBeInTheDocument()
-            }
-        )
-
-        it("gets exercises",
-            async () =>
-            {
-                const tree = await testRender()
-
-                expect(getExercises).toHaveBeenCalled()
-            }
-        )
-
-        it("passes exercises to exercise list",
-            async () =>
-            {
-                const tree = await testRender()
-
-                expect(ExercisesList).toHaveBeenLastCalledWith({ exercises: fakeExercises }, {})
-            }
-        )
-
-        it("calls create exercise component",
-            async () =>
-            {
-                const tree = await testRender()
-
-                expect(CreateExercise).toHaveBeenCalled()
-            }
-        )
+        const tree = await testRender()
+        expect(tree.container).toBeInTheDocument()
     }
 )
 
+it("gets exercises",
+    async () =>
+    {
+        const tree = await testRender()
 
+        expect(getExercises).toHaveBeenCalled()
+    }
+)
+
+it("passes exercises to exercise list",
+    async () =>
+    {
+        const tree = await testRender()
+
+        expect(ExercisesList).toHaveBeenLastCalledWith({ exercises: fakeExercises }, {})
+    }
+)
+
+it("calls create exercise component",
+    async () =>
+    {
+        const tree = await testRender()
+
+        expect(CreateExercise).toHaveBeenCalled()
+    }
+)

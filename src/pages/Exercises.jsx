@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
 import ExercisesList from "../components/ExercisesList/ExercisesList"
 import "./Exercises.css"
 import { getExercises } from "../services/exerciseServices"
 import CreateExercise from "../components/CreateExercise/CreateExercise"
+import { useEffect, useState } from "react"
 
 const Exercises = () =>
 {
@@ -12,18 +12,19 @@ const Exercises = () =>
         () =>
         {
             getExercises().then(
-                (exercises) =>
+                (gottenExercises) =>
                 {
-                    setAllExercises(exercises)
+                    setAllExercises(gottenExercises)
                 }
             )
         }, []
     )
 
+
     return (
         <div className="">
             <div>
-                
+
             </div>
 
             <div className="flex justify-center items-center flex-col">

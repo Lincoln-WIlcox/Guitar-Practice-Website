@@ -5,8 +5,11 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'
 import { act } from 'react-test-renderer'
 
-jest.mock('../src/components/MiniExercise/MiniExercise.jsx')
-import MiniExercise from '../src/components/MiniExercise/MiniExercise.jsx'
+jest.mock("../src/services/exerciseServices.js")
+import { getExercises } from '../src/services/exerciseServices.js'
+
+jest.mock("../src/components/MiniExercise/MiniExercise.jsx")
+import MiniExercise from "../src/components/MiniExercise/MiniExercise.jsx"
 
 const fakeExercises = [
     {
@@ -34,6 +37,18 @@ const fakeExercises = [
         "hidden": true
     }
 ]
+
+beforeEach(
+    async () =>
+    {
+        getExercises.mockImplementation(
+            async () =>
+            {
+                return fakeExercises
+            }
+        )
+    }
+)
 
 afterEach(
     () =>
