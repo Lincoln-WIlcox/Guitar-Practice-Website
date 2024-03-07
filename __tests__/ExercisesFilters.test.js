@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { setState, useEffect } from 'react';
 import '@testing-library/jest-dom'
 import { cleanup, fireEvent, render } from '@testing-library/react'
 import { act } from 'react-test-renderer'
@@ -6,13 +6,6 @@ import ExercisesFilters from '../src/components/ExercisesFilters/ExercisesFilter
 
 jest.mock('../src/components/SkillSelect/SkillSelect')
 import SkillSelect from '../src/components/SkillSelect/SkillSelect'
-
-beforeEach(
-    async () =>
-    {
-
-    }
-)
 
 afterEach(
     () =>
@@ -28,17 +21,15 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<ExercisesFilters onSkillSelected={onSkillSelectedMock} onSearchQueryChanged={onSearchQueryChangedMock} searchQuery={searchQueryMock} onShowMyExercisesChanged={onShowMyExercisesChangedMock} onShowAllClicked={onShowAllClickedMock} />)
+            returnRender = await render(<ExercisesFilters onSkillSelected={onSkillSelectedMock} onSearchQueryChanged={onSearchQueryChangedMock} onShowMyExercisesChanged={onShowMyExercisesChangedMock} />)
         }
     )
     return returnRender
 }
 
-const searchQueryMock = "test"
 const onSkillSelectedMock = jest.fn()
 const onSearchQueryChangedMock = jest.fn()
 const onShowMyExercisesChangedMock = jest.fn()
-const onShowAllClickedMock = jest.fn()
 
 describe('ExercisesFilters component works',
     () =>
@@ -64,10 +55,20 @@ describe('ExercisesFilters component works',
         it('calls callback when skill is selected',
             async () =>
             {
-                SkillSelect.mockImplementation(
-                    ({ onSkillSelected }) =>
+                await act(
+                    async () =>
                     {
-                        onSkillSelected()
+                        await SkillSelect.mockImplementationOnce(
+                            ({ onSkillSelected }) =>
+                            {
+                                useEffect(
+                                    () =>
+                                    {
+                                        onSkillSelected()
+                                    }, []
+                                )
+                            }
+                        )
                     }
                 )
 
@@ -99,16 +100,6 @@ describe('ExercisesFilters component works',
             }
         )
 
-        it('sets the search bar\'s value to passed search query',
-            async () =>
-            {
-                const tree = await testRender()
-
-                const searchBar = tree.getByRole('searchbox')
-                expect(searchBar.value).toBe(searchQueryMock)
-            }
-        )
-
         it('creates a checkbox for show my exercises',
             async () =>
             {
@@ -131,7 +122,7 @@ describe('ExercisesFilters component works',
             }
         )
 
-        it('creates button',
+        it('creates show all button',
             async () =>
             {
                 const tree = await testRender()
@@ -141,15 +132,27 @@ describe('ExercisesFilters component works',
             }
         )
 
-        it('calls callback on show all pressed',
+        it('clears other fields when show all is clicked',
             async () =>
             {
+
                 const tree = await testRender()
 
-                const showAll = tree.getByRole('button')
-                fireEvent.click(showAll)
+                const showAllButton = tree.getByRole('button')
+                const showMyExercisesCheckbox = tree.getByRole('checkbox')
+                const searchBar = tree.getByRole('searchbox')
 
-                expect(onShowAllClickedMock).toHaveBeenCalled()
+                //simulates changing the search filters
+                fireEvent.click(showMyExercisesCheckbox)
+                fireEvent.change(searchBar, { target: { value: "a change" } })
+                SkillSelect({"selectedSkill": 1})
+
+                fireEvent.click(showAllButton)
+
+                expect(showMyExercisesCheckbox.checked).toBe(false)
+                expect(searchBar.value).toBe("")
+
+                expect(SkillSelect.mock.calls[SkillSelect.mock.calls.length - 1][0]["selectedSkill"]).toBe(0)
             }
         )
     }

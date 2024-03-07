@@ -87,6 +87,5 @@ describe('SkillSelect component works',
                 expect(onSkillSelected).toHaveBeenCalledWith(fakeSkills[0].id.toString())
             }
         )
-
     }
 )

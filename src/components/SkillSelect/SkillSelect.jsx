@@ -1,13 +1,16 @@
 
-const SkillSelect = ({ skills, onSkillSelected }) =>
+const SkillSelect = ({ selectedSkill, skills, onSkillSelected }) =>
 {
+
     const onSelectChanged = (event) =>
     {
         onSkillSelected(event.target.value)
+        
     }
 
     return <div>
-        <select onChange={onSelectChanged}>
+        <select onChange={onSelectChanged} defaultValue={selectedSkill}>
+            <option value={0} key={0}>No Skill Selected</option>
             {
                 skills.map(
                     (skill) =>
