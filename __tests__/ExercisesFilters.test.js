@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { cleanup, render } from '@testing-library/react'
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import { act } from 'react-test-renderer'
 import ExercisesFilters from '../src/components/ExercisesFilters/ExercisesFilters'
 
@@ -28,13 +28,17 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<ExercisesFilters onSkillSelected={onSkillSelectedMock} />)
+            returnRender = await render(<ExercisesFilters onSkillSelected={onSkillSelectedMock} onSearchQueryChanged={onSearchQueryChangedMock} searchQuery={searchQueryMock} onShowMyExercisesChanged={onShowMyExercisesChangedMock} onShowAllClicked={onShowAllClickedMock} />)
         }
     )
     return returnRender
 }
 
+const searchQueryMock = "test"
 const onSkillSelectedMock = jest.fn()
+const onSearchQueryChangedMock = jest.fn()
+const onShowMyExercisesChangedMock = jest.fn()
+const onShowAllClickedMock = jest.fn()
 
 describe('ExercisesFilters component works',
     () =>
@@ -70,6 +74,82 @@ describe('ExercisesFilters component works',
                 const tree = await testRender()
 
                 expect(onSkillSelectedMock).toHaveBeenCalled()
+            }
+        )
+
+        it('creates a search field',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const searchBar = tree.getByRole('searchbox')
+                expect(searchBar).toBeInTheDocument()
+            }
+        )
+
+        it('calls a callback on search changed, passing correct value',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const searchBar = tree.getByRole('searchbox')
+                fireEvent.change(searchBar, { target: { value: 'test value' } })
+
+                expect(onSearchQueryChangedMock).toHaveBeenCalledWith('test value')
+            }
+        )
+
+        it('sets the search bar\'s value to passed search query',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const searchBar = tree.getByRole('searchbox')
+                expect(searchBar.value).toBe(searchQueryMock)
+            }
+        )
+
+        it('creates a checkbox for show my exercises',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const showMyExercisesCheckbox = tree.getByRole('checkbox')
+                expect(showMyExercisesCheckbox).toBeInTheDocument()
+            }
+        )
+
+        it('calls callback on checkbox toggled, passing correct value',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const showMyExercisesCheckbox = tree.getByRole('checkbox')
+                fireEvent.click(showMyExercisesCheckbox)
+
+                expect(onShowMyExercisesChangedMock).toHaveBeenCalledWith(true)
+            }
+        )
+
+        it('creates button',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const showAllButton = tree.getByRole('button')
+                expect(showAllButton).toBeInTheDocument()
+            }
+        )
+
+        it('calls callback on show all pressed',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const showAll = tree.getByRole('button')
+                fireEvent.click(showAll)
+
+                expect(onShowAllClickedMock).toHaveBeenCalled()
             }
         )
     }

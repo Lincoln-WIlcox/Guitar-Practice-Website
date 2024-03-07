@@ -82,9 +82,9 @@ describe('SkillSelect component works',
                 const tree = await testRender()
 
                 const select = tree.getByRole('combobox')
-                fireEvent.change(select, {target: {value: "test value"}})
+                fireEvent.change(select, {target: {value: fakeSkills[0].id}})
 
-                expect(onSkillSelected).toHaveBeenCalledWith("test value")
+                expect(onSkillSelected).toHaveBeenCalledWith(fakeSkills[0].id.toString())
             }
         )
 
