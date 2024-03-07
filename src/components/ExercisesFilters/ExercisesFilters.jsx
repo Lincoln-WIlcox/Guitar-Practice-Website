@@ -1,8 +1,11 @@
+import SkillSelect from "../SkillSelect/SkillSelect"
 import "./ExercisesFilters.css"
 
-const ExercisesFilters = () =>
+const ExercisesFilters = ({ onSkillSelected }) =>
 {
-    return <>Exercises Filters</>
+    return <div>
+        <SkillSelect onSkillSelected={onSkillSelected} />
+    </div>
 }
 
 export default ExercisesFilters
