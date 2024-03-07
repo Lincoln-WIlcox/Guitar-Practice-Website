@@ -46,6 +46,8 @@ beforeEach(
     {
         ExercisesList.mockReturnValue(<></>)
 
+        CreateExercise.mockReturnValue(<></>)
+
         getExercises.mockImplementation(
             async () =>
             {
@@ -111,10 +113,12 @@ describe("exercises works",
             }
         )
 
-        it("renders a create exercise button",
+        it("calls create exercise component",
             async () =>
             {
                 const tree = await testRender()
+
+                expect(CreateExercise).toHaveBeenCalled()
             }
         )
     }

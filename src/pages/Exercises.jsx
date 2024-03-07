@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import ExercisesList from "../components/ExercisesList/ExercisesList"
 import "./Exercises.css"
 import { getExercises } from "../services/exerciseServices"
+import CreateExercise from "../components/CreateExercise/CreateExercise"
 
 const Exercises = () =>
 {
@@ -21,6 +22,7 @@ const Exercises = () =>
 
     return (
         <div className="flex justify-center items-center flex-col">
+            <CreateExercise />
             <ExercisesList exercises={allExercises}/>
         </div>
     )
