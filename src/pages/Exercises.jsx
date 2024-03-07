@@ -21,9 +21,16 @@ const Exercises = () =>
     )
 
     return (
-        <div className="flex justify-center items-center flex-col">
-            <CreateExercise />
-            <ExercisesList exercises={allExercises}/>
+        <div className="">
+            <div>
+                
+            </div>
+
+            <div className="flex justify-center items-center flex-col">
+                <CreateExercise />
+                <ExercisesList exercises={allExercises} />
+            </div>
+
         </div>
     )
 }

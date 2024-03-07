@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const CreateExercise = () =>
 {
     return <Link to="/create-exercise">
-    <button></button>
+    <button>Create New Exercise</button>
     </Link>
 }
 
