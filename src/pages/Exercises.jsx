@@ -16,7 +16,7 @@ const Exercises = () =>
                     setAllExercises(exercises)
                 }
             )
-        }
+        }, []
     )
 
     return (

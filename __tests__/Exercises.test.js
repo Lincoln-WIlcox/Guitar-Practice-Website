@@ -78,20 +78,36 @@ const testRender = async () =>
     return returnRender
 }
 
-it("renders exercise",
-    async () =>
+describe("exercises works",
+    () =>
     {
-        const tree = await testRender()
+        it("renders exercises",
+            async () =>
+            {
+                const tree = await testRender()
 
-        expect(tree.container).toBeInTheDocument()
+                expect(tree.container).toBeInTheDocument()
+            }
+        )
+
+        it("gets exercises",
+            async () =>
+            {
+                const tree = await testRender()
+
+                expect(getExercises).toHaveBeenCalled()
+            }
+        )
+
+        it("passes exercises to exercise list",
+            async () =>
+            {
+                const tree = await testRender()
+
+
+            }
+        )
     }
 )
 
-it("gets exercises",
-    async () =>
-    {
-        const tree = await testRender()
 
-        expect(getExercises).toHaveBeenCalled()
-    }
-)
