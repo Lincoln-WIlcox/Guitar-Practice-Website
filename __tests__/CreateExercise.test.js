@@ -5,20 +5,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { act } from 'react-test-renderer'
 import CreateExercise from '../src/components/CreateExercise/CreateExercise.jsx'
 
-beforeEach(
-    async () =>
-    {
-
-    }
-)
-
-afterEach(
-    () =>
-    {
-        cleanup()
-        //jest.clearAllMocks()
-    }
-)
+afterEach(cleanup)
 
 const testRender = async () =>
 {
