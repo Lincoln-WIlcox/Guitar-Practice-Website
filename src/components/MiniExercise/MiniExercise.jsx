@@ -35,11 +35,11 @@ const MiniExercise = ({ title, skill, author, description }) =>
     const exerciseHeight = expanded ? "expanded" : "h-6"
 
     return (
-        <div data-testid="MiniExercise" onClick={onExerciseClicked} className={"w-7/12 overflow-hidden m-2 " + (exerciseHeight)}>
-            <div className="flex justify-between mb-2">
-                <h2>{title ? title : "Exercise Title"}</h2>
-                <h3>{skillText}</h3>
-                <h3>Made By {authorText}</h3>
+        <div data-testid="MiniExercise" onClick={onExerciseClicked} className={"w-full overflow-hidden m-2 " + (exerciseHeight)}>
+            <div className="flex justify-center mb-2">
+                <h2 className="w-4/12">{title ? title : "Exercise Title"}</h2>
+                <h3 className="w-4/12">{skillText}</h3>
+                <h3 className="w-4/12">Made By {authorText}</h3>
             </div>
             <div>
                 <p>{description}</p>
