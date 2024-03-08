@@ -3,7 +3,7 @@ import { addUserExercise, getUserExercisesByUserId, removeUserExercise } from ".
 import MiniExercise from "../MiniExercise/MiniExercise"
 import "./ExercisesList.css"
 
-const userId = 1
+const currentUser = 1
 
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
 const marginAroundListClass = "w-3/12"
@@ -14,7 +14,7 @@ const ExercisesList = ({ exercises }) =>
 
     const fetchAndSetUserExercises = () =>
     {
-        getUserExercisesByUserId(userId).then(
+        getUserExercisesByUserId(currentUser).then(
             (gottenUserExercises) =>
             {
                 setUserExercises(gottenUserExercises)
@@ -54,7 +54,7 @@ const ExercisesList = ({ exercises }) =>
                 exercises?.map(
                     (exercise) =>
                     {
-                        const thisUserExercise = userExercises.find(userExercise => userExercise.userId == userId && userExercise.exerciseId == exercise.id)
+                        const thisUserExercise = userExercises.find(userExercise => userExercise.userId == currentUser && userExercise.exerciseId == exercise.id)
                         const thisUserExerciseIsInUserExercise = thisUserExercise ? true : false
                         let addOrRemoveExerciseButton = <></>
                         if(thisUserExerciseIsInUserExercise)
