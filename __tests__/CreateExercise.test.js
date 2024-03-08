@@ -52,6 +52,45 @@ describe('CreateExercise works',
             }
         )
 
-        
+        it('creates title field',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const titleField = tree.getByPlaceholderText(/Exercise Title/i)
+                expect(titleField).toBeInTheDocument()
+            }
+        )
+
+        it('creates description field',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const titleField = tree.getByPlaceholderText(/Exercise Description/i)
+                expect(titleField).toBeInTheDocument()
+            }
+        )
+
+        it('contains a dropdown for skill',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const skillDropdown = tree.getByRole('combobox')
+                expect(skillDropdown).toBeInTheDocument()
+            }
+        )
+
+        it('contains a button to submit',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const submitButton = tree.getByRole('button')
+                expect(submitButton).toBeInTheDocument()
+            }
+        )
+
     }
 )
