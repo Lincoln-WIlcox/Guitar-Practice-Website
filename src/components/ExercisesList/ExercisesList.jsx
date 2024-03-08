@@ -5,6 +5,9 @@ import "./ExercisesList.css"
 
 const userId = 1
 
+//the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
+const marginAroundListClass = "w-3/12"
+
 const ExercisesList = ({ exercises }) =>
 {
     const [userExercises, setUserExercises] = useState([])
@@ -56,15 +59,15 @@ const ExercisesList = ({ exercises }) =>
                         let addOrRemoveExerciseButton = <></>
                         if(thisUserExerciseIsInUserExercise)
                         {
-                            addOrRemoveExerciseButton = <button className="w-2/12" onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }}>Remove From Playlist</button>
+                            addOrRemoveExerciseButton = <button className={marginAroundListClass} onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }}>Remove From Playlist</button>
                         } else
                         {
-                            addOrRemoveExerciseButton = <button className="w-2/12" onClick={() => { onAddToPlaylistPressed(exercise.id) }}>Add To Playlist</button>
+                            addOrRemoveExerciseButton = <button className={marginAroundListClass} onClick={() => { onAddToPlaylistPressed(exercise.id) }}>Add To Playlist</button>
                         }
 
                         return (
                             <div className="flex w-7/12 justify-center" key={exercise.id}>
-                                <div className="w-2/12"></div>
+                                <div className={marginAroundListClass}></div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
                                 {addOrRemoveExerciseButton}
                             </div>
