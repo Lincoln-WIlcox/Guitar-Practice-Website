@@ -5,14 +5,14 @@ import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import { act } from 'react-test-renderer'
 import CreateExercise from '../src/pages/CreateExercise'
 
-jest.mock('../src/components/SkillSelect/SkillSelect')
-import SkillSelect from '../src/components/SkillSelect/SkillSelect'
-
 jest.mock('../src/services/skillsService')
 import { getSkills } from '../src/services/skillsService'
 
 jest.mock('../src/services/exerciseServices')
 import { addExercise } from '../src/services/exerciseServices'
+
+jest.mock('../src/components/ExerciseFields/ExerciseFields')
+import ExerciseFields from '../src/components/ExerciseFields/ExerciseFields'
 
 const mockNavigate = jest.fn()
 
@@ -50,19 +50,16 @@ const fakeSkills = [
 beforeEach(
     () =>
     {
-        getSkills.mockImplementation(async () => fakeSkills)
-
-        SkillSelect.mockImplementation(
-            ({ selectedSkill, skills, onSkillSelected }) =>
+        ExerciseFields.mockImplementation(
+            ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
             {
-                return <select>
-                    <option value={1} key={1}>skill 1</option>
-                    <option value={2} key={2}>skill 2</option>
-                </select>
+                return <></>
             }
         )
 
-        addExercise.mockImplementation(async () => {})
+        getSkills.mockImplementation(async () => fakeSkills)
+
+        addExercise.mockImplementation(async () => { })
     }
 )
 
@@ -71,6 +68,7 @@ afterEach(
     {
         cleanup
         jest.clearAllMocks()
+        jest.restoreAllMocks
     }
 )
 
@@ -98,7 +96,6 @@ const testRender = async () =>
 describe('CreateExercise works',
     () =>
     {
-        /*
         it('renders',
             async () =>
             {
@@ -108,59 +105,36 @@ describe('CreateExercise works',
             }
         )
 
-        it('creates title field',
+        it('creates an ExerciseFields',
             async () =>
             {
                 const tree = await testRender()
 
-                const titleField = tree.getByPlaceholderText(/Exercise Title/i)
-                expect(titleField).toBeInTheDocument()
+                expect(ExerciseFields).toHaveBeenCalled()
             }
         )
 
-        it('creates description field',
-            async () =>
-            {
-                const tree = await testRender()
-
-                const descriptionField = tree.getByPlaceholderText(/Exercise Description/i)
-                expect(descriptionField).toBeInTheDocument()
-            }
-        )
-
-        it('contains a dropdown for skill',
-            async () =>
-            {
-                const tree = await testRender()
-
-                const skillDropdown = tree.getByRole('combobox')
-                expect(skillDropdown).toBeInTheDocument()
-            }
-        )
-
-        it('contains a button to submit',
-            async () =>
-            {
-                const tree = await testRender()
-
-                const submitButton = tree.getByRole('button')
-                expect(submitButton).toBeInTheDocument()
-            }
-        )
-
-        it('gets skills and passes them to skill select',
+        it('gets skills and passes them to ExerciseFields',
             async () =>
             {
                 const tree = await testRender()
 
                 expect(getSkills).toHaveBeenCalled()
-                expect(SkillSelect.mock.calls[SkillSelect.mock.calls.length - 1][0]["skills"]).toBe(fakeSkills)
+                expect(ExerciseFields.mock.calls[ExerciseFields.mock.calls.length - 1][0]["skills"]).toBe(fakeSkills)
             }
         )
 
         it('updates state on title changed',
             async () =>
             {
+                ExerciseFields.mockImplementation(
+                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    {
+                        onExerciseTitleChanged("title change")
+                        return <></>
+                    }
+                )
+
                 //this creates a mock set state function
                 const setStateMock = jest.fn()
 
@@ -171,9 +145,6 @@ describe('CreateExercise works',
                 jest.spyOn(React, 'useState').mockImplementation(useStateMock)
 
                 const tree = await testRender()
-
-                const titleField = tree.getByPlaceholderText(/Exercise Title/i)
-                fireEvent.change(titleField, { target: { value: "title change" } })
 
                 expect(setStateMock).toHaveBeenCalledWith("title change")
             }
@@ -182,6 +153,14 @@ describe('CreateExercise works',
         it('updates state on description changed',
             async () =>
             {
+                ExerciseFields.mockImplementation(
+                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    {
+                        onDescriptionChanged("description change")
+                        return <></>
+                    }
+                )
+
                 //this creates a mock set state function
                 const setStateMock = jest.fn()
 
@@ -192,9 +171,6 @@ describe('CreateExercise works',
                 jest.spyOn(React, 'useState').mockImplementation(useStateMock)
 
                 const tree = await testRender()
-
-                const descriptionField = tree.getByPlaceholderText(/Exercise Description/i)
-                fireEvent.change(descriptionField, { target: { value: "description change" } })
 
                 expect(setStateMock).toHaveBeenCalledWith("description change")
             }
@@ -203,6 +179,14 @@ describe('CreateExercise works',
         it('updates state on skill changes',
             async () =>
             {
+                ExerciseFields.mockImplementation(
+                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    {
+                        onSkillSelected(fakeSkills[0].id)
+                        return <></>
+                    }
+                )
+
                 //this creates a mock set state function
                 const setStateMock = jest.fn()
 
@@ -212,65 +196,44 @@ describe('CreateExercise works',
                 //this replaces calls for use state with calls for our use state function, which will return our set state mock. Whenever the component sets state, it will call our set state mock instead.
                 jest.spyOn(React, 'useState').mockImplementation(useStateMock)
 
-                SkillSelect.mockImplementationOnce(
-                    ({ selectedSkill, skills, onSkillSelected }) =>
-                    {
-                        useEffect(
-                            () =>
-                            {
-                                onSkillSelected(fakeSkills[0].id)
-                            }, []
-                        )
-                    }
-                )
-
                 const tree = await testRender()
 
                 expect(setStateMock).toHaveBeenCalledWith(fakeSkills[0].id)
             }
         )
-        */
 
         it('calls create exercise, passing state, and navigates to the exercises page when submit button pressed and state is valid',
             async () =>
             {
-                SkillSelect.mockImplementation(
-                    ({ selectedSkill, skills, onSkillSelected }) =>
+                ExerciseFields.mockImplementation(
+                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
-                        onSelectChanged = (event) =>
-                        {
-                            onSkillSelected(event.target.value)
-                        }
+                        useEffect(
+                            () =>
+                            {
+                                const callThings = async () =>
+                                {
+                                    await act(
+                                        () =>
+                                        {
+                                            onExerciseTitleChanged("title change")
+                                            onDescriptionChanged("description change")
+                                            onSkillSelected(fakeSkills[0].id)
+                                        }
+                                    )
+                                    onSubmitClicked()
+                                }
 
-                        return <select onChange={onSelectChanged}>
-                            <option value={1} key={1}>skill 1</option>
-                            <option value={2} key={2}>skill 2</option>
-                        </select>
+                                callThings()
+
+                            }, []
+                        )
+
+                        return <></>
                     }
                 )
 
                 const tree = await testRender()
-
-                const skillDropdown = tree.getByRole('combobox')
-                const descriptionField = tree.getByPlaceholderText(/Exercise Description/i)
-                const titleField = tree.getByPlaceholderText(/Exercise Title/i)
-                const submitButton = tree.getByRole('button')
-
-                await act(
-                    () =>
-                    {
-                        fireEvent.change(skillDropdown, { target: { value: 1 } })
-                        fireEvent.change(descriptionField, { target: { value: "description change" } })
-                        fireEvent.change(titleField, { target: { value: "title change" } })
-                    }
-                )
-
-                await act(
-                    () =>
-                    {
-                        fireEvent.click(submitButton)
-                    }
-                )
 
                 expect(addExercise).toHaveBeenCalledWith({ skillId: "1", description: "description change", name: "title change", userId: 1 })
                 expect(mockNavigate).toHaveBeenCalledWith("/exercises")
