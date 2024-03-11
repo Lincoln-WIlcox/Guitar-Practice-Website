@@ -30,6 +30,7 @@ const CreateExercise = () =>
 
     const onExerciseTitleChanged = (event) =>
     {
+        console.log(setTitle)
         setTitle(event)
     }
 
@@ -45,7 +46,6 @@ const CreateExercise = () =>
 
     const onSubmitClicked = () =>
     {
-        console.log("submitting")
         if(exerciseIsValid())
         {
             const exercise =
@@ -70,9 +70,6 @@ const CreateExercise = () =>
 
     const exerciseIsValid = () =>
     {
-        console.log(title)
-        console.log(description)
-        console.log(skill)
         return title !== "" && description !== "" && skill !== 0
     }
 
