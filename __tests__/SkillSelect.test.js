@@ -19,13 +19,6 @@ const fakeSkills = [
     }
 ]
 
-beforeEach(
-    async () =>
-    {
-
-    }
-)
-
 afterEach(
     () =>
     {

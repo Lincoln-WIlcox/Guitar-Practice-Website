@@ -3,7 +3,10 @@ import { addUserExercise, getUserExercisesByUserId, removeUserExercise } from ".
 import MiniExercise from "../MiniExercise/MiniExercise"
 import "./ExercisesList.css"
 
-const userId = 1
+const currentUser = {id: 1}
+
+//the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
+const marginAroundListClass = "w-3/12"
 
 const ExercisesList = ({ exercises }) =>
 {
@@ -11,7 +14,7 @@ const ExercisesList = ({ exercises }) =>
 
     const fetchAndSetUserExercises = () =>
     {
-        getUserExercisesByUserId(userId).then(
+        getUserExercisesByUserId(currentUser.id).then(
             (gottenUserExercises) =>
             {
                 setUserExercises(gottenUserExercises)
@@ -51,20 +54,20 @@ const ExercisesList = ({ exercises }) =>
                 exercises?.map(
                     (exercise) =>
                     {
-                        const thisUserExercise = userExercises.find(userExercise => userExercise.userId == userId && userExercise.exerciseId == exercise.id)
+                        const thisUserExercise = userExercises.find(userExercise => userExercise.userId == currentUser.id && userExercise.exerciseId == exercise.id)
                         const thisUserExerciseIsInUserExercise = thisUserExercise ? true : false
                         let addOrRemoveExerciseButton = <></>
                         if(thisUserExerciseIsInUserExercise)
                         {
-                            addOrRemoveExerciseButton = <button className="w-2/12" onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }}>Remove From Playlist</button>
+                            addOrRemoveExerciseButton = <button className={marginAroundListClass} onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }}>Remove From Playlist</button>
                         } else
                         {
-                            addOrRemoveExerciseButton = <button className="w-2/12" onClick={() => { onAddToPlaylistPressed(exercise.id) }}>Add To Playlist</button>
+                            addOrRemoveExerciseButton = <button className={marginAroundListClass} onClick={() => { onAddToPlaylistPressed(exercise.id) }}>Add To Playlist</button>
                         }
 
                         return (
                             <div className="flex w-7/12 justify-center" key={exercise.id}>
-                                <div className="w-2/12"></div>
+                                <div className={marginAroundListClass}></div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
                                 {addOrRemoveExerciseButton}
                             </div>

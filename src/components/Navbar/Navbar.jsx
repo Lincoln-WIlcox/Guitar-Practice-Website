@@ -25,7 +25,7 @@ const Navbar = () =>
     }
 
     return <div className="fixed w-32 
-    flex flex-col">
+    flex flex-col top-2">
         <button onClick={onPlaylistClicked}>Playlist</button>
         <button onClick={onPracticeClicked}>Practice</button>
         <button onClick={onLogoutClicked}>Logout</button>

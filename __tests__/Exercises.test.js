@@ -11,8 +11,8 @@ import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'
 jest.mock('../src/services/exerciseServices.js')
 import { getExercises } from '../src/services/exerciseServices.js'
 
-jest.mock('../src/components/CreateExercise/CreateExercise.jsx')
-import CreateExercise from '../src/components/CreateExercise/CreateExercise.jsx'
+jest.mock('../src/components/CreateExerciseButton/CreateExerciseButton.jsx')
+import CreateExerciseButton from '../src/components/CreateExerciseButton/CreateExerciseButton.jsx'
 
 const fakeExercises = [
     {
@@ -46,7 +46,7 @@ beforeEach(
     {
         ExercisesList.mockReturnValue(<></>)
 
-        CreateExercise.mockReturnValue(<></>)
+        CreateExerciseButton.mockReturnValue(<></>)
 
         getExercises.mockImplementation(
             async () =>
@@ -114,6 +114,6 @@ it("calls create exercise component",
     {
         const tree = await testRender()
 
-        expect(CreateExercise).toHaveBeenCalled()
+        expect(CreateExerciseButton).toHaveBeenCalled()
     }
 )
