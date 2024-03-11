@@ -1,8 +1,1 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It can be difficult to make yourself sit down and practice guitar. I believe there are two reasons for this: practicing guitar isn’t fun, and you have to spend extra brain power on organizing which exercises you want to do. Guitar Practice Website will solve both of these problems. You will be able to search an existing list of exercises and add them to a playlist of exercises you want to do. Once your playlist is set up, you may log in each day and the website will tell you which exercises to do, how to do them, and which order to do them in. Additionally, you will earn experience points each time you complete an exercise, and will level up when enough experience is gained. This gamifies the guitar practice process, making it more fun. If an exercise you want to do isn’t in the list, you can also create your own exercises.
