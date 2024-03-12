@@ -107,9 +107,24 @@ describe('EditExercise component works',
         )
 
         it('sets state when skill changed',
-            () =>
+            async () =>
             {
+                const setState = jest.fn()
 
+                jest.spyOn(React, 'useState').mockImplementation((init) => [init, setState])
+
+                ExerciseFields.mockImplementation(
+                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    {
+                        onSkillSelected(1)
+
+                        return <></>
+                    }
+                )
+
+                const tree = await testRender()
+
+                expect(setState).toHaveBeenCalledWith(1)
             }
         )
 

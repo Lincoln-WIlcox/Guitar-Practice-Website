@@ -19,7 +19,7 @@ const EditExercise = () =>
     }
 
     return <div>
-        <ExerciseFields skills={allSkills} selectedSkill={skill} onExerciseTitleChanged={setTitle} onDescriptionChanged={setDescription} onSkillSelected={onSkillSelected} onSubmitClicked={onSubmitClicked} />
+        <ExerciseFields skills={allSkills} selectedSkill={skill} onExerciseTitleChanged={setTitle} onDescriptionChanged={setDescription} onSkillSelected={setSkill} onSubmitClicked={onSubmitClicked} />
     </div>
 }
 
