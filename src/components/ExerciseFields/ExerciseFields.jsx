@@ -1,7 +1,7 @@
 import SkillSelect from "../SkillSelect/SkillSelect"
 import "./ExerciseFields.css"
 
-const ExerciseFields = ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+const ExerciseFields = ({ skills, skill, description, title, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
 {
 
     const onTitleInputChanged = (event) =>
@@ -15,9 +15,9 @@ const ExerciseFields = ({ skills, selectedSkill, onExerciseTitleChanged, onDescr
     }
 
     return <div>
-        <input className="bg-gray-900" type="text" placeholder="Exercise Title" onChange={onTitleInputChanged} />
-        <input className="bg-gray-900" type="text" placeholder="Exercise Description" onChange={onDescriptionInputChanged} />
-        <SkillSelect selectedSkill={selectedSkill} skills={skills} onSkillSelected={onSkillSelected} />
+        <input className="bg-gray-900" type="text" placeholder="Exercise Title" value={title} onChange={onTitleInputChanged} />
+        <input className="bg-gray-900" type="text" placeholder="Exercise Description" value={description} onChange={onDescriptionInputChanged} />
+        <SkillSelect selectedSkill={skill} skills={skills} onSkillSelected={onSkillSelected} />
         <button onClick={onSubmitClicked}>Submit</button>
     </div>
 }

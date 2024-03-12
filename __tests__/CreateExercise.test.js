@@ -51,7 +51,7 @@ beforeEach(
     () =>
     {
         ExerciseFields.mockImplementation(
-            ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+            ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
             {
                 return <></>
             }
@@ -129,7 +129,7 @@ describe('CreateExercise works',
             async () =>
             {
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         onExerciseTitleChanged("title change")
                         return <></>
@@ -155,7 +155,7 @@ describe('CreateExercise works',
             async () =>
             {
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         onDescriptionChanged("description change")
                         return <></>
@@ -181,7 +181,7 @@ describe('CreateExercise works',
             async () =>
             {
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         onSkillSelected(fakeSkills[0].id)
                         return <></>
@@ -209,7 +209,7 @@ describe('CreateExercise works',
                 window.alert = jest.fn()
 
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         useEffect(
                             () =>
@@ -223,7 +223,7 @@ describe('CreateExercise works',
                             () =>
                             {
                                 onSubmitClicked()
-                            }, [selectedSkill]
+                            }, [skill]
                         )
 
                         return <></>
@@ -242,7 +242,7 @@ describe('CreateExercise works',
                 window.alert = jest.fn()
 
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         useEffect(
                             () =>
@@ -257,7 +257,7 @@ describe('CreateExercise works',
                             () =>
                             {
                                 onSubmitClicked()
-                            }, [selectedSkill]
+                            }, [skill]
                         )
 
                         return <></>
