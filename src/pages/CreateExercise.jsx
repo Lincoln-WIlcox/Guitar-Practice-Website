@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import SkillSelect from "../components/SkillSelect/SkillSelect"
 import "./CreateExercise.css"
 import { getSkills } from "../services/skillsService"
 import { addExercise } from "../services/exerciseServices"
 import { useNavigate } from "react-router-dom"
+import ExerciseFields from "../components/ExerciseFields/ExerciseFields"
 
 const currentUser = { id: 1 }
 
@@ -30,12 +30,12 @@ const CreateExercise = () =>
 
     const onExerciseTitleChanged = (event) =>
     {
-        setTitle(event.target.value)
+        setTitle(event)
     }
 
-    const onDescriptionChanged = (event) =>
+    const onDescriptionChanged = (description) =>
     {
-        setDescription(event.target.value)
+        setDescription(description)
     }
 
     const onSkillSelected = (newSkill) =>
@@ -73,10 +73,7 @@ const CreateExercise = () =>
     }
 
     return <div className="flex flex-col w-full items-center mt-10 space-y-5">
-        <input className="bg-gray-900" type="text" placeholder="Exercise Title" onChange={onExerciseTitleChanged} />
-        <input className="bg-gray-900" type="text" placeholder="Exercise Description" onChange={onDescriptionChanged} />
-        <SkillSelect selectedSkill={skill} skills={allSkills} onSkillSelected={onSkillSelected} />
-        <button onClick={onSubmitClicked}>Submit</button>
+        <ExerciseFields skills={allSkills} selectedSkill={skill} onExerciseTitleChanged={onExerciseTitleChanged} onDescriptionChanged={setDescription} onSkillSelected={onSkillSelected} onSubmitClicked={onSubmitClicked} />
     </div>
 
 }
