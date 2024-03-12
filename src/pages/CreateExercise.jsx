@@ -28,21 +28,6 @@ const CreateExercise = () =>
         }, []
     )
 
-    const onExerciseTitleChanged = (event) =>
-    {
-        setTitle(event)
-    }
-
-    const onDescriptionChanged = (description) =>
-    {
-        setDescription(description)
-    }
-
-    const onSkillSelected = (newSkill) =>
-    {
-        setSkill(newSkill)
-    }
-
     const onSubmitClicked = () =>
     {
         if(exerciseIsValid())
@@ -73,7 +58,7 @@ const CreateExercise = () =>
     }
 
     return <div className="flex flex-col w-full items-center mt-10 space-y-5">
-        <ExerciseFields skills={allSkills} selectedSkill={skill} onExerciseTitleChanged={onExerciseTitleChanged} onDescriptionChanged={setDescription} onSkillSelected={onSkillSelected} onSubmitClicked={onSubmitClicked} />
+        <ExerciseFields skills={allSkills} selectedSkill={skill} onExerciseTitleChanged={setTitle} onDescriptionChanged={setDescription} onSkillSelected={setSkill} onSubmitClicked={onSubmitClicked} />
     </div>
 
 }
