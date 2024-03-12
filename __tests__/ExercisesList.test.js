@@ -65,6 +65,9 @@ beforeEach(
         )
 
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
+
+        addUserExercise.mockImplementation(async () => {})
+        removeUserExercise.mockImplementation(async () => {})
     }
 )
 
@@ -130,9 +133,20 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const addToPlaylistButton = tree.getAllByRole('button')[0]
+                const addToPlaylistButton = tree.getAllByRole('button', { name: /add to playlist/i })[0]
 
                 expect(addToPlaylistButton).toBeInTheDocument()
+            }
+        )
+
+        it('creates a button to edit if the exercise was created by this user',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const editButton = tree.getAllByRole('button', { name: /edit/i })[0]
+
+                expect(editButton).toBeInTheDocument()
             }
         )
 
@@ -205,7 +219,7 @@ describe('ExerciseList works',
 
         it('should fetch userExercises again after removing from playlist',
             async () =>
-            {   
+            {
                 const tree = await testRender()
 
                 const removeFromPlaylistButton = tree.getAllByRole('button', { name: /remove from playlist/i })[0]

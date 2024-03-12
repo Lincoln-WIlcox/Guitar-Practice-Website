@@ -58,7 +58,7 @@ const CreateExercise = () =>
     }
 
     return <div className="flex flex-col w-full items-center mt-10 space-y-5">
-        <ExerciseFields skills={allSkills} skill={skill} onExerciseTitleChanged={setTitle} onDescriptionChanged={setDescription} onSkillSelected={setSkill} onSubmitClicked={onSubmitClicked} />
+        <ExerciseFields skills={allSkills} skill={skill} title={title} description={description} onExerciseTitleChanged={setTitle} onDescriptionChanged={setDescription} onSkillSelected={setSkill} onSubmitClicked={onSubmitClicked} />
     </div>
 
 }

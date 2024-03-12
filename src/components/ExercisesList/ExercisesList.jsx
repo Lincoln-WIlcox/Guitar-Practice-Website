@@ -2,15 +2,18 @@ import { useEffect, useState } from "react"
 import { addUserExercise, getUserExercisesByUserId, removeUserExercise } from "../../services/userExerciseService"
 import MiniExercise from "../MiniExercise/MiniExercise"
 import "./ExercisesList.css"
+import { useNavigate } from "react-router-dom"
 
-const currentUser = {id: 1}
+const currentUser = { id: 1 }
 
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
-const marginAroundListClass = "w-3/12"
+const marginAroundListClass = "w-4/12"
 
 const ExercisesList = ({ exercises }) =>
 {
     const [userExercises, setUserExercises] = useState([])
+
+    const navigate = useNavigate()
 
     const fetchAndSetUserExercises = () =>
     {
@@ -36,16 +39,12 @@ const ExercisesList = ({ exercises }) =>
             userId: 1,
             exerciseId: exerciseId
         }
-        addUserExercise(userExercise)
-
-        fetchAndSetUserExercises()
+        addUserExercise(userExercise).then(fetchAndSetUserExercises)
     }
 
     const onRemoveFromPlaylistPressed = (userExerciseId) =>
     {
-        removeUserExercise(userExerciseId)
-
-        fetchAndSetUserExercises()
+        removeUserExercise(userExerciseId).then(fetchAndSetUserExercises)
     }
 
     return (
@@ -59,17 +58,26 @@ const ExercisesList = ({ exercises }) =>
                         let addOrRemoveExerciseButton = <></>
                         if(thisUserExerciseIsInUserExercise)
                         {
-                            addOrRemoveExerciseButton = <button className={marginAroundListClass} onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }}>Remove From Playlist</button>
+                            addOrRemoveExerciseButton = <button className="mr-2" onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }}>Remove From Playlist</button>
                         } else
                         {
-                            addOrRemoveExerciseButton = <button className={marginAroundListClass} onClick={() => { onAddToPlaylistPressed(exercise.id) }}>Add To Playlist</button>
+                            addOrRemoveExerciseButton = <button className="mr-2" onClick={() => { onAddToPlaylistPressed(exercise.id) }}>Add To Playlist</button>
+                        }
+
+                        let editButton = <></>
+                        if(exercise.userId === currentUser.id)
+                        {
+                            editButton = <button onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }}>Edit</button>
                         }
 
                         return (
                             <div className="flex w-7/12 justify-center" key={exercise.id}>
                                 <div className={marginAroundListClass}></div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
-                                {addOrRemoveExerciseButton}
+                                <div className={`flex ${marginAroundListClass}`}>
+                                    {addOrRemoveExerciseButton}
+                                    {editButton}
+                                </div>
                             </div>
                         )
                     }

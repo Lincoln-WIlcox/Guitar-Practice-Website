@@ -6,6 +6,9 @@ import { act } from 'react-test-renderer'
 import EditExercise from '../src/pages/EditExercise.jsx'
 import { createMemoryHistory } from 'history'
 
+jest.mock('../src/services/skillsService')
+import { getSkills } from '../src/services/skillsService'
+
 jest.mock('../src/components/ExerciseFields/ExerciseFields.jsx')
 import ExerciseFields from '../src/components/ExerciseFields/ExerciseFields.jsx'
 
@@ -25,6 +28,20 @@ jest.mock('react-router-dom',
     )
 )
 
+const fakeSkills = [
+    {
+        "id": 1,
+        "skill": "skill 1"
+    },
+    {
+        "id": 2,
+        "skill": "skill 2"
+    },
+    {
+        "id": 3,
+        "skill": "skill 3"
+    }
+]
 
 const fakeExercise =
 {
@@ -40,6 +57,7 @@ beforeEach(
     {
         getExerciseById.mockImplementation(async () => fakeExercise)
         changeExercise.mockImplementation(async () => { })
+        getSkills.mockImplementation(async () => fakeSkills)
     }
 )
 
@@ -101,6 +119,21 @@ describe('EditExercise component works',
                 const tree = await testRender()
 
                 expect(getExerciseById).toHaveBeenCalledWith("2")
+
+            }
+        )
+
+        it('sets allSkills to all skills',
+            async () =>
+            {
+                const setState = jest.fn()
+
+                jest.spyOn(React, 'useState').mockImplementation((init) => [init, setState])
+
+                const tree = await testRender()
+
+                expect(getSkills).toHaveBeenCalled()
+                expect(setState).toHaveBeenCalledWith(fakeSkills)
             }
         )
 
@@ -261,6 +294,7 @@ describe('EditExercise component works',
 
                 expect(changeExercise).toHaveBeenCalledWith(
                     {
+                        "id": 2,
                         "description": "Test",
                         "name": "Exercise 2",
                         "skillId": 2,

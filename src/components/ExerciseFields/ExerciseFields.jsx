@@ -15,8 +15,8 @@ const ExerciseFields = ({ skills, skill, description, title, onExerciseTitleChan
     }
 
     return <div>
-        <input className="bg-gray-900" type="text" placeholder="Exercise Title" value={title} onChange={onTitleInputChanged} />
-        <input className="bg-gray-900" type="text" placeholder="Exercise Description" value={description} onChange={onDescriptionInputChanged} />
+        <input className="bg-gray-900" type="text" placeholder="Exercise Title" value={title ? title : ""} onChange={onTitleInputChanged} />
+        <input className="bg-gray-900" type="text" placeholder="Exercise Description" value={description ? description : ""} onChange={onDescriptionInputChanged} />
         <SkillSelect selectedSkill={skill} skills={skills} onSkillSelected={onSkillSelected} />
         <button onClick={onSubmitClicked}>Submit</button>
     </div>

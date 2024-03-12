@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import ExerciseFields from "../components/ExerciseFields/ExerciseFields"
 import { useNavigate, useParams } from "react-router-dom"
 import { changeExercise, getExerciseById } from "../services/exerciseServices"
+import { getSkills } from "../services/skillsService"
 
-const currentUser = {id: 1}
+const currentUser = { id: 1 }
 
 const EditExercise = () =>
 {
@@ -19,13 +20,25 @@ const EditExercise = () =>
     useEffect(
         () =>
         {
+            getSkills().then(
+                (gottenSkills) =>
+                {
+                    setAllSkills(gottenSkills)
+                }
+            )
+        }, []
+    )
+
+    useEffect(
+        () =>
+        {
             getExerciseById(exerciseId).then(
                 (gottenExercise) =>
                 {
                     setThisExercise(gottenExercise)
                 }
             )
-        }, []
+        }, [allSkills]
     )
 
     useEffect(
@@ -43,6 +56,7 @@ const EditExercise = () =>
         {
             const exercise =
             {
+                id: thisExercise.id,
                 name: title,
                 description: description,
                 skillId: skill,
@@ -66,7 +80,7 @@ const EditExercise = () =>
         return title !== "" && title !== undefined && description !== "" && description !== undefined && skill !== 0 && skill !== undefined
     }
 
-    return <div>
+    return <div className="flex flex-col w-full items-center mt-10 space-y-5">
         <ExerciseFields skills={allSkills} skill={skill} title={title} description={description} onExerciseTitleChanged={setTitle} onDescriptionChanged={setDescription} onSkillSelected={setSkill} onSubmitClicked={onSubmitClicked} />
     </div>
 }
