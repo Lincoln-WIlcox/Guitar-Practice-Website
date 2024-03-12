@@ -33,7 +33,7 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<SkillSelect skills={fakeSkills} onSkillSelected={onSkillSelected} />)
+            returnRender = await render(<SkillSelect skills={fakeSkills} selectedSkill={fakeSkills[1].id} onSkillSelected={onSkillSelected} />)
         }
     )
     return returnRender
@@ -69,13 +69,24 @@ describe('SkillSelect component works',
             }
         )
 
+        it('sets default value',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const select = tree.getByRole('combobox')
+
+                expect(parseInt(select.value)).toBe(fakeSkills[1].id)
+            }
+        )
+
         it('calls callback function, passing value, on skill selected',
             async () =>
             {
                 const tree = await testRender()
 
                 const select = tree.getByRole('combobox')
-                fireEvent.change(select, {target: {value: fakeSkills[0].id}})
+                fireEvent.change(select, { target: { value: fakeSkills[0].id } })
 
                 expect(onSkillSelected).toHaveBeenCalledWith(fakeSkills[0].id.toString())
             }

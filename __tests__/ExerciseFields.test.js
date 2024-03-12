@@ -40,7 +40,7 @@ const testRender = async () =>
     await act(
         () =>
         {
-            returnRender = render(<ExerciseFields />)
+            returnRender = render(<ExerciseFields skill={1} title={"test title"} description={"test description"} />)
         }
     )
     return returnRender
@@ -85,6 +85,20 @@ describe('ExerciseFields works',
 
                 const skillDropdown = tree.getByRole('combobox')
                 expect(skillDropdown).toBeInTheDocument()
+            }
+        )
+
+        it('sets default values for components',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const descriptionField = tree.getByPlaceholderText(/Exercise Description/i)
+                const titleField = tree.getByPlaceholderText(/Exercise Title/i)
+
+                expect(SkillSelect.mock.calls[SkillSelect.mock.calls.length - 1][0]["selectedSkill"]).toBe(1)
+                expect(descriptionField.value).toBe("test description")
+                expect(titleField.value).toBe("test title")
             }
         )
 

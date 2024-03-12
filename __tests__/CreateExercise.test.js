@@ -51,7 +51,7 @@ beforeEach(
     () =>
     {
         ExerciseFields.mockImplementation(
-            ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+            ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
             {
                 return <></>
             }
@@ -129,7 +129,7 @@ describe('CreateExercise works',
             async () =>
             {
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         onExerciseTitleChanged("title change")
                         return <></>
@@ -155,7 +155,7 @@ describe('CreateExercise works',
             async () =>
             {
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         onDescriptionChanged("description change")
                         return <></>
@@ -181,7 +181,7 @@ describe('CreateExercise works',
             async () =>
             {
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         onSkillSelected(fakeSkills[0].id)
                         return <></>
@@ -202,16 +202,47 @@ describe('CreateExercise works',
                 expect(setStateMock).toHaveBeenCalledWith(fakeSkills[0].id)
             }
         )
-        
 
-        
+        it('does a window alert when submit button pressed while missing state',
+            async () =>
+            {
+                window.alert = jest.fn()
+
+                ExerciseFields.mockImplementation(
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    {
+                        useEffect(
+                            () =>
+                            {
+                                onExerciseTitleChanged("title change")
+                                onDescriptionChanged("description change")
+                            }, []
+                        )
+
+                        useEffect(
+                            () =>
+                            {
+                                onSubmitClicked()
+                            }, [skill]
+                        )
+
+                        return <></>
+                    }
+                )
+
+                const tree = await testRender()
+
+                expect(window.alert).toHaveBeenCalled()
+            }
+        )
+
         it('calls create exercise, passing state, and navigates to the exercises page when submit button pressed and state is valid',
             async () =>
             {
                 window.alert = jest.fn()
 
                 ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    ({ skills, skill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         useEffect(
                             () =>
@@ -226,9 +257,9 @@ describe('CreateExercise works',
                             () =>
                             {
                                 onSubmitClicked()
-                            }, [selectedSkill]
+                            }, [skill]
                         )
-                        
+
                         return <></>
                     }
                 )
@@ -239,40 +270,5 @@ describe('CreateExercise works',
                 expect(mockNavigate).toHaveBeenCalledWith("/exercises")
             }
         )
-            
-        
-        it('does a window alert when submit button pressed while missing state',
-            async () =>
-            {
-                window.alert = jest.fn()
-
-                ExerciseFields.mockImplementation(
-                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
-                    {
-                        useEffect(
-                            () =>
-                            {
-                                onExerciseTitleChanged("title change")
-                                onDescriptionChanged("description change")
-                            }, []
-                        )
-
-                        useEffect(
-                            () =>
-                            {
-                                onSubmitClicked()
-                            }, [selectedSkill]
-                        )
-                        
-                        return <></>
-                    }
-                )
-
-                const tree = await testRender()
-
-                expect(window.alert).toHaveBeenCalled()
-            }
-        )
-    
     }
 )

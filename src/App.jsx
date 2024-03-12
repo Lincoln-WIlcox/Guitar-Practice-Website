@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import Exercises from './pages/Exercises'
 import Navbar from './components/Navbar/Navbar'
 import CreateExercise from './pages/CreateExercise'
+import EditExercise from './pages/EditExercise'
+import CheckUserIsAuthor from './CheckuserIsAuthor'
 
 function App()
 {
@@ -20,6 +22,13 @@ function App()
         }>
           <Route path="exercises" element={<Exercises />} />
           <Route path="create-exercise" element={<CreateExercise />} />
+          <Route path="edit-exercise">
+            <Route path=":exerciseId" element={
+              <CheckUserIsAuthor>
+                <EditExercise />
+              </CheckUserIsAuthor>
+            } />
+          </Route>
         </Route>
       </Route>
     </Routes>

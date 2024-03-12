@@ -18,6 +18,9 @@ import Navbar from '../src/components/Navbar/Navbar'
 jest.mock('../src/pages/CreateExercise')
 import CreateExercise from '../src/pages/CreateExercise'
 
+jest.mock('../src/pages/EditExercise')
+import EditExercise from '../src/pages/EditExercise'
+
 beforeEach(
     () =>
     {
@@ -32,6 +35,9 @@ beforeEach(
         )
         CreateExercise.mockReturnValue(
             <div data-testid="create-exercise-page"></div>
+        )
+        EditExercise.mockReturnValue(
+            <div data-testid="edit-exercise-page"></div>
         )
     }
 )
@@ -93,6 +99,16 @@ describe('pages should render when navigated to',
                 const tree = await testRender(history)
 
                 expect(tree.getByTestId('create-exercise-page')).toBeInTheDocument()
+            }
+        )
+
+        it('displays edit exercise page',
+            async () =>
+            {
+                const history = createMemoryHistory({ initialEntries: ['/edit-exercise/1'] })
+                const tree = await testRender(history)
+
+                expect(tree.getByTestId('edit-exercise-page')).toBeInTheDocument()
             }
         )
 

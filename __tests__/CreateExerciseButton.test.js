@@ -28,7 +28,7 @@ const testRender = async () =>
     return returnRender
 }
 
-describe('CreateExercise component works',
+describe('CreateExerciseButton component works',
     () =>
     {
 

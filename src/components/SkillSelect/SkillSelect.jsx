@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 
 const SkillSelect = ({ selectedSkill, skills, onSkillSelected }) =>
 {
@@ -8,7 +9,7 @@ const SkillSelect = ({ selectedSkill, skills, onSkillSelected }) =>
     }
 
     return <div>
-        <select className="bg-gray-900" onChange={onSelectChanged} defaultValue={selectedSkill}>
+        <select className="bg-gray-900" onChange={onSelectChanged} value={selectedSkill}>
             <option value={0} key={0}>No Skill Selected</option>
             {
                 skills.map(
