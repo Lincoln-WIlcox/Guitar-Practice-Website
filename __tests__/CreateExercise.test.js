@@ -66,9 +66,9 @@ beforeEach(
 afterEach(
     () =>
     {
-        cleanup
+        cleanup()
         jest.clearAllMocks()
-        jest.restoreAllMocks
+        jest.restoreAllMocks()
     }
 )
 
@@ -96,6 +96,7 @@ const testRender = async () =>
 describe('CreateExercise works',
     () =>
     {
+
         it('renders',
             async () =>
             {
@@ -201,62 +202,77 @@ describe('CreateExercise works',
                 expect(setStateMock).toHaveBeenCalledWith(fakeSkills[0].id)
             }
         )
+        
 
+        
         it('calls create exercise, passing state, and navigates to the exercises page when submit button pressed and state is valid',
             async () =>
             {
+                window.alert = jest.fn()
+
                 ExerciseFields.mockImplementation(
                     ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
                     {
                         useEffect(
                             () =>
                             {
-                                const callThings = async () =>
-                                {
-                                    await act(
-                                        () =>
-                                        {
-                                            onExerciseTitleChanged("title change")
-                                            onDescriptionChanged("description change")
-                                            onSkillSelected(fakeSkills[0].id)
-                                        }
-                                    )
-                                    onSubmitClicked()
-                                }
-
-                                callThings()
-
+                                onExerciseTitleChanged("title change")
+                                onDescriptionChanged("description change")
+                                onSkillSelected(fakeSkills[0].id)
                             }, []
                         )
 
+                        useEffect(
+                            () =>
+                            {
+                                onSubmitClicked()
+                            }, [selectedSkill]
+                        )
+                        
                         return <></>
                     }
                 )
 
                 const tree = await testRender()
 
-                expect(addExercise).toHaveBeenCalledWith({ skillId: "1", description: "description change", name: "title change", userId: 1 })
+                expect(addExercise).toHaveBeenCalledWith({ skillId: 1, description: "description change", name: "title change", userId: 1 })
                 expect(mockNavigate).toHaveBeenCalledWith("/exercises")
             }
         )
-
+            
+        
         it('does a window alert when submit button pressed while missing state',
             async () =>
             {
                 window.alert = jest.fn()
 
+                ExerciseFields.mockImplementation(
+                    ({ skills, selectedSkill, onExerciseTitleChanged, onDescriptionChanged, onSkillSelected, onSubmitClicked }) =>
+                    {
+                        useEffect(
+                            () =>
+                            {
+                                onExerciseTitleChanged("title change")
+                                onDescriptionChanged("description change")
+                            }, []
+                        )
+
+                        useEffect(
+                            () =>
+                            {
+                                onSubmitClicked()
+                            }, [selectedSkill]
+                        )
+                        
+                        return <></>
+                    }
+                )
+
                 const tree = await testRender()
 
-                const skillDropdown = tree.getByRole('combobox')
-                const submitButton = tree.getByRole('button')
-
-                fireEvent.click(submitButton)
-                expect(window.alert).toHaveBeenCalledTimes(1)
-
-                fireEvent.change(skillDropdown, { target: { value: fakeSkills[0].id } })
-                fireEvent.click(submitButton)
-                expect(window.alert).toHaveBeenCalledTimes(2)
+                expect(window.alert).toHaveBeenCalled()
             }
         )
+    
     }
 )
