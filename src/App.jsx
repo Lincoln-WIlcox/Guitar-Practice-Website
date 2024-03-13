@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar'
 import CreateExercise from './pages/CreateExercise'
 import EditExercise from './pages/EditExercise'
 import CheckUserIsAuthor from './CheckuserIsAuthor'
+import Login from './pages/Login'
 
 function App()
 {
@@ -14,6 +15,7 @@ function App()
     <Routes>
       <Route path="/">
         <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
         <Route path="*" element={
           <>
             <Navbar />

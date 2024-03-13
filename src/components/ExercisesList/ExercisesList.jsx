@@ -71,7 +71,7 @@ const ExercisesList = ({ exercises }) =>
                         }
 
                         return (
-                            <div className="flex w-7/12 justify-center" key={exercise.id}>
+                            <div className="flex w-9/12 justify-center" key={exercise.id}>
                                 <div className={marginAroundListClass}></div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
                                 <div className={`flex ${marginAroundListClass}`}>

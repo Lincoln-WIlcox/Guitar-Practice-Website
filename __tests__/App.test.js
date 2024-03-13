@@ -21,6 +21,12 @@ import CreateExercise from '../src/pages/CreateExercise'
 jest.mock('../src/pages/EditExercise')
 import EditExercise from '../src/pages/EditExercise'
 
+jest.mock('../src/CheckuserIsAuthor')
+import CheckUserIsAuthor from '../src/CheckuserIsAuthor'
+
+jest.mock('../src/pages/Login')
+import Login from '../src/pages/Login'
+
 beforeEach(
     () =>
     {
@@ -38,6 +44,12 @@ beforeEach(
         )
         EditExercise.mockReturnValue(
             <div data-testid="edit-exercise-page"></div>
+        )
+        CheckUserIsAuthor.mockReturnValue(
+            <div data-testid="check-user-is-author-page"></div>
+        )
+        Login.mockReturnValue(
+            <div data-testid="login-page"></div>
         )
     }
 )
@@ -108,7 +120,17 @@ describe('pages should render when navigated to',
                 const history = createMemoryHistory({ initialEntries: ['/edit-exercise/1'] })
                 const tree = await testRender(history)
 
-                expect(tree.getByTestId('edit-exercise-page')).toBeInTheDocument()
+                expect(tree.getByTestId('check-user-is-author-page')).toBeInTheDocument()
+            }
+        )
+
+        it('displays the login page',
+            async() =>
+            {
+                const history = createMemoryHistory({ initialEntries: ["/login"] })
+                const tree = await testRender(history)
+
+                expect(tree.getByTestId('login-page')).toBeInTheDocument()
             }
         )
 
