@@ -2,9 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getExerciseById } from "./services/exerciseServices"
 import { useEffect, useState } from "react"
 
-const currentUser = { id: 1 }
-
-const CheckUserIsAuthor = ({ children }) =>
+const CheckUserIsAuthor = ({ currentUser, children }) =>
 {
     const { exerciseId } = useParams()
     const navigate = useNavigate()

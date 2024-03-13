@@ -4,12 +4,10 @@ import MiniExercise from "../MiniExercise/MiniExercise"
 import "./ExercisesList.css"
 import { useNavigate } from "react-router-dom"
 
-const currentUser = { id: 1 }
-
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
 const marginAroundListClass = "w-4/12"
 
-const ExercisesList = ({ exercises }) =>
+const ExercisesList = ({ currentUser, exercises }) =>
 {
     const [userExercises, setUserExercises] = useState([])
 
@@ -29,14 +27,14 @@ const ExercisesList = ({ exercises }) =>
         () =>
         {
             fetchAndSetUserExercises()
-        }, []
+        }, [currentUser]
     )
 
     const onAddToPlaylistPressed = (exerciseId) =>
     {
         const userExercise =
         {
-            userId: 1,
+            userId: currentUser.id,
             exerciseId: exerciseId
         }
         addUserExercise(userExercise).then(fetchAndSetUserExercises)
@@ -65,7 +63,7 @@ const ExercisesList = ({ exercises }) =>
                         }
 
                         let editButton = <></>
-                        if(exercise.userId === currentUser.id)
+                        if(exercise.userId == currentUser.id)
                         {
                             editButton = <button onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }}>Edit</button>
                         }

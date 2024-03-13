@@ -10,16 +10,19 @@ import CheckUserIsAuthor from './CheckuserIsAuthor'
 import Login from './pages/Login'
 import { useEffect, useState } from 'react'
 import AppViews from './AppViews'
+import Authorized from './Authorized'
 
 function App()
 {
 
   return (
     <Routes>
-      <Route path="/">
-        <Route path="login" element={<Login />} />
-        <Route path="*" element={<AppViews />} />
-      </Route>
+      <Route path="login" element={<Login />} />
+      <Route path="*" element={
+        <Authorized>
+          <AppViews />
+        </Authorized>
+      } />
     </Routes>
   )
 }
