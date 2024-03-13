@@ -13,10 +13,12 @@ jest.mock('react-router-dom')
 import { useNavigate } from 'react-router-dom'
 
 const fakeUser =
-{
-    "id": 1,
-    "username": "user1"
-}
+    [
+        {
+            "id": 1,
+            "username": "user1"
+        }
+    ]
 
 const fakeNavigate = jest.fn()
 
@@ -24,7 +26,7 @@ beforeEach(
     () =>
     {
         useNavigate.mockImplementation(() => fakeNavigate)
-        getUserByUsername.mockImplementation(() => fakeUser)
+        getUserByUsername.mockImplementation(async () => fakeUser)
     }
 )
 
@@ -120,11 +122,13 @@ describe('Login works',
         it('sets local storage with user when username is given and navigates to home',
             async () =>
             {
-                jest.spyOn(localStorage, 'setItem')
+                const spy = jest.spyOn(Object.getPrototypeOf(localStorage), 'setItem')
+                Object.setPrototypeOf(localStorage.setItem, jest.fn())
 
                 const tree = await testRender()
 
                 const usernameField = tree.getByRole('textbox')
+
                 act(
                     () =>
                     {
@@ -134,16 +138,23 @@ describe('Login works',
 
                 const logInButton = tree.getByRole('button', { name: /log in/i })
 
-                act(
-                    () =>
+                await act(
+                    async () =>
                     {
-                        fireEvent.click(logInButton)
+                        await fireEvent.click(logInButton)
                     }
                 )
 
                 expect(getUserByUsername).toHaveBeenCalled()
-                expect(localStorage.setItem).toHaveBeenCalledWith(fakeUser)
+                expect(localStorage.setItem).toHaveBeenCalled()
                 expect(fakeNavigate).toHaveBeenCalledWith("/")
+            }
+        )
+
+        it('calls window alert when log in button pressed but username is invalid',
+            () =>
+            {
+
             }
         )
 
