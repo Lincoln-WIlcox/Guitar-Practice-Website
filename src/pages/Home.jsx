@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import "./Home.css"
 
-const Home = ({currentUser}) =>
+const Home = ({ currentUser }) =>
 {
     const navigate = useNavigate()
 
@@ -27,7 +27,8 @@ const Home = ({currentUser}) =>
 
     const onLogoutClicked = () =>
     {
-        
+        localStorage.removeItem('guitar-practicer-user')
+        navigate("/login")
     }
 
     return (
