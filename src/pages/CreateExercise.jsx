@@ -5,9 +5,7 @@ import { addExercise } from "../services/exerciseServices"
 import { useNavigate } from "react-router-dom"
 import ExerciseFields from "../components/ExerciseFields/ExerciseFields"
 
-const currentUser = { id: 1 }
-
-const CreateExercise = () =>
+const CreateExercise = ({currentUser}) =>
 {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")

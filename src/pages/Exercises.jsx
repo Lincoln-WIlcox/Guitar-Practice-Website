@@ -4,7 +4,7 @@ import { getExercises } from "../services/exerciseServices"
 import CreateExerciseButton from "../components/CreateExerciseButton/CreateExerciseButton"
 import { useEffect, useState } from "react"
 
-const Exercises = () =>
+const Exercises = ({ currentUser }) =>
 {
     const [allExercises, setAllExercises] = useState([])
 
@@ -29,7 +29,7 @@ const Exercises = () =>
 
             <div className="flex justify-center items-center flex-col">
                 <CreateExerciseButton />
-                <ExercisesList exercises={allExercises} />
+                <ExercisesList currentUser={currentUser} exercises={allExercises} />
             </div>
 
         </div>

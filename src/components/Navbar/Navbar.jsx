@@ -16,7 +16,8 @@ const Navbar = () =>
 
     const onLogoutClicked = () =>
     {
-
+        localStorage.removeItem('guitar-practicer-user')
+        navigate("/login")
     }
 
     const onExercisesClicked = () =>

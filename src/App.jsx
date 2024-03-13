@@ -7,30 +7,22 @@ import Navbar from './components/Navbar/Navbar'
 import CreateExercise from './pages/CreateExercise'
 import EditExercise from './pages/EditExercise'
 import CheckUserIsAuthor from './CheckuserIsAuthor'
+import Login from './pages/Login'
+import { useEffect, useState } from 'react'
+import AppViews from './AppViews'
+import Authorized from './Authorized'
 
 function App()
 {
+
   return (
     <Routes>
-      <Route path="/">
-        <Route index element={<Home />} />
-        <Route path="*" element={
-          <>
-            <Navbar />
-            <Outlet />
-          </>
-        }>
-          <Route path="exercises" element={<Exercises />} />
-          <Route path="create-exercise" element={<CreateExercise />} />
-          <Route path="edit-exercise">
-            <Route path=":exerciseId" element={
-              <CheckUserIsAuthor>
-                <EditExercise />
-              </CheckUserIsAuthor>
-            } />
-          </Route>
-        </Route>
-      </Route>
+      <Route path="login" element={<Login />} />
+      <Route path="*" element={
+        <Authorized>
+          <AppViews />
+        </Authorized>
+      } />
     </Routes>
   )
 }

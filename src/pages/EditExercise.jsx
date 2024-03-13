@@ -4,9 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { changeExercise, getExerciseById } from "../services/exerciseServices"
 import { getSkills } from "../services/skillsService"
 
-const currentUser = { id: 1 }
-
-const EditExercise = () =>
+const EditExercise = ({ currentUser }) =>
 {
     const [thisExercise, setThisExercise] = useState({})
     const [title, setTitle] = useState("")
