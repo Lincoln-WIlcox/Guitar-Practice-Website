@@ -54,6 +54,8 @@ const fakeUserExercises = [
     }
 ]
 
+let currentUser = { id: 1, username: "lincolnpepper" }
+
 beforeEach(
     async () =>
     {
@@ -88,7 +90,7 @@ const testRender = async () =>
             renderReturn = await render(
                 <MemoryRouter>
                     <Routes>
-                        <Route path="/" element={<ExercisesList exercises={fakeExercises} />} />
+                        <Route path="/" element={<ExercisesList currentUser={currentUser} exercises={fakeExercises} />} />
                     </Routes>
                 </MemoryRouter>
             )
