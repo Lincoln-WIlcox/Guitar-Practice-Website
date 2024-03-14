@@ -1,4 +1,4 @@
-import React, { setState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '@testing-library/jest-dom'
 import { cleanup, fireEvent, render } from '@testing-library/react'
 import { act } from 'react-test-renderer'

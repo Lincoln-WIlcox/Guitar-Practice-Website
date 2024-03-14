@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '@testing-library/jest-dom'
-import { cleanup, fireEvent, render } from '@testing-library/react'
-import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { cleanup,  render } from '@testing-library/react'
 import { act } from 'react-test-renderer'
-import CreateExercise from '../src/pages/CreateExercise'
 
 jest.mock('../src/components/SkillSelect/SkillSelect')
 import SkillSelect from '../src/components/SkillSelect/SkillSelect'

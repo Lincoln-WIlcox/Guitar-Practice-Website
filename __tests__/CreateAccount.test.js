@@ -1,9 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import CreateAccount from '../src/pages/CreateAccount'
-import { Router, Routes } from 'react-router-dom'
 import { render, cleanup, fireEvent } from '@testing-library/react'
-import { createMemoryHistory } from 'history';
 import { act } from 'react-test-renderer'
 
 jest.mock('../src/services/userService')

@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import AppViews from '../src/AppViews'
-import { Router, Routes } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { render, cleanup } from '@testing-library/react'
 import { createMemoryHistory } from 'history';
 import { act } from 'react-test-renderer'
