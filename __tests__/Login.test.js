@@ -152,11 +152,42 @@ describe('Login works',
         )
 
         it('calls window alert when log in button pressed but username is invalid',
-            () =>
+            async () =>
             {
+                getUserByUsername.mockImplementation(async () => [])
+                window.alert = jest.fn()
 
+                const tree = await testRender()
+
+                const logInButton = tree.getByRole('button', { name: /log in/i })
+
+                await act(
+                    async () =>
+                    {
+                        await fireEvent.click(logInButton)
+                    }
+                )
+
+                expect(window.alert).toHaveBeenCalled()
             }
         )
 
+        it('navigates to create account page when login button clicked',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const createAccountButton = tree.getByRole('button', { name: /create account/i })
+
+                act(
+                    () =>
+                    {
+                        fireEvent.click(createAccountButton)
+                    }
+                )
+
+                expect(fakeNavigate).toHaveBeenCalledWith("/create-account")
+            }
+        )
     }
 )

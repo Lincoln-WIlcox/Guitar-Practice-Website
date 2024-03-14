@@ -9,11 +9,17 @@ import { act } from 'react-test-renderer'
 jest.mock('../src/pages/Login')
 import Login from '../src/pages/Login'
 
+jest.mock('../src/pages/CreateAccount')
+import CreateAccount from '../src/pages/CreateAccount'
+
 beforeEach(
     () =>
     {
         Login.mockReturnValue(
             <div data-testid="login-page"></div>
+        )
+        CreateAccount.mockReturnValue(
+            <div data-testid="create-account-page" />
         )
     }
 )
@@ -53,6 +59,16 @@ describe('pages should render when navigated to',
                 const tree = await testRender(history)
 
                 expect(tree.getByTestId('login-page')).toBeInTheDocument()
+            }
+        )
+
+        it('displays create account page',
+            async () =>
+            {
+                const history = createMemoryHistory({ initialEntries: ['/create-account'] })
+                const tree = await testRender(history)
+
+                expect(tree.getByTestId('create-account-page')).toBeInTheDocument()
             }
         )
     }
