@@ -47,6 +47,8 @@ const fakeSkills = [
     }
 ]
 
+let currentUser = { id: 1, username: "lincolnpepper" }
+
 beforeEach(
     () =>
     {
@@ -82,7 +84,7 @@ const testRender = async () =>
                 <MemoryRouter>
                     <Routes>
                         <Route path="/">
-                            <Route index element={<CreateExercise />} />
+                            <Route index element={<CreateExercise currentUser={currentUser} />} />
                             <Route path="/exercises" element={<div data-testid="exercises-page"></div>} />
                         </Route>
                     </Routes>

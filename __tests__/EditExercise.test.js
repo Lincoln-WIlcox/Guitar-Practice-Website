@@ -15,8 +15,6 @@ import ExerciseFields from '../src/components/ExerciseFields/ExerciseFields.jsx'
 jest.mock('../src/services/exerciseServices.js')
 import { getExerciseById, changeExercise } from '../src/services/exerciseServices.js'
 
-const mockNavigate = jest.fn()
-
 jest.mock('react-router-dom',
     () =>
     (
@@ -27,6 +25,8 @@ jest.mock('react-router-dom',
         }
     )
 )
+
+const mockNavigate = jest.fn()
 
 const fakeSkills = [
     {
@@ -51,6 +51,8 @@ const fakeExercise =
     "name": "Exercise 2",
     "description": "Test"
 }
+
+let currentUser = { id: 1, username: "lincolnpepper" }
 
 beforeEach(
     () =>
@@ -81,7 +83,7 @@ const testRender = async () =>
                 <Router location={history.location} navigator={history}>
                     <Routes>
                         <Route path="edit-exercise">
-                            <Route path=":exerciseId" element={<EditExercise />} />
+                            <Route path=":exerciseId" element={<EditExercise currentUser={currentUser} />} />
                         </Route>
                     </Routes>
                 </Router>
