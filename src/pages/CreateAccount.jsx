@@ -1,15 +1,32 @@
+import { useNavigate } from "react-router-dom"
+import { createAccount } from "../services/userService"
+import { useState } from "react"
 
 const CreateAccount = () =>
 {
+    const [username, setUsername] = useState("")
+    const navigate = useNavigate()
 
-    const onUsernameInputChanged = () =>
+    const onUsernameInputChanged = (event) =>
     {
-
+        setUsername(event.target.value)
     }
 
     const onLoginButtonClicked = () =>
     {
-        
+        if(username !== "")
+        {
+            const user =
+            {
+                username: username
+            }
+            createAccount(user).then(
+                navigate("/login")
+            )
+        } else
+        {
+            window.alert("Username is empty.")
+        }
     }
 
     return <div>
