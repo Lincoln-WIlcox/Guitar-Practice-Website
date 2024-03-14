@@ -172,5 +172,22 @@ describe('Login works',
             }
         )
 
+        it('navigates to create account page when login button clicked',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const createAccountButton = tree.getByRole('button', { name: /create account/i })
+
+                act(
+                    () =>
+                    {
+                        fireEvent.click(createAccountButton)
+                    }
+                )
+
+                expect(fakeNavigate).toHaveBeenCalledWith("/create-account")
+            }
+        )
     }
 )
