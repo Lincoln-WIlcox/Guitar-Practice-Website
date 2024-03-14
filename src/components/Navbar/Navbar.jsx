@@ -6,7 +6,7 @@ const Navbar = () =>
 
     const onPlaylistClicked = () =>
     {
-
+        navigate("/playlist")
     }
 
     const onPracticeClicked = () =>

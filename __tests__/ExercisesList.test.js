@@ -53,13 +53,14 @@ const fakeUserExercises = [
 
 let currentUser = { id: 1, username: "lincolnpepper" }
 
+const onUserExercisesChanged = jest.fn().mockImplementation(async () => { })
+
 beforeEach(
     async () =>
     {
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
-
-        addUserExercise.mockImplementation(async () => {})
-        removeUserExercise.mockImplementation(async () => {})
+        addUserExercise.mockImplementation(async () => { })
+        removeUserExercise.mockImplementation(async () => { })
     }
 )
 
@@ -80,7 +81,7 @@ const testRender = async () =>
             renderReturn = await render(
                 <MemoryRouter>
                     <Routes>
-                        <Route path="/" element={<ExercisesList currentUser={currentUser} exercises={fakeExercises} />} />
+                        <Route path="/" element={<ExercisesList currentUser={currentUser} exercises={fakeExercises} onUserExercisesChanged={onUserExercisesChanged} />} />
                     </Routes>
                 </MemoryRouter>
             )

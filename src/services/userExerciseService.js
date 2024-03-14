@@ -12,7 +12,7 @@ export const addUserExercise = (userExercise) =>
 
 export const getUserExercisesByUserId = (userId) =>
 {
-    return fetch(`http://localhost:8088/userExercises?userId=${userId}`).then(res => res.json())
+    return fetch(`http://localhost:8088/userExercises?userId=${userId}&_expand=exercise`).then(res => res.json())
 }
 
 export const removeUserExercise = (userExerciseId) =>
