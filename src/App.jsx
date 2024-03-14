@@ -11,13 +11,14 @@ import Login from './pages/Login'
 import { useEffect, useState } from 'react'
 import AppViews from './AppViews'
 import Authorized from './Authorized'
+import CreateAccount from './pages/CreateAccount'
 
 function App()
 {
-
   return (
     <Routes>
       <Route path="login" element={<Login />} />
+      <Route path="create-account" element={<CreateAccount />} />
       <Route path="*" element={
         <Authorized>
           <AppViews />
