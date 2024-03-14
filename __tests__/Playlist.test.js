@@ -5,33 +5,38 @@ import { fireEvent, render, cleanup } from '@testing-library/react'
 import Playlist from '../src/pages/Playlist'
 import { act } from 'react-test-renderer'
 
-jest.mock('../src/components/MiniExercise/MiniExercise.jsx')
-import MiniExercise from '../src/components/MiniExercise/MiniExercise.jsx'
+jest.mock('../src/components/ExercisesList/ExercisesList')
+import ExercisesList from '../src/components/ExercisesList/ExercisesList'
+
+jest.mock('../src/services/userExerciseService')
+import { getUserExercisesByUserId } from '../src/services/userExerciseService'
+
+let currentUser = { id: 1, username: "lincolnpepper" }
 
 const fakeExercises = [
     {
-        "id": 1,
         "userId": 1,
-        "skillId": 1,
-        "name": "Exercise 1",
-        "description": "Test",
-        "hidden": false
+        "exerciseId": 4,
+        "id": 27,
+        "exercise": {
+            "name": "Add Exercise",
+            "description": "Add an exercise to complete this exercise.",
+            "skillId": "2",
+            "userId": 1,
+            "id": 4
+        }
     },
     {
-        "id": 2,
-        "userId": 2,
-        "skillId": 2,
-        "name": "Exercise 2",
-        "description": "Test",
-        "hidden": true
-    },
-    {
-        "id": 3,
         "userId": 1,
-        "skillId": 2,
-        "name": "Exercise 3",
-        "description": "Test",
-        "hidden": true
+        "exerciseId": 7,
+        "id": 29,
+        "exercise": {
+            "id": 7,
+            "name": "my brand new exercise title!",
+            "description": "this should be perfectly editable... and it is!",
+            "skillId": "2",
+            "userId": 1
+        }
     }
 ]
 
@@ -51,11 +56,7 @@ const fakeUserExercises = [
 beforeEach(
     async () =>
     {
-        getExercises.mockImplementation(async () => fakeExercises)
-
-        getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
-
-        removeUserExercise.mockImplementation(async () => { })
+        getUserExercisesByUserId.mockImplementation(async () => fakeExercises)
     }
 )
 
@@ -72,9 +73,9 @@ const testRender = async () =>
 {
     let returnRender
     await act(
-        () =>
+        async () =>
         {
-            returnRender = render(<Playlist exercises={fakeExercises} />)
+            returnRender = await render(<Playlist currentUser={currentUser} exercises={fakeExercises} />)
         }
     )
     return returnRender
@@ -92,24 +93,41 @@ describe('Playlist works',
             }
         )
 
-        it('renders interactable elements',
+        it('renders exercise list',
             async () =>
             {
                 const tree = await testRender()
 
-                const removeFromPlaylistButton = tree.getByRole('button', { name: "remove from playlist" })
-
-                expect(MiniExercise).toHaveBeenCalled()
-                expect(removeFromPlaylistButton).toBeInTheDocument()
+                expect(ExercisesList).toHaveBeenCalled()
             }
         )
 
-        it('renders correct mini exercises',
+        it('passes exercises by the user to exercises list',
             async () =>
             {
                 const tree = await testRender()
 
-                
+                expect(ExercisesList).toHaveBeenCalledWith(
+                    {
+                        exercises:
+                            [
+                                {
+                                    "name": "Add Exercise",
+                                    "description": "Add an exercise to complete this exercise.",
+                                    "skillId": "2",
+                                    "userId": 1,
+                                    "id": 4
+                                },
+                                {
+                                    "id": 7,
+                                    "name": "my brand new exercise title!",
+                                    "description": "this should be perfectly editable... and it is!",
+                                    "skillId": "2",
+                                    "userId": 1
+                                }
+                            ]
+                    }, {}
+                )
             }
         )
 
