@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
 const marginAroundListClass = "w-4/12"
 
-const ExercisesList = ({ currentUser, exercises }) =>
+const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
 {
     const [userExercises, setUserExercises] = useState([])
 
@@ -37,16 +37,26 @@ const ExercisesList = ({ currentUser, exercises }) =>
             userId: currentUser.id,
             exerciseId: exerciseId
         }
-        addUserExercise(userExercise).then(fetchAndSetUserExercises)
+        addUserExercise(userExercise).then(
+            () =>
+            {
+                onUserExercisesChanged().then(fetchAndSetUserExercises)
+            }
+        )
     }
 
     const onRemoveFromPlaylistPressed = (userExerciseId) =>
     {
-        removeUserExercise(userExerciseId).then(fetchAndSetUserExercises)
+        removeUserExercise(userExerciseId).then(
+            () =>
+            {
+                onUserExercisesChanged().then(fetchAndSetUserExercises)
+            }
+        )
     }
 
     return (
-        <div className="flex justify-center items-center flex-col">
+        <div className="flex justify-center items-center flex-col w-full">
             {
                 exercises?.map(
                     (exercise) =>

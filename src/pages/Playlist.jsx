@@ -8,7 +8,7 @@ const Playlist = ({ currentUser }) =>
 
     const getAndSetUserExercises = () =>
     {
-        getUserExercisesByUserId(currentUser.id).then(
+        getUserExercisesByUserId(currentUser?.id).then(
             (userExercises) =>
             {
                 if(userExercises)
@@ -20,15 +20,20 @@ const Playlist = ({ currentUser }) =>
         )
     }
 
+    const onUserExercisesChanged = () =>
+    {
+        getAndSetUserExercises()
+    }
+
     useEffect(
         () =>
         {
             getAndSetUserExercises()
-        }, []
+        }, [currentUser]
     )
 
-    return <div className="flex justify-center items-center flex-col">
-        <ExercisesList exercises={exercises} />
+    return <div className="flex justify-center items-center flex-col w-full">
+        <ExercisesList currentUser={currentUser} exercises={exercises} onUserExercisesChanged={onUserExercisesChanged} />
     </div>
 }
 

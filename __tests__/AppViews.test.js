@@ -24,6 +24,9 @@ import EditExercise from '../src/pages/EditExercise'
 jest.mock('../src/CheckuserIsAuthor')
 import CheckUserIsAuthor from '../src/CheckuserIsAuthor'
 
+jest.mock('../src/pages/Playlist')
+import Playlist from '../src/pages/Playlist'
+
 beforeEach(
     () =>
     {
@@ -44,6 +47,9 @@ beforeEach(
         )
         CheckUserIsAuthor.mockReturnValue(
             <div data-testid="check-user-is-author-page"></div>
+        )
+        Playlist.mockReturnValue(
+            <div data-testid="playlist-page" />
         )
     }
 )
@@ -115,6 +121,16 @@ describe('pages should render when navigated to',
                 const tree = await testRender(history)
 
                 expect(tree.getByTestId('check-user-is-author-page')).toBeInTheDocument()
+            }
+        )
+
+        it('displays playlist page',
+            async () =>
+            {
+                const history = createMemoryHistory({ initialEntries: ['/playlist'] })
+                const tree = await testRender(history)
+
+                expect(tree.getByTestId('playlist-page')).toBeInTheDocument()
             }
         )
 

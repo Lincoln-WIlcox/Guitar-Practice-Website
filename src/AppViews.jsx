@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar"
 import Home from "./pages/Home"
 import { useEffect, useState } from "react"
 import { getUserById } from "./services/userService"
+import Playlist from "./pages/Playlist"
 
 const AppViews = () =>
 {
@@ -38,6 +39,7 @@ const AppViews = () =>
                     </CheckUserIsAuthor>
                 } />
             </Route>
+            <Route path="playlist" element={<Playlist currentUser={currentUser} />} />
         </Route>
     </Routes>
 }

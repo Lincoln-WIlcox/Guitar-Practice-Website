@@ -107,29 +107,25 @@ describe('Playlist works',
             {
                 const tree = await testRender()
 
-                expect(ExercisesList).toHaveBeenCalledWith(
-                    {
-                        exercises:
-                            [
-                                {
-                                    "name": "Add Exercise",
-                                    "description": "Add an exercise to complete this exercise.",
-                                    "skillId": "2",
-                                    "userId": 1,
-                                    "id": 4
-                                },
-                                {
-                                    "id": 7,
-                                    "name": "my brand new exercise title!",
-                                    "description": "this should be perfectly editable... and it is!",
-                                    "skillId": "2",
-                                    "userId": 1
-                                }
-                            ]
-                    }, {}
+                expect(ExercisesList.mock.calls[ExercisesList.mock.calls.length - 1][0]["exercises"]).toEqual(
+                    [
+                        {
+                            "name": "Add Exercise",
+                            "description": "Add an exercise to complete this exercise.",
+                            "skillId": "2",
+                            "userId": 1,
+                            "id": 4
+                        },
+                        {
+                            "id": 7,
+                            "name": "my brand new exercise title!",
+                            "description": "this should be perfectly editable... and it is!",
+                            "skillId": "2",
+                            "userId": 1
+                        }
+                    ]
                 )
             }
         )
-
     }
 )
