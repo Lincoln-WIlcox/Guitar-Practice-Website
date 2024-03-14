@@ -5,9 +5,6 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'
 import { act } from 'react-test-renderer'
 
-jest.mock('../src/services/exerciseServices.js')
-import { getExercises } from '../src/services/exerciseServices.js'
-
 jest.mock('../src/components/MiniExercise/MiniExercise.jsx')
 import MiniExercise from '../src/components/MiniExercise/MiniExercise.jsx'
 
@@ -59,13 +56,6 @@ let currentUser = { id: 1, username: "lincolnpepper" }
 beforeEach(
     async () =>
     {
-        getExercises.mockImplementation(
-            async () =>
-            {
-                return fakeExercises
-            }
-        )
-
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
 
         addUserExercise.mockImplementation(async () => {})
