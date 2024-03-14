@@ -24,7 +24,7 @@ const Login = () =>
                     navigate("/")
                 } else
                 {
-
+                    window.alert("user does not exist.")
                 }
             }
         )

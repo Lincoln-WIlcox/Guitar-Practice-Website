@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { createAccount } from "../services/userService"
+import { createAccount, getUserByUsername } from "../services/userService"
 import { useState } from "react"
 
 const CreateAccount = () =>
@@ -12,7 +12,20 @@ const CreateAccount = () =>
         setUsername(event.target.value)
     }
 
-    const onLoginButtonClicked = () =>
+    const onCreateAccountButtonClicked = async () =>
+    {
+        const usersWithUsername = await getUserByUsername(username)
+
+        if(usersWithUsername.length === 0)
+        {
+            makeAccountIfValid()
+        } else
+        {
+            window.alert("A user already exists with that username.")
+        }
+    }
+
+    const makeAccountIfValid = () =>
     {
         if(username !== "")
         {
@@ -29,16 +42,21 @@ const CreateAccount = () =>
         }
     }
 
+    const onLoginButtonClicked = () =>
+    {
+        navigate("/login")
+    }
+
     return <div>
         <h1 className="text-6xl">Create Account</h1>
         <div className="space-x-5">
             <label name="username">username:</label>
             <input name="username" type="text" className="text-black" onChange={onUsernameInputChanged} />
-            <button onClick={onLoginButtonClicked}>Create Account</button>
+            <button onClick={onCreateAccountButtonClicked}>Create Account</button>
         </div>
         <div className="flex">
             <p>Have an account?  </p>
-            <button>Log In</button>
+            <button onClick={onLoginButtonClicked}>Log In</button>
         </div>
     </div>
 }

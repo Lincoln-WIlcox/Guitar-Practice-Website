@@ -9,6 +9,9 @@ import { act } from 'react-test-renderer'
 jest.mock('../src/services/userService')
 import { createAccount } from '../src/services/userService'
 
+jest.mock('../src/services/userService')
+import { getUserByUsername } from '../src/services/userService'
+
 const mockNavigate = jest.fn()
 
 jest.mock('react-router-dom',
@@ -32,7 +35,8 @@ let currentUser = { id: 1, username: "lincolnpepper" }
 beforeEach(
     () =>
     {
-        createAccount.mockImplementation(async () => { })
+        getUserByUsername.mockImplementation(async () => [])
+        createAccount.mockImplementation(async () => ({}))
     }
 )
 
@@ -147,6 +151,36 @@ describe('CreateAccount works',
                 )
 
                 expect(mockNavigate).toHaveBeenCalledWith("/login")
+            }
+        )
+
+        it('calls window alert when creating an account where a user with that username already exists',
+            async () =>
+            {
+                window.alert = jest.fn()
+
+                getUserByUsername.mockImplementation(async () => [{}])
+
+                const tree = await testRender()
+
+                const usernameField = tree.getByRole('textbox')
+                const createAccountButton = tree.getByRole('button', { name: /create account/i })
+
+                await act(
+                    async () =>
+                    {
+                        await fireEvent.change(usernameField, { target: { value: "test username"} })
+                    }
+                )
+
+                await act(
+                    async () =>
+                    {
+                        await fireEvent.click(createAccountButton)
+                    }
+                )
+
+                expect(window.alert).toHaveBeenCalled()
             }
         )
 
