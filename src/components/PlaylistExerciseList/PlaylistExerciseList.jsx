@@ -1,7 +1,8 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import MiniExercise from "../MiniExercise/MiniExercise"
-import { getUserExerciseByUserIdAndExerciseId, removeUserExercise } from "../../services/userExerciseService"
+import { getUserExerciseByUserIdAndExerciseId, getUserExercisesByUserId, removeUserExercise } from "../../services/userExerciseService"
+import SortButtons from "../SortButtons/SortButtons"
 
 const marginAroundListClass = "w-4/12"
 
@@ -29,6 +30,8 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                 exercises?.map(
                     (exercise) =>
                     {
+                        let thisUserExercise = getUserExerciseByUserIdAndExerciseId(exercise.id, currentUser.id)
+
                         let editButton = <></>
                         if(exercise.userId == currentUser.id)
                         {
@@ -37,7 +40,9 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
 
                         return (
                             <div className="flex w-9/12 justify-center" key={exercise.id}>
-                                <div className={marginAroundListClass}></div>
+                                <div className={marginAroundListClass}>
+                                    <SortButtons userExercise={thisUserExercise} />
+                                </div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
                                 <div className={`flex ${marginAroundListClass}`}>
                                     <button className="mr-2" onClick={() => { onRemoveFromPlaylistPressed(exercise.id) }}>Remove From Playlist</button>
