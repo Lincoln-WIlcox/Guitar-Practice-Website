@@ -141,5 +141,8 @@ describe('PlaylistExerciseList works',
                 expect(removeUserExercise).toHaveBeenCalledWith(1)
             }
         )
+
+        
+
     }
 )
