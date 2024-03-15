@@ -6,22 +6,15 @@ import SkillSelect from '../src/components/SkillSelect/SkillSelect'
 import SortButtons from '../src/components/SortButtons/SortButtons'
 
 jest.mock('../src/services/userExerciseService')
-import { changeUserExercise } from '../src/services/userExerciseService'
+import { changeUserExercise, switchOrderWithExerciseAbove, switchOrderWithExerciseBelow } from '../src/services/userExerciseService'
 
-const fakeUserExercises = [
-    {
-        "id": 1,
-        "userId": 1,
-        "exerciseId": 1,
-        "order": 1
-    },
-    {
-        "id": 2,
-        "userId": 2,
-        "exerciseId": 2,
-        "order": 2
-    }
-]
+const fakeUserExercise = {
+    "id": 1,
+    "userId": 1,
+    "exerciseId": 1,
+    "order": 1
+}
+
 
 beforeEach(
     () =>
@@ -45,7 +38,7 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<SortButtons userExercise={fakeUserExercises} />)
+            returnRender = await render(<SortButtons userExercise={fakeUserExercise} />)
         }
     )
     return returnRender
@@ -76,7 +69,7 @@ describe('SortButtons works',
             }
         )
 
-        it('calls changeUserExercise, passing correct value, on sort up clicked',
+        it('calls switchOrderWithExerciseAbove, passing correct value, on sort up clicked',
             async () =>
             {
                 const tree = await testRender()
@@ -89,6 +82,26 @@ describe('SortButtons works',
                         await fireEvent.click(sortUpButton)
                     }
                 )
+
+                expect(switchOrderWithExerciseAbove).toHaveBeenCalledWith(fakeUserExercise)
+            }
+        )
+
+        it('calls switchOrderWithExerciseBelow, passing correct value, on sort up clicked',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const sortUpButton = tree.getByRole('button', { name: "move down" })
+
+                await act(
+                    async () =>
+                    {
+                        await fireEvent.click(sortUpButton)
+                    }
+                )
+
+                expect(switchOrderWithExerciseBelow).toHaveBeenCalledWith(fakeUserExercise)
             }
         )
     }
