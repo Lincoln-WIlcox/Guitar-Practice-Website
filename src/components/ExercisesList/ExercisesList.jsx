@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { addUserExercise, getUserExercisesByUserId, removeUserExercise } from "../../services/userExerciseService"
+import { addExerciseToEndOfOrder, getUserExercisesByUserId, removeUserExercise } from "../../services/userExerciseService"
 import MiniExercise from "../MiniExercise/MiniExercise"
 import "./ExercisesList.css"
 import { useNavigate } from "react-router-dom"
@@ -37,7 +37,7 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
             userId: currentUser.id,
             exerciseId: exerciseId
         }
-        addUserExercise(userExercise).then(
+        addExerciseToEndOfOrder(userExercise).then(
             () =>
             {
                 if(onUserExercisesChanged)

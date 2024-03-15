@@ -1,4 +1,9 @@
 
+export const getUserExercises = () =>
+{
+    return fetch(`http://localhost:8088/userExercises`).then(res => res.json())
+}
+
 export const addUserExercise = (userExercise) =>
 {
     return fetch('http://localhost:8088/userExercises',
@@ -10,13 +15,43 @@ export const addUserExercise = (userExercise) =>
     ).then(res => res.json())
 }
 
+export const changeUserExercise = (userExercise) =>
+{
+    return fetch(`http://localhost:8088/userExercises/${userExercise.id}`,
+        {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userExercise)
+        }
+    ).then(res => res.json())
+}
+
+export const getUserExerciseById = (userExerciseId) =>
+{
+    return fetch(`http://localhost:8088/userExercises/${userExerciseId}`).then(res => res.json())
+}
+
 export const getUserExercisesByUserId = (userId) =>
 {
     return fetch(`http://localhost:8088/userExercises?userId=${userId}&_expand=exercise`).then(res => res.json())
 }
 
-export const removeUserExercise = (userExerciseId) =>
+export const removeUserExercise = async (userExerciseId) =>
 {
+    const removingUserExercise = await getUserExerciseById(userExerciseId)
+    const userExercises = await getUserExercises()
+
+    await userExercises.forEach(
+        async (userExercise) => 
+        {
+            if(userExercise.order > removingUserExercise.order)
+            {
+                userExercise.order -= 1
+                await changeUserExercise(userExercise)
+            }
+        }
+    )
+
     return fetch(`http://localhost:8088/userExercises/${userExerciseId}`,
         {
             method: "DELETE",
@@ -34,9 +69,9 @@ export const getUserExerciseByOrder = (order) =>
     return fetch(`http://localhost:8088/userExercises?order=${order}`).then(res => res.json())
 }
 
-export const switchOrderWithExerciseAbove = (userExercise) =>
+export const switchOrderWithExerciseAbove = async (userExercise) =>
 {
-    const userExerciseAbove = getUserExerciseByOrder(parseInt(userExercise.order) + 1)
+    const userExerciseAbove = await getUserExerciseByOrder(parseInt(userExercise.order) + 1)
 
     if(userExerciseAbove.length === 1)
     {
@@ -70,13 +105,54 @@ export const switchOrderWithExerciseAbove = (userExercise) =>
     }
 }
 
-export const switchOrderWithExerciseBelow = (userExercise) =>
+export const switchOrderWithExerciseBelow = async (userExercise) =>
 {
-    return fetch(`http://localhost:8088/userExercises/${userExercise.id}`,
+    const userExerciseAbove = await getUserExerciseByOrder(parseInt(userExercise.order) - 1)
+
+    if(userExerciseAbove.length === 1)
+    {
+        const newUserExerciseAbove =
         {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userExercise)
+            ...userExerciseAbove,
+            order: userExerciseAbove.order + 1
         }
-    )
+
+        const newUserExercise =
+        {
+            ...userExercise,
+            order: userExercise.order - 1
+        }
+
+        fetch(`http://localhost:8088/userExercises/${userExerciseAbove.id}`,
+            {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newUserExerciseAbove)
+            }
+        )
+
+        fetch(`http://localhost:8088/userExercises/${newUserExercise.id}`,
+            {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newUserExercise)
+            }
+        )
+    }
+}
+
+export const getLastOrder = async () =>
+{
+    const userExercises = await getUserExercises()
+
+    const lastOrder = userExercises.reduce((order, userExercise) => Math.max(order, parseInt(userExercise.order)), 0)
+
+    return lastOrder
+}
+
+export const addExerciseToEndOfOrder = async (userExercise) =>
+{
+    const lastOrder = await getLastOrder()
+    userExercise.order = lastOrder + 1
+    addUserExercise(userExercise)
 }
