@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import ExercisesList from "../components/ExercisesList/ExercisesList"
 import { getUserExercisesByUserId } from "../services/userExerciseService"
+import PlaylistExerciseList from "../components/PlaylistExerciseList/PlaylistExerciseList"
 
 const Playlist = ({ currentUser }) =>
 {
@@ -33,7 +34,7 @@ const Playlist = ({ currentUser }) =>
     )
 
     return <div className="flex justify-center items-center flex-col w-full">
-        <ExercisesList currentUser={currentUser} exercises={exercises} onUserExercisesChanged={onUserExercisesChanged} />
+        <PlaylistExerciseList currentUser={currentUser} exercises={exercises} onUserExercisesChanged={onUserExercisesChanged} />
     </div>
 }
 
