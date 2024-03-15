@@ -40,7 +40,13 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
         addUserExercise(userExercise).then(
             () =>
             {
-                onUserExercisesChanged().then(fetchAndSetUserExercises)
+                if(onUserExercisesChanged)
+                {
+                    onUserExercisesChanged().then(fetchAndSetUserExercises)
+                } else 
+                {
+                    fetchAndSetUserExercises()
+                }
             }
         )
     }
@@ -50,7 +56,13 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
         removeUserExercise(userExerciseId).then(
             () =>
             {
-                onUserExercisesChanged().then(fetchAndSetUserExercises)
+                if(onUserExercisesChanged)
+                {
+                    onUserExercisesChanged().then(fetchAndSetUserExercises)
+                } else 
+                {
+                    fetchAndSetUserExercises()
+                }
             }
         )
     }

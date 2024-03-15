@@ -26,7 +26,6 @@ const Exercises = ({ currentUser }) =>
             <div>
 
             </div>
-
             <div className="flex justify-center items-center flex-col">
                 <CreateExerciseButton />
                 <ExercisesList currentUser={currentUser} exercises={allExercises} />

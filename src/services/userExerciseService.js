@@ -18,8 +18,13 @@ export const getUserExercisesByUserId = (userId) =>
 export const removeUserExercise = (userExerciseId) =>
 {
     return fetch(`http://localhost:8088/userExercises/${userExerciseId}`,
-    {
-        method: "DELETE",
-    }
+        {
+            method: "DELETE",
+        }
     ).then(res => res.json())
+}
+
+export const getUserExerciseByUserIdAndExerciseId = (exerciseId, userId) =>
+{
+    return fetch(`http://localhost:8088/userExercises?userId=${userId}&exerciseId=${exerciseId}`).then(res => res.json())
 }
