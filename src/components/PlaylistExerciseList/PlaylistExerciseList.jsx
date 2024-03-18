@@ -43,6 +43,12 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
         )
     }
 
+    const onUserExerciseSorted = () =>
+    {
+        fetchAndSetUserExercises()
+        onUserExercisesChanged()
+    }
+
     return (
         <div className="flex justify-center items-center flex-col w-full">
             {
@@ -60,7 +66,7 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                         return (
                             <div className="flex w-9/12 justify-center" key={exercise.id}>
                                 <div className={marginAroundListClass}>
-                                    {thisUserExercise && <SortButtons userExercise={thisUserExercise} onExerciseSorted={fetchAndSetUserExercises} />}
+                                    {thisUserExercise && <SortButtons userExercise={thisUserExercise} onUserExerciseSorted={onUserExerciseSorted} />}
                                 </div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
                                 <div className={`flex ${marginAroundListClass}`}>

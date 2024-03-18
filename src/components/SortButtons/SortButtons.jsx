@@ -1,21 +1,21 @@
 import { switchOrderWithExerciseAbove, switchOrderWithExerciseBelow } from "../../services/userExerciseService"
 
 
-const SortButtons = ({ userExercise, onExerciseSorted }) =>
+const SortButtons = ({ userExercise, onUserExerciseSorted }) =>
 {
 
     return <div className="flex flex-col">
         <button onClick={
             () => 
             {
-                switchOrderWithExerciseAbove(userExercise).then(onExerciseSorted)
+                switchOrderWithExerciseAbove(userExercise).then(onUserExerciseSorted)
             }
         }
         >move up</button>
         <button onClick={
             () => 
             {
-                switchOrderWithExerciseBelow(userExercise).then(onExerciseSorted)
+                switchOrderWithExerciseBelow(userExercise).then(onUserExerciseSorted)
             }
         }
         >move down</button>

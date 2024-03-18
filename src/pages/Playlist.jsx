@@ -15,6 +15,7 @@ const Playlist = ({ currentUser }) =>
                 {
                     if(userExercises)
                     {
+                        userExercises.sort((a, b) => b.order - a.order);
                         const gottenExercises = userExercises.map(userExercise => userExercise.exercise)
                         setExercises(gottenExercises)
                     }
