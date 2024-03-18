@@ -3,12 +3,19 @@ import '@testing-library/jest-dom'
 import { render, cleanup } from '@testing-library/react'
 import Playlist from '../src/pages/Playlist'
 import { act } from 'react-test-renderer'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
-jest.mock('../src/components/ExercisesList/ExercisesList')
-import ExercisesList from '../src/components/ExercisesList/ExercisesList'
+jest.mock('../src/components/PlaylistExerciseList/PlaylistExerciseList')
+import PlaylistExerciseList from '../src/components/PlaylistExerciseList/PlaylistExerciseList'
 
 jest.mock('../src/services/userExerciseService')
 import { getUserExercisesByUserId } from '../src/services/userExerciseService'
+
+jest.mock('../src/services/exerciseServices')
+import { getExercisesByUserId } from '../src/services/exerciseServices'
+
+jest.mock('../src/services/skillsService')
+import { getSkillById } from '../src/services/skillsService'
 
 let currentUser = { id: 1, username: "lincolnpepper" }
 
@@ -55,7 +62,9 @@ const fakeUserExercises = [
 beforeEach(
     async () =>
     {
-        getUserExercisesByUserId.mockImplementation(async () => fakeExercises)
+        getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
+        getExercisesByUserId.mockImplementation(async () => fakeExercises)
+        
     }
 )
 
@@ -74,7 +83,13 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<Playlist currentUser={currentUser} exercises={fakeExercises} />)
+            returnRender = await render(
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<Playlist currentUser={currentUser} exercises={fakeExercises} />} />
+                    </Routes>
+                </MemoryRouter>
+            )
         }
     )
     return returnRender
@@ -97,7 +112,7 @@ describe('Playlist works',
             {
                 const tree = await testRender()
 
-                expect(ExercisesList).toHaveBeenCalled()
+                expect(PlaylistExerciseList).toHaveBeenCalled()
             }
         )
 
@@ -106,7 +121,7 @@ describe('Playlist works',
             {
                 const tree = await testRender()
 
-                expect(ExercisesList.mock.calls[ExercisesList.mock.calls.length - 1][0]["exercises"]).toEqual(
+                expect(PlaylistExerciseList.mock.calls[PlaylistExerciseList.mock.calls.length - 1][0]["exercises"]).toEqual(
                     [
                         {
                             "name": "Add Exercise",

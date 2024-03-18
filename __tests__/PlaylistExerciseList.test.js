@@ -58,6 +58,7 @@ const onUserExercisesChanged = jest.fn().mockImplementation(async () => { })
 beforeEach(
     async () =>
     {
+        getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
         removeUserExercise.mockImplementation(async () => { })
         getUserExerciseByUserIdAndExerciseId.mockImplementation(async () => fakeUserExercises)
     }
@@ -142,7 +143,7 @@ describe('PlaylistExerciseList works',
             }
         )
 
-        
+
 
     }
 )

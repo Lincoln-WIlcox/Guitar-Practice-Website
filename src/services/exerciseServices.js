@@ -29,3 +29,8 @@ export const changeExercise = (exercise) =>
         }
     ).then(res => res.json())
 }
+
+export const getExercisesByUserId = (userId) =>
+{
+    return fetch(`http://localhost:8088/exercises?userId=${userId}`).then(res => res.json())
+}

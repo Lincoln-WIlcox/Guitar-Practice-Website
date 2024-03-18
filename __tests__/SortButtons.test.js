@@ -19,7 +19,8 @@ const fakeUserExercise = {
 beforeEach(
     () =>
     {
-
+        switchOrderWithExerciseAbove.mockImplementation(async () => { })
+        switchOrderWithExerciseBelow.mockImplementation(async () => { })
     }
 )
 
@@ -32,13 +33,15 @@ afterEach(
     }
 )
 
+const onExerciseSortedMock = jest.fn()
+
 const testRender = async () =>
 {
     let returnRender
     await act(
         async () =>
         {
-            returnRender = await render(<SortButtons userExercise={fakeUserExercise} />)
+            returnRender = await render(<SortButtons userExercise={fakeUserExercise} onExerciseSorted={onExerciseSortedMock} />)
         }
     )
     return returnRender
@@ -69,7 +72,7 @@ describe('SortButtons works',
             }
         )
 
-        it('calls switchOrderWithExerciseAbove, passing correct value, on sort up clicked',
+        it('calls switchOrderWithExerciseAbove, passing correct value, and calls onExerciseSorted callback, on sort up clicked',
             async () =>
             {
                 const tree = await testRender()
@@ -84,10 +87,11 @@ describe('SortButtons works',
                 )
 
                 expect(switchOrderWithExerciseAbove).toHaveBeenCalledWith(fakeUserExercise)
+                expect(onExerciseSortedMock).toHaveBeenCalled()
             }
         )
 
-        it('calls switchOrderWithExerciseBelow, passing correct value, on sort up clicked',
+        it('calls switchOrderWithExerciseBelow, passing correct value, and calls onExerciseSorted callback, on sort up clicked',
             async () =>
             {
                 const tree = await testRender()
@@ -102,6 +106,7 @@ describe('SortButtons works',
                 )
 
                 expect(switchOrderWithExerciseBelow).toHaveBeenCalledWith(fakeUserExercise)
+                expect(onExerciseSortedMock).toHaveBeenCalled()
             }
         )
     }

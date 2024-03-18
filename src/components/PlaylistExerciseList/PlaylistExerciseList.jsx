@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import MiniExercise from "../MiniExercise/MiniExercise"
 import { getUserExerciseByUserIdAndExerciseId, getUserExercisesByUserId, removeUserExercise } from "../../services/userExerciseService"
@@ -8,7 +8,27 @@ const marginAroundListClass = "w-4/12"
 
 const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }) =>
 {
+    const [userExercises, setUserExercises] = useState([])
+
     const navigate = useNavigate()
+
+    const fetchAndSetUserExercises = () =>
+    {
+        getUserExercisesByUserId(currentUser.id).then(
+            (gottenUserExercises) =>
+            {
+
+                setUserExercises(gottenUserExercises)
+            }
+        )
+    }
+
+    useEffect(
+        () =>
+        {
+            fetchAndSetUserExercises()
+        }, [currentUser]
+    )
 
     const onRemoveFromPlaylistPressed = (exerciseId) =>
     {
@@ -19,7 +39,6 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                 {
                     removeUserExercise(gottenExercises[0].id).then(onUserExercisesChanged)
                 }
-
             }
         )
     }
@@ -30,7 +49,7 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                 exercises?.map(
                     (exercise) =>
                     {
-                        let thisUserExercise = getUserExerciseByUserIdAndExerciseId(exercise.id, currentUser.id)
+                        let thisUserExercise = userExercises.find(userExercise => userExercise.exerciseId === exercise.id)
 
                         let editButton = <></>
                         if(exercise.userId == currentUser.id)
@@ -41,7 +60,7 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                         return (
                             <div className="flex w-9/12 justify-center" key={exercise.id}>
                                 <div className={marginAroundListClass}>
-                                    <SortButtons userExercise={thisUserExercise} />
+                                    {thisUserExercise && <SortButtons userExercise={thisUserExercise} onExerciseSorted={fetchAndSetUserExercises} />}
                                 </div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
                                 <div className={`flex ${marginAroundListClass}`}>

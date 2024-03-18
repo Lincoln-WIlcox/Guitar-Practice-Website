@@ -71,23 +71,30 @@ export const getUserExerciseByOrder = (order) =>
 
 export const switchOrderWithExerciseAbove = async (userExercise) =>
 {
-    const userExerciseAbove = await getUserExerciseByOrder(parseInt(userExercise.order) + 1)
+    debugger
+    const userExercisesAbove = await getUserExerciseByOrder(parseInt(userExercise.order) + 1)
 
-    if(userExerciseAbove.length === 1)
+    if(userExercisesAbove.length === 1)
     {
+        const userExerciseAbove = userExercisesAbove[0]
+
         const newUserExerciseAbove =
         {
-            ...userExerciseAbove,
+            id: userExerciseAbove.id,
+            userId: userExerciseAbove.userId,
+            exerciseId: userExerciseAbove.exerciseId,
             order: userExerciseAbove.order - 1
         }
 
         const newUserExercise =
         {
-            ...userExercise,
+            id: userExercise.id,
+            userId: userExercise.userId,
+            exerciseId: userExercise.exerciseId,
             order: userExercise.order + 1
         }
 
-        fetch(`http://localhost:8088/userExercises/${userExerciseAbove.id}`,
+        await fetch(`http://localhost:8088/userExercises/${newUserExerciseAbove.id}`,
             {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -95,7 +102,7 @@ export const switchOrderWithExerciseAbove = async (userExercise) =>
             }
         )
 
-        fetch(`http://localhost:8088/userExercises/${newUserExercise.id}`,
+        await fetch(`http://localhost:8088/userExercises/${newUserExercise.id}`,
             {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -107,31 +114,37 @@ export const switchOrderWithExerciseAbove = async (userExercise) =>
 
 export const switchOrderWithExerciseBelow = async (userExercise) =>
 {
-    const userExerciseAbove = await getUserExerciseByOrder(parseInt(userExercise.order) - 1)
+    const userExercisesBelow = await getUserExerciseByOrder(parseInt(userExercise.order) - 1)
 
-    if(userExerciseAbove.length === 1)
+    if(userExercisesBelow.length === 1)
     {
-        const newUserExerciseAbove =
+        const userExerciseBelow = userExercisesBelow[0]
+
+        const newUserExerciseBelow =
         {
-            ...userExerciseAbove,
-            order: userExerciseAbove.order + 1
+            id: userExerciseBelow.id,
+            userId: userExerciseBelow.userId,
+            exerciseId: userExerciseBelow.exerciseId,
+            order: userExerciseBelow.order + 1
         }
 
         const newUserExercise =
         {
-            ...userExercise,
+            id: userExercise.id,
+            userId: userExercise.userId,
+            exerciseId: userExercise.exerciseId,
             order: userExercise.order - 1
         }
 
-        fetch(`http://localhost:8088/userExercises/${userExerciseAbove.id}`,
+        await fetch(`http://localhost:8088/userExercises/${newUserExerciseBelow.id}`,
             {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newUserExerciseAbove)
+                body: JSON.stringify(newUserExerciseBelow)
             }
         )
 
-        fetch(`http://localhost:8088/userExercises/${newUserExercise.id}`,
+        await fetch(`http://localhost:8088/userExercises/${newUserExercise.id}`,
             {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
