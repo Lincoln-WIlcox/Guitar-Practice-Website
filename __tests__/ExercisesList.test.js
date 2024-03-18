@@ -9,7 +9,7 @@ jest.mock('../src/components/MiniExercise/MiniExercise.jsx')
 import MiniExercise from '../src/components/MiniExercise/MiniExercise.jsx'
 
 jest.mock('../src/services/userExerciseService.js')
-import { addUserExercise, getUserExercisesByUserId, removeUserExercise } from '../src/services/userExerciseService.js'
+import { addExerciseToEndOfOrder, getUserExercisesByUserId, removeUserExercise } from '../src/services/userExerciseService.js'
 
 const fakeExercises = [
     {
@@ -59,7 +59,7 @@ beforeEach(
     async () =>
     {
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
-        addUserExercise.mockImplementation(async () => { })
+        addExerciseToEndOfOrder.mockImplementation(async () => { })
         removeUserExercise.mockImplementation(async () => { })
     }
 )
@@ -156,7 +156,7 @@ describe('ExerciseList works',
                     }
                 )
 
-                expect(addUserExercise).toHaveBeenCalledWith(
+                expect(addExerciseToEndOfOrder).toHaveBeenCalledWith(
                     {
                         userId: 1,
                         exerciseId: 2

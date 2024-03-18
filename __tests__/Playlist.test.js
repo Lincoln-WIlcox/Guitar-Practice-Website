@@ -3,16 +3,17 @@ import '@testing-library/jest-dom'
 import { render, cleanup } from '@testing-library/react'
 import Playlist from '../src/pages/Playlist'
 import { act } from 'react-test-renderer'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
-jest.mock('../src/components/ExercisesList/ExercisesList')
-import ExercisesList from '../src/components/ExercisesList/ExercisesList'
+jest.mock('../src/components/PlaylistExerciseList/PlaylistExerciseList')
+import PlaylistExerciseList from '../src/components/PlaylistExerciseList/PlaylistExerciseList'
 
 jest.mock('../src/services/userExerciseService')
 import { getUserExercisesByUserId } from '../src/services/userExerciseService'
 
 let currentUser = { id: 1, username: "lincolnpepper" }
 
-const fakeExercises = [
+const fakeUserExercises = [
     {
         "userId": 1,
         "exerciseId": 4,
@@ -23,7 +24,8 @@ const fakeExercises = [
             "skillId": "2",
             "userId": 1,
             "id": 4
-        }
+        },
+        "order": 1
     },
     {
         "userId": 1,
@@ -35,27 +37,15 @@ const fakeExercises = [
             "description": "this should be perfectly editable... and it is!",
             "skillId": "2",
             "userId": 1
-        }
-    }
-]
-
-const fakeUserExercises = [
-    {
-        "id": 1,
-        "userId": 1,
-        "exerciseId": 1
-    },
-    {
-        "id": 2,
-        "userId": 1,
-        "exerciseId": 2
+        },
+        "order": 2
     }
 ]
 
 beforeEach(
     async () =>
     {
-        getUserExercisesByUserId.mockImplementation(async () => fakeExercises)
+        getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
     }
 )
 
@@ -74,7 +64,13 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<Playlist currentUser={currentUser} exercises={fakeExercises} />)
+            returnRender = await render(
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<Playlist currentUser={currentUser} />} />
+                    </Routes>
+                </MemoryRouter>
+            )
         }
     )
     return returnRender
@@ -97,7 +93,7 @@ describe('Playlist works',
             {
                 const tree = await testRender()
 
-                expect(ExercisesList).toHaveBeenCalled()
+                expect(PlaylistExerciseList).toHaveBeenCalled()
             }
         )
 
@@ -106,21 +102,21 @@ describe('Playlist works',
             {
                 const tree = await testRender()
 
-                expect(ExercisesList.mock.calls[ExercisesList.mock.calls.length - 1][0]["exercises"]).toEqual(
+                expect(PlaylistExerciseList.mock.calls[PlaylistExerciseList.mock.calls.length - 1][0]["exercises"]).toEqual(
                     [
-                        {
-                            "name": "Add Exercise",
-                            "description": "Add an exercise to complete this exercise.",
-                            "skillId": "2",
-                            "userId": 1,
-                            "id": 4
-                        },
                         {
                             "id": 7,
                             "name": "my brand new exercise title!",
                             "description": "this should be perfectly editable... and it is!",
                             "skillId": "2",
                             "userId": 1
+                        },
+                        {
+                            "name": "Add Exercise",
+                            "description": "Add an exercise to complete this exercise.",
+                            "skillId": "2",
+                            "userId": 1,
+                            "id": 4
                         }
                     ]
                 )

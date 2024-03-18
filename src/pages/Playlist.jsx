@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import ExercisesList from "../components/ExercisesList/ExercisesList"
+import PlaylistExerciseList from "../components/PlaylistExerciseList/PlaylistExerciseList"
 import { getUserExercisesByUserId } from "../services/userExerciseService"
 
 const Playlist = ({ currentUser }) =>
@@ -8,21 +8,20 @@ const Playlist = ({ currentUser }) =>
 
     const getAndSetUserExercises = () =>
     {
-        getUserExercisesByUserId(currentUser?.id).then(
-            (userExercises) =>
-            {
-                if(userExercises)
+        if(currentUser.id)
+        {
+            getUserExercisesByUserId(currentUser.id).then(
+                (userExercises) =>
                 {
-                    const newExercises = userExercises.map(userExercise => userExercise.exercise)
-                    setExercises(newExercises)
+                    if(userExercises)
+                    {
+                        userExercises.sort((a, b) => b.order - a.order);
+                        const gottenExercises = userExercises.map(userExercise => userExercise.exercise)
+                        setExercises(gottenExercises)
+                    }
                 }
-            }
-        )
-    }
-
-    const onUserExercisesChanged = () =>
-    {
-        getAndSetUserExercises()
+            )
+        }
     }
 
     useEffect(
@@ -33,7 +32,7 @@ const Playlist = ({ currentUser }) =>
     )
 
     return <div className="flex justify-center items-center flex-col w-full">
-        <ExercisesList currentUser={currentUser} exercises={exercises} onUserExercisesChanged={onUserExercisesChanged} />
+        <PlaylistExerciseList currentUser={currentUser} exercises={exercises} onUserExercisesChanged={getAndSetUserExercises} />
     </div>
 }
 
