@@ -41,7 +41,7 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<SortButtons userExercise={fakeUserExercise} onExerciseSorted={onExerciseSortedMock} />)
+            returnRender = await render(<SortButtons userExercise={fakeUserExercise} onUserExerciseSorted={onExerciseSortedMock} />)
         }
     )
     return returnRender

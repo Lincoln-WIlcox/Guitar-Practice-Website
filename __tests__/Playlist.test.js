@@ -11,15 +11,9 @@ import PlaylistExerciseList from '../src/components/PlaylistExerciseList/Playlis
 jest.mock('../src/services/userExerciseService')
 import { getUserExercisesByUserId } from '../src/services/userExerciseService'
 
-jest.mock('../src/services/exerciseServices')
-import { getExercisesByUserId } from '../src/services/exerciseServices'
-
-jest.mock('../src/services/skillsService')
-import { getSkillById } from '../src/services/skillsService'
-
 let currentUser = { id: 1, username: "lincolnpepper" }
 
-const fakeExercises = [
+const fakeUserExercises = [
     {
         "userId": 1,
         "exerciseId": 4,
@@ -30,7 +24,8 @@ const fakeExercises = [
             "skillId": "2",
             "userId": 1,
             "id": 4
-        }
+        },
+        "order": 1
     },
     {
         "userId": 1,
@@ -42,20 +37,8 @@ const fakeExercises = [
             "description": "this should be perfectly editable... and it is!",
             "skillId": "2",
             "userId": 1
-        }
-    }
-]
-
-const fakeUserExercises = [
-    {
-        "id": 1,
-        "userId": 1,
-        "exerciseId": 1
-    },
-    {
-        "id": 2,
-        "userId": 1,
-        "exerciseId": 2
+        },
+        "order": 2
     }
 ]
 
@@ -63,8 +46,6 @@ beforeEach(
     async () =>
     {
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
-        getExercisesByUserId.mockImplementation(async () => fakeExercises)
-        
     }
 )
 
@@ -86,7 +67,7 @@ const testRender = async () =>
             returnRender = await render(
                 <MemoryRouter>
                     <Routes>
-                        <Route path="/" element={<Playlist currentUser={currentUser} exercises={fakeExercises} />} />
+                        <Route path="/" element={<Playlist currentUser={currentUser} />} />
                     </Routes>
                 </MemoryRouter>
             )
@@ -124,18 +105,18 @@ describe('Playlist works',
                 expect(PlaylistExerciseList.mock.calls[PlaylistExerciseList.mock.calls.length - 1][0]["exercises"]).toEqual(
                     [
                         {
-                            "name": "Add Exercise",
-                            "description": "Add an exercise to complete this exercise.",
-                            "skillId": "2",
-                            "userId": 1,
-                            "id": 4
-                        },
-                        {
                             "id": 7,
                             "name": "my brand new exercise title!",
                             "description": "this should be perfectly editable... and it is!",
                             "skillId": "2",
                             "userId": 1
+                        },
+                        {
+                            "name": "Add Exercise",
+                            "description": "Add an exercise to complete this exercise.",
+                            "skillId": "2",
+                            "userId": 1,
+                            "id": 4
                         }
                     ]
                 )
