@@ -27,6 +27,9 @@ import CheckUserIsAuthor from '../src/CheckuserIsAuthor'
 jest.mock('../src/pages/Playlist/Playlist')
 import Playlist from '../src/pages/Playlist/Playlist'
 
+jest.mock('../src/pages/Practice/Practice')
+import Practice from '../src/pages/Practice/Practice'
+
 beforeEach(
     () =>
     {
@@ -50,6 +53,9 @@ beforeEach(
         )
         Playlist.mockReturnValue(
             <div data-testid="playlist-page" />
+        )
+        Practice.mockReturnValue(
+            <div data-testid="practice-page" />
         )
     }
 )
@@ -134,6 +140,16 @@ describe('pages should render when navigated to',
             }
         )
 
+        it('displays practice page',
+            async () =>
+            {
+                const history = createMemoryHistory({ initialEntries: ['/Practice'] })
+                const tree = await testRender(history)
+
+                expect(tree.getByTestId('practice-page')).toBeInTheDocument()
+            }
+        )
+
         it('displays navbar on other pages',
             async () =>
             {
@@ -153,7 +169,7 @@ describe('pages should render when navigated to',
             }
         )
 
-        it(('does not display navbar on home page'),
+        it('does not display navbar on home page',
             async () =>
             {
                 //the element in initialEntries defines what path we're on now

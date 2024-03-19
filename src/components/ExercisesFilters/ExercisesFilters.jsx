@@ -60,7 +60,7 @@ const ExercisesFilters = ({ onSkillSelected, onSearchQueryChanged, onShowMyExerc
         setShowMyExercisesChecked(false)
     }
 
-    return <div>
+    return <div className="flex space-x-4 mt-2">
         <SkillSelect onSkillSelected={setSelectedSkill} skills={allSkills} selectedSkill={selectedSkill} />
         <input type="search" placeholder="filter by name" className="text-black" onChange={onSearchChanged} value={searchQuery} />
         <div>
