@@ -3,7 +3,7 @@ import '@testing-library/jest-dom'
 import { cleanup, render } from '@testing-library/react'
 import { Route, Router, Routes } from 'react-router-dom'
 import { act } from 'react-test-renderer'
-import EditExercise from '../src/pages/EditExercise.jsx'
+import EditExercise from '../src/pages/EditExercise/EditExercise.jsx'
 import { createMemoryHistory } from 'history'
 
 jest.mock('../src/services/skillsService')

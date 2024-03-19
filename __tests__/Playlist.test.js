@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { render, cleanup } from '@testing-library/react'
-import Playlist from '../src/pages/Playlist'
+import Playlist from '../src/pages/Playlist/Playlist'
 import { act } from 'react-test-renderer'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 

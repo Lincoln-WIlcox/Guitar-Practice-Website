@@ -3,7 +3,7 @@ import '@testing-library/jest-dom'
 import { cleanup, render } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { act } from 'react-test-renderer'
-import Exercises from '../src/pages/Exercises.jsx'
+import Exercises from '../src/pages/Exercises/Exercises.jsx'
 
 jest.mock('../src/components/ExercisesList/ExercisesList.jsx')
 import ExercisesList from '../src/components/ExercisesList/ExercisesList.jsx'

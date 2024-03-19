@@ -6,26 +6,26 @@ import { render, cleanup } from '@testing-library/react'
 import { createMemoryHistory } from 'history';
 import { act } from 'react-test-renderer'
 
-jest.mock('../src/pages/Home')
-import Home from '../src/pages/Home'
+jest.mock('../src/pages/Home/Home')
+import Home from '../src/pages/Home/Home'
 
-jest.mock('../src/pages/Exercises')
-import Exercises from '../src/pages/Exercises'
+jest.mock('../src/pages/Exercises/Exercises')
+import Exercises from '../src/pages/Exercises/Exercises'
 
 jest.mock('../src/components/Navbar/Navbar')
 import Navbar from '../src/components/Navbar/Navbar'
 
-jest.mock('../src/pages/CreateExercise')
-import CreateExercise from '../src/pages/CreateExercise'
+jest.mock('../src/pages/CreateExercise/CreateExercise')
+import CreateExercise from '../src/pages/CreateExercise/CreateExercise'
 
-jest.mock('../src/pages/EditExercise')
-import EditExercise from '../src/pages/EditExercise'
+jest.mock('../src/pages/EditExercise/EditExercise')
+import EditExercise from '../src/pages/EditExercise/EditExercise'
 
 jest.mock('../src/CheckuserIsAuthor')
 import CheckUserIsAuthor from '../src/CheckuserIsAuthor'
 
-jest.mock('../src/pages/Playlist')
-import Playlist from '../src/pages/Playlist'
+jest.mock('../src/pages/Playlist/Playlist')
+import Playlist from '../src/pages/Playlist/Playlist'
 
 beforeEach(
     () =>

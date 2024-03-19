@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getUserByUsername } from "../services/userService"
+import { getUserByUsername } from "../../services/userService"
 import { useNavigate } from "react-router-dom"
 
 const sidesWidthClass = "w-20"

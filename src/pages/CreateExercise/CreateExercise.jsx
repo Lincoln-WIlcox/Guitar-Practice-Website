@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import "./CreateExercise.css"
-import { getSkills } from "../services/skillsService"
-import { addExercise } from "../services/exerciseServices"
+import { getSkills } from "../../services/skillsService"
+import { addExercise } from "../../services/exerciseServices"
 import { useNavigate } from "react-router-dom"
-import ExerciseFields from "../components/ExerciseFields/ExerciseFields"
+import ExerciseFields from "../../components/ExerciseFields/ExerciseFields"
 
 const CreateExercise = ({currentUser}) =>
 {

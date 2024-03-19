@@ -1,13 +1,13 @@
 import { Outlet, Route, Routes } from "react-router-dom"
-import Exercises from "./pages/Exercises"
-import CreateExercise from "./pages/CreateExercise"
+import Exercises from "./pages/Exercises/Exercises"
+import CreateExercise from "./pages/CreateExercise/CreateExercise"
 import CheckUserIsAuthor from "./CheckuserIsAuthor"
-import EditExercise from "./pages/EditExercise"
+import EditExercise from "./pages/EditExercise/EditExercise"
 import Navbar from "./components/Navbar/Navbar"
-import Home from "./pages/Home"
+import Home from "./pages/Home/Home"
 import { useEffect, useState } from "react"
 import { getUserById } from "./services/userService"
-import Playlist from "./pages/Playlist"
+import Playlist from "./pages/Playlist/Playlist"
 
 const AppViews = () =>
 {
