@@ -1,9 +1,9 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import Home from '../src/pages/Home'
+import Home from '../src/pages/Home/Home'
 import { fireEvent, render, cleanup } from '@testing-library/react'
-import Login from '../src/pages/Login'
+import Login from '../src/pages/Login/Login'
 import { act } from 'react-test-renderer'
 
 jest.mock('../src/services/userService')

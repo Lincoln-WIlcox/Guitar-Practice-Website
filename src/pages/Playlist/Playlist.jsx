@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import PlaylistExerciseList from "../components/PlaylistExerciseList/PlaylistExerciseList"
-import { getUserExercisesByUserId } from "../services/userExerciseService"
+import PlaylistExerciseList from "../../components/PlaylistExerciseList/PlaylistExerciseList"
+import { getUserExercisesByUserId } from "../../services/userExerciseService"
 
 const Playlist = ({ currentUser }) =>
 {

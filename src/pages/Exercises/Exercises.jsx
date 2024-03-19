@@ -1,9 +1,9 @@
-import ExercisesList from "../components/ExercisesList/ExercisesList"
+import ExercisesList from "../../components/ExercisesList/ExercisesList"
 import "./Exercises.css"
-import { getExercises } from "../services/exerciseServices"
-import CreateExerciseButton from "../components/CreateExerciseButton/CreateExerciseButton"
+import { getExercises } from "../../services/exerciseServices"
+import CreateExerciseButton from "../../components/CreateExerciseButton/CreateExerciseButton"
 import { useEffect, useState } from "react"
-import ExercisesFilters from "../components/ExercisesFilters/ExercisesFilters"
+import ExercisesFilters from "../../components/ExercisesFilters/ExercisesFilters"
 
 const Exercises = ({ currentUser }) =>
 {
