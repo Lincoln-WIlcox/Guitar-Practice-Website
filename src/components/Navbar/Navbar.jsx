@@ -11,7 +11,7 @@ const Navbar = () =>
 
     const onPracticeClicked = () =>
     {
-
+        navigate("/practice")
     }
 
     const onLogoutClicked = () =>
