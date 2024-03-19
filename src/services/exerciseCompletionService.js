@@ -27,3 +27,8 @@ export const getCompletedExercisesByUserId = (userId) =>
 {
     return fetch(`http://localhost:8088/completedExercises?userId=${userId}`).then(res => res.json())
 }
+
+export const getCompletedExerciseByExerciseIdAndUserId = (exerciseId, userId) =>
+{
+    return fetch(`http://localhost:8088/completedExercises?userId=${userId}&exerciseId=${exerciseId}`).then(res => res.json())
+}

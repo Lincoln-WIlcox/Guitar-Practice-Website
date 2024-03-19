@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import MiniExercise from "../MiniExercise/MiniExercise"
-import { addCompletedExercise, getCompletedExercisesByUserId, removedCompletedExercise } from "../../services/exerciseCompletionService"
+import { addCompletedExercise, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserId, removedCompletedExercise } from "../../services/exerciseCompletionService"
 
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
 const marginAroundListClass = "w-4/12"
 
-const PracticeExerciseList = ({ currentUser, exercises, onUserExercisesChanged }) =>
+const PracticeExerciseList = ({ currentUser, exercises }) =>
 {
     const [completedExercises, setCompletedExercises] = useState([])
 
@@ -24,7 +24,7 @@ const PracticeExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
         () =>
         {
             getAndSetCompletedExercises()
-        }
+        }, [currentUser]
     )
 
     const onCompletedCheckboxChanged = (event) =>
@@ -37,14 +37,21 @@ const PracticeExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                 exerciseId: event.target.value,
             }
 
-            addCompletedExercise(completedExercise).then(
-                getAndSetCompletedExercises()
-            )
+            addCompletedExercise(completedExercise).then(getAndSetCompletedExercises)
         } else
         {
-            removedCompletedExercise(event.target.value).then(
-                getAndSetCompletedExercises()
+            getCompletedExerciseByExerciseIdAndUserId(event.target.value, currentUser.id).then(
+                (gottenCompletedExercises) =>
+                {
+                    console.log(gottenCompletedExercises)
+                    if(gottenCompletedExercises.length === 1)
+                    {
+
+                        removedCompletedExercise(gottenCompletedExercises[0].id).then(getAndSetCompletedExercises)
+                    }
+                }
             )
+
         }
     }
 
@@ -54,7 +61,9 @@ const PracticeExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                 exercises?.map(
                     (exercise) =>
                     {
-                        let completedCheckbox = <input type="checkbox" checked={completedExercises.find(completedExercise => completedExercise.exerciseId === exercise.id) ? true : false} onChange={onCompletedCheckboxChanged} value={exercise.id} />
+                        let completedCheckbox = <input type="checkbox" checked={
+                            completedExercises.find(completedExercise => completedExercise.exerciseId == exercise.id) ? true : false
+                        } onChange={onCompletedCheckboxChanged} value={exercise.id} />
 
                         return (
                             <div className="flex w-9/12 justify-center" key={exercise.id}>

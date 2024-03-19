@@ -69,7 +69,7 @@ const testRender = async () =>
     return returnRender
 }
 
-describe('Practice works',
+describe('PracticeExerciseList works',
     () =>
     {
         it('renders',

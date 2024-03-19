@@ -42,7 +42,7 @@ const AppViews = () =>
             </Route>
             <Route path="playlist" element={<Playlist currentUser={currentUser} />} />
             <Route path="practice">
-                <Route index element={<Practice />} />
+                <Route index element={<Practice currentUser={currentUser} />} />
             </Route>
         </Route>
     </Routes>
