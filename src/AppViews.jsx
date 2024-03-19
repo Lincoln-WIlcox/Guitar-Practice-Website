@@ -8,6 +8,7 @@ import Home from "./pages/Home/Home"
 import { useEffect, useState } from "react"
 import { getUserById } from "./services/userService"
 import Playlist from "./pages/Playlist/Playlist"
+import Practice from "./pages/Practice"
 
 const AppViews = () =>
 {
@@ -40,6 +41,9 @@ const AppViews = () =>
                 } />
             </Route>
             <Route path="playlist" element={<Playlist currentUser={currentUser} />} />
+            <Route path="practice">
+                <Route index element={<Practice />} />
+            </Route>
         </Route>
     </Routes>
 }
