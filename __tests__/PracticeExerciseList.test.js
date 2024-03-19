@@ -42,7 +42,5 @@ describe('Practice works',
                 expect(completedCheckbox).toHaveBeenCalled()
             }
         )
-
-
     }
 )
