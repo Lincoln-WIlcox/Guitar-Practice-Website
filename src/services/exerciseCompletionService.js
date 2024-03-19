@@ -22,3 +22,8 @@ export const removedCompletedExercise = (exerciseId) =>
         }
     )
 }
+
+export const getCompletedExercisesByUserId = (userId) =>
+{
+    return fetch(`http://localhost:8088/completedExercises?userId=${userId}`).then(res => res.json())
+}

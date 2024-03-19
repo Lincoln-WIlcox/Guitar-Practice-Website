@@ -8,7 +8,7 @@ jest.mock('../src/components/MiniExercise/MiniExercise')
 import MiniExercise from '../src/components/MiniExercise/MiniExercise'
 
 jest.mock('../src/services/exerciseCompletionService')
-import { addCompletedExercise, removedCompletedExercise, getCompletedExercises } from '../src/services/exerciseCompletionService'
+import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId } from '../src/services/exerciseCompletionService'
 
 const fakeExercises = [
     {
@@ -51,7 +51,9 @@ const currentUser = { id: 1, username: "lincolnpepper" }
 beforeEach(
     () =>
     {
-        getCompletedExercises.mockImplementation(async () => fakeCompletedExercises)
+        getCompletedExercisesByUserId.mockImplementation(async () => fakeCompletedExercises)
+        addCompletedExercise.mockImplementation(async () => { })
+        removedCompletedExercise.mockImplementation(async () => { })
     }
 )
 
@@ -91,7 +93,7 @@ describe('Practice works',
             }
         )
 
-        it('adds an exercise completion on checkbox checked',
+        it('adds an exercise completion on checkbox checked, and gets completed exercises again',
             async () =>
             {
                 const tree = await testRender()
@@ -142,7 +144,7 @@ describe('Practice works',
                     }
                 )
 
-                expect(removedCompletedExercise).toHaveBeenCalledWith(1)
+                expect(removedCompletedExercise).toHaveBeenCalledWith("1")
             }
         )
     }

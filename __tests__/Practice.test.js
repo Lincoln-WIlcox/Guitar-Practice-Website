@@ -4,6 +4,9 @@ import { render } from '@testing-library/react'
 import Practice from '../src/pages/Practice/Practice'
 import { act } from 'react-test-renderer'
 
+jest.mock('../src/components/PracticeExerciseList/PracticeExerciseList')
+import PracticeExerciseList from '../src/components/PracticeExerciseList/PracticeExerciseList'
+
 const testRender = async () =>
 {
     let returnRender
@@ -33,7 +36,7 @@ describe('Practice works',
             {
                 const tree = await testRender()
 
-
+                expect(PracticeExerciseList).toHaveBeenCalled()
             }
         )
     }
