@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { render, cleanup, fireEvent } from '@testing-library/react'
-import Practice from '../src/pages/Practice/Practice'
+import PracticeExerciseList from '../src/components/PracticeExerciseList/PracticeExerciseList'
 import { act } from 'react-test-renderer'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<Practice />)
+            returnRender = await render(<PracticeExerciseList />)
         }
     )
     return returnRender

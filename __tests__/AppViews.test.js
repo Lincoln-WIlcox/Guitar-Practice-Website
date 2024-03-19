@@ -27,8 +27,8 @@ import CheckUserIsAuthor from '../src/CheckuserIsAuthor'
 jest.mock('../src/pages/Playlist/Playlist')
 import Playlist from '../src/pages/Playlist/Playlist'
 
-jest.mock('../src/pages/Practice')
-import Practice from '../src/pages/Practice'
+jest.mock('../src/pages/Practice/Practice')
+import Practice from '../src/pages/Practice/Practice'
 
 beforeEach(
     () =>

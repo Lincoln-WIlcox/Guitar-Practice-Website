@@ -8,7 +8,7 @@ import Home from "./pages/Home/Home"
 import { useEffect, useState } from "react"
 import { getUserById } from "./services/userService"
 import Playlist from "./pages/Playlist/Playlist"
-import Practice from "./pages/Practice"
+import Practice from "./pages/Practice/Practice"
 
 const AppViews = () =>
 {
