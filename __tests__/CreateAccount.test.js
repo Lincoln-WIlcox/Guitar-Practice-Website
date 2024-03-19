@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import CreateAccount from '../src/pages/CreateAccount'
+import CreateAccount from '../src/pages/CreateAccount/CreateAccount'
 import { render, cleanup, fireEvent } from '@testing-library/react'
 import { act } from 'react-test-renderer'
 

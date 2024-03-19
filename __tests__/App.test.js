@@ -6,11 +6,11 @@ import { render, cleanup } from '@testing-library/react'
 import { createMemoryHistory } from 'history';
 import { act } from 'react-test-renderer'
 
-jest.mock('../src/pages/Login')
-import Login from '../src/pages/Login'
+jest.mock('../src/pages/Login/Login.jsx')
+import Login from '../src/pages/Login/Login.jsx'
 
-jest.mock('../src/pages/CreateAccount')
-import CreateAccount from '../src/pages/CreateAccount'
+jest.mock('../src/pages/CreateAccount/CreateAccount.jsx')
+import CreateAccount from '../src/pages/CreateAccount/CreateAccount.jsx'
 
 beforeEach(
     () =>

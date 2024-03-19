@@ -1,17 +1,10 @@
 import './App.css'
 import './index.css'
-import { Outlet, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import Exercises from './pages/Exercises'
-import Navbar from './components/Navbar/Navbar'
-import CreateExercise from './pages/CreateExercise'
-import EditExercise from './pages/EditExercise'
-import CheckUserIsAuthor from './CheckuserIsAuthor'
-import Login from './pages/Login'
-import { useEffect, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Login from './pages/Login/Login'
 import AppViews from './AppViews'
 import Authorized from './Authorized'
-import CreateAccount from './pages/CreateAccount'
+import CreateAccount from './pages/CreateAccount/CreateAccount'
 
 function App()
 {

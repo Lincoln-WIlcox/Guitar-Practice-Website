@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import ExerciseFields from "../components/ExerciseFields/ExerciseFields"
+import ExerciseFields from "../../components/ExerciseFields/ExerciseFields"
 import { useNavigate, useParams } from "react-router-dom"
-import { changeExercise, getExerciseById } from "../services/exerciseServices"
-import { getSkills } from "../services/skillsService"
+import { changeExercise, getExerciseById } from "../../services/exerciseServices"
+import { getSkills } from "../../services/skillsService"
 
 const EditExercise = ({ currentUser }) =>
 {
