@@ -7,6 +7,28 @@ import ExercisesFilters from '../src/components/ExercisesFilters/ExercisesFilter
 jest.mock('../src/components/SkillSelect/SkillSelect')
 import SkillSelect from '../src/components/SkillSelect/SkillSelect'
 
+jest.mock('../src/services/skillsService')
+import { getSkills } from '../src/services/skillsService'
+
+const fakeSkills =
+    [
+        {
+            "id": 1,
+            "skill": "skill 1"
+        },
+        {
+            "id": 2,
+            "skill": "skill 2 2 2"
+        }
+    ]
+
+beforeEach(
+    () =>
+    {
+        getSkills.mockImplementation(async () => fakeSkills)
+    }
+)
+
 afterEach(
     () =>
     {
@@ -145,7 +167,7 @@ describe('ExercisesFilters component works',
                 //simulates changing the search filters
                 fireEvent.click(showMyExercisesCheckbox)
                 fireEvent.change(searchBar, { target: { value: "a change" } })
-                SkillSelect({"selectedSkill": 1})
+                SkillSelect({ "selectedSkill": 1 })
 
                 fireEvent.click(showAllButton)
 
@@ -153,6 +175,15 @@ describe('ExercisesFilters component works',
                 expect(searchBar.value).toBe("")
 
                 expect(SkillSelect.mock.calls[SkillSelect.mock.calls.length - 1][0]["selectedSkill"]).toBe(0)
+            }
+        )
+
+        it('passes all skills to skill select',
+            async () =>
+            {
+                const tree = await testRender()
+
+                expect(SkillSelect.mock.calls[SkillSelect.mock.calls.length - 1][0]["skills"]).toEqual(fakeSkills)
             }
         )
     }
