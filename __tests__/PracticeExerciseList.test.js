@@ -1,9 +1,11 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { render, cleanup, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import PracticeExerciseList from '../src/components/PracticeExerciseList/PracticeExerciseList'
 import { act } from 'react-test-renderer'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
+
+jest.mock('../src/components/MiniExercise/MiniExercise')
+import MiniExercise from '../src/components/MiniExercise/MiniExercise'
 
 const testRender = async () =>
 {
@@ -34,8 +36,13 @@ describe('Practice works',
             {
                 const tree = await testRender()
 
+                const completedCheckbox = tree.getByRole('checkbox')
 
+                expect(MiniExercise).toHaveBeenCalled()
+                expect(completedCheckbox).toHaveBeenCalled()
             }
         )
+
+
     }
 )
