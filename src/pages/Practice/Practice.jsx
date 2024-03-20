@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import PracticeExerciseList from "../../components/PracticeExerciseList/PracticeExerciseList"
 import { getUserExercisesByUserId } from "../../services/userExerciseService"
+import { useNavigate } from "react-router-dom"
 
 const Practice = ({ currentUser }) =>
 {
     const [exercises, setExercises] = useState([])
+
+    const navigate = useNavigate()
 
     useEffect(
         () =>
@@ -20,7 +23,13 @@ const Practice = ({ currentUser }) =>
         }, [currentUser]
     )
 
-    return <div className="flex justify-center">
+    const onPracticeClicked = () =>
+    {
+        navigate('/practice-exercises')
+    }
+
+    return <div className="flex flex-col items-center">
+        <button onClick={onPracticeClicked}>Start Practicing</button>
         <PracticeExerciseList exercises={exercises} currentUser={currentUser} />
     </div>
 }

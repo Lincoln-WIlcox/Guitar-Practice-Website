@@ -30,6 +30,9 @@ import Playlist from '../src/pages/Playlist/Playlist'
 jest.mock('../src/pages/Practice/Practice')
 import Practice from '../src/pages/Practice/Practice'
 
+jest.mock('../src/pages/DecideWhatToPractice/DecideWhatToPractice')
+import DecideWhatToPractice from '../src/pages/DecideWhatToPractice/DecideWhatToPractice'
+
 beforeEach(
     () =>
     {
@@ -56,6 +59,9 @@ beforeEach(
         )
         Practice.mockReturnValue(
             <div data-testid="practice-page" />
+        )
+        DecideWhatToPractice.mockReturnValue(
+            <div data-testid="practice-exercises-page" />
         )
     }
 )
@@ -147,6 +153,16 @@ describe('pages should render when navigated to',
                 const tree = await testRender(history)
 
                 expect(tree.getByTestId('practice-page')).toBeInTheDocument()
+            }
+        )
+
+        it('displays practice exercises page',
+            async () =>
+            {
+                const history = createMemoryHistory({ initialEntries: ['/practice-exercises'] })
+                const tree = await testRender(history)
+
+                expect(tree.getByTestId('practice-exercises-page')).toBeInTheDocument()
             }
         )
 
