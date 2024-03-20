@@ -97,28 +97,6 @@ const fakeCompletionsWithAllCompleted =
         }
     ]
 
-const fakeCompletionsWithAllCompletedOnWrongDate =
-    [
-        {
-            "userId": 1,
-            "exerciseId": "1",
-            "dateCompleted": "20240220",
-            "id": 1
-        },
-        {
-            "userId": 1,
-            "exerciseId": "2",
-            "dateCompleted": "20240220",
-            "id": 1
-        },
-        {
-            "userId": 1,
-            "exerciseId": "3",
-            "dateCompleted": "20240220",
-            "id": 1
-        }
-    ]
-
 const currentUser = { id: 1, username: "lincolnpepper" }
 
 beforeEach(
@@ -187,6 +165,43 @@ describe('DecideWhatToPractice',
                 const tree = await testRender()
 
                 expect(PracticeComplete).toHaveBeenCalled()
+            }
+        )
+
+        it('renders PracticeExercise, passing correct exercise when exercise complete callback is called',
+            async () =>
+            {
+                getCompletedExercisesByUserIdAndDate.mockImplementation(async () => [])
+
+                let mockOnExerciseCompleted = () => { }
+
+                PracticeExercise.mockImplementation(
+                    ({ exercise, onExerciseCompleted }) =>
+                    {
+                        mockOnExerciseCompleted = onExerciseCompleted
+                    }
+                )
+
+                const tree = await testRender()
+
+                getCompletedExercisesByUserIdAndDate.mockImplementation(async () => fakeCompletionsWithoutAllCompleted)
+
+                await act(
+                    async () =>
+                    {
+                        await mockOnExerciseCompleted()
+                    }
+                )
+
+                expect(PracticeExercise.mock.calls[PracticeExercise.mock.calls.length - 1][0]["exercise"]).toEqual(
+                    {
+                        "id": 3,
+                        "userId": 3,
+                        "skillId": 2,
+                        "name": "Exercise 3 3 3 3 3",
+                        "description": "Test"
+                    }
+                )
             }
         )
     }

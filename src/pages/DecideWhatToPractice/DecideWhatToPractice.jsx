@@ -63,7 +63,7 @@ const DecideWhatToPractice = ({ currentUser }) =>
     } else
     {
         return <div>
-            <PracticeExercise exercise={currentExercise} />
+            <PracticeExercise exercise={currentExercise} onExerciseCompleted={getAndSetCurrentExercise} />
         </div>
     }
 }
