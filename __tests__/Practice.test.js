@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { cleanup, render } from '@testing-library/react'
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import Practice from '../src/pages/Practice/Practice'
 import { act } from 'react-test-renderer'
 
@@ -9,6 +9,9 @@ import PracticeExerciseList from '../src/components/PracticeExerciseList/Practic
 
 jest.mock('../src/services/userExerciseService')
 import { getUserExercisesByUserId } from '../src/services/userExerciseService'
+
+jest.mock('react-router-dom')
+import { useNavigate } from 'react-router-dom'
 
 const fakeUserExercises = [
     {
@@ -43,9 +46,12 @@ const fakeUserExercises = [
 
 const currentUser = { id: 1, username: "lincolnpepper" }
 
+const mockNavigate = jest.fn()
+
 beforeEach(
     () =>
     {
+        useNavigate.mockImplementation(() => mockNavigate)
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
     }
 )
@@ -88,7 +94,10 @@ describe('Practice works',
             {
                 const tree = await testRender()
 
+                const practiceButton = tree.getByRole('button')
+
                 expect(PracticeExerciseList).toHaveBeenCalled()
+                expect(practiceButton).toBeInTheDocument()
             }
         )
 
@@ -100,6 +109,24 @@ describe('Practice works',
                 const exercises = fakeUserExercises.map(userExercise => userExercise.exercise)
 
                 expect(PracticeExerciseList.mock.calls[PracticeExerciseList.mock.calls.length - 1][0]["exercises"]).toEqual(exercises)
+            }
+        )
+
+        it('navigates to practice exercises on practice button pressed',
+            async () =>
+            {
+                const tree = await testRender()
+
+                const practiceButton = tree.getByRole('button')
+
+                await act(
+                    async () =>
+                    {
+                        await fireEvent.click(practiceButton)
+                    }
+                )
+
+                expect(mockNavigate).toHaveBeenCalledWith('/practice-exercises')
             }
         )
     }

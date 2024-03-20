@@ -22,7 +22,6 @@ const DecideWhatToPractice = ({ currentUser }) =>
                         const uncompletedUserExercises = userExercises.filter(userExercise =>
                             completedExercises.find(completedExercise => completedExercise.exerciseId == userExercise.exerciseId)
                                 ? false : true)
-                        console.log("uncompleted exercises", uncompletedUserExercises)
 
                         if(uncompletedUserExercises.length > 0)
                         {
@@ -38,8 +37,6 @@ const DecideWhatToPractice = ({ currentUser }) =>
                                     }
                                 }, uncompletedUserExercises[0]
                             )
-
-                            console.log("highest order exercise", highestOrderUncompletedExercise)
 
                             setCurrentExercise(highestOrderUncompletedExercise.exercise)
                         } else
