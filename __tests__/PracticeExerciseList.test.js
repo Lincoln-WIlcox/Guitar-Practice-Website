@@ -8,7 +8,7 @@ jest.mock('../src/components/MiniExercise/MiniExercise')
 import MiniExercise from '../src/components/MiniExercise/MiniExercise'
 
 jest.mock('../src/services/exerciseCompletionService')
-import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId, getCompletedExerciseByExerciseIdAndUserId } from '../src/services/exerciseCompletionService'
+import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserIdAndDate } from '../src/services/exerciseCompletionService'
 
 const fakeExercises = [
     {
@@ -37,21 +37,24 @@ const fakeExercises = [
     }
 ]
 
+const date = new Date()
+let day = date.getDate()
+let month = (date.getMonth() + 1).toString()
+let year = date.getFullYear()
+
+if(month.length < 2)
+{
+    month = `0${month}`
+}
+
+let fullDate = `${year}${month}${day}`
+
 const fakeCompletedExercises = [
     {
         "id": 1,
         "userId": 1,
         "exerciseId": 1,
-        "dateCompleted": "March 5 2024"
-    }
-]
-
-const fakeCompletedExercise = [
-    {
-        "userId": 1,
-        "exerciseId": "1",
-        "dateCompleted": "2024320",
-        "id": 1
+        "dateCompleted": fullDate
     }
 ]
 
@@ -60,8 +63,8 @@ const currentUser = { id: 1, username: "lincolnpepper" }
 beforeEach(
     () =>
     {
-        getCompletedExerciseByExerciseIdAndUserId.mockImplementation(async () => fakeCompletedExercise)
-        getCompletedExercisesByUserId.mockImplementation(async () => fakeCompletedExercises)
+        getCompletedExerciseByExerciseIdAndUserId.mockImplementation(async () => fakeCompletedExercises)
+        getCompletedExercisesByUserIdAndDate.mockImplementation(async () => fakeCompletedExercises)
         addCompletedExercise.mockImplementation(async () => { })
         removedCompletedExercise.mockImplementation(async () => { })
     }
@@ -133,5 +136,7 @@ describe('PracticeExerciseList works',
                 expect(removedCompletedExercise).toHaveBeenCalledWith(1)
             }
         )
+
+
     }
 )
