@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import MiniExercise from "../MiniExercise/MiniExercise"
-import { addCompletedExercise, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserId, getCompletedExercisesByUserIdAndDate, removedCompletedExercise } from "../../services/exerciseCompletionService"
+import { addCompletedExercise, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserIdAndDate, removedCompletedExercise } from "../../services/exerciseCompletionService"
 
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
 const marginAroundListClass = "w-4/12"
