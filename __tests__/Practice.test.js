@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { render } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
 import Practice from '../src/pages/Practice/Practice'
 import { act } from 'react-test-renderer'
 
@@ -47,6 +47,15 @@ beforeEach(
     () =>
     {
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
+    }
+)
+
+afterEach(
+    () =>
+    {
+        cleanup()
+        jest.clearAllMocks()
+        jest.restoreAllMocks()
     }
 )
 

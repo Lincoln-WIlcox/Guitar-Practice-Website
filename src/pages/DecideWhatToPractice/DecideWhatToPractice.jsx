@@ -12,7 +12,7 @@ const DecideWhatToPractice = ({ currentUser }) =>
 
     const getAndSetCurrentExercise = () =>
     {
-        getUserExercisesByUserId().then(
+        getUserExercisesByUserId(currentUser.id).then(
             (userExercises) =>
             {
                 const today = getDate()
@@ -22,6 +22,7 @@ const DecideWhatToPractice = ({ currentUser }) =>
                         const uncompletedUserExercises = userExercises.filter(userExercise =>
                             completedExercises.find(completedExercise => completedExercise.exerciseId == userExercise.exerciseId)
                                 ? false : true)
+                        console.log("uncompleted exercises", uncompletedUserExercises)
 
                         if(uncompletedUserExercises.length > 0)
                         {
@@ -37,6 +38,9 @@ const DecideWhatToPractice = ({ currentUser }) =>
                                     }
                                 }, uncompletedUserExercises[0]
                             )
+
+                            console.log("highest order exercise", highestOrderUncompletedExercise)
+
                             setCurrentExercise(highestOrderUncompletedExercise.exercise)
                         } else
                         {
@@ -51,19 +55,22 @@ const DecideWhatToPractice = ({ currentUser }) =>
     useEffect(
         () =>
         {
-            getAndSetCurrentExercise()
-        }, []
+            if(currentUser.id)
+            {
+                getAndSetCurrentExercise()
+            }
+        }, [currentUser]
     )
 
     if(exercisesComplete)
     {
-        return <div>
+        return <div className="flex justify-center mt-5">
             <PracticeComplete />
         </div>
     } else
     {
-        return <div>
-            <PracticeExercise exercise={currentExercise} onExerciseCompleted={getAndSetCurrentExercise} />
+        return <div className="flex justify-center mt-5">
+            <PracticeExercise currentUser={currentUser} exercise={currentExercise} onExerciseCompleted={getAndSetCurrentExercise} />
         </div>
     }
 }
