@@ -11,6 +11,9 @@ import MiniExercise from '../src/components/MiniExercise/MiniExercise.jsx'
 jest.mock('../src/services/userExerciseService.js')
 import { getUserExercisesByUserId, removeUserExercise, getUserExerciseByUserIdAndExerciseId } from '../src/services/userExerciseService.js'
 
+jest.mock('../src/services/exerciseCompletionService.js')
+import { getCompletedExerciseByExerciseIdAndUserId } from '../src/services/exerciseCompletionService.js'
+
 const fakeExercises = [
     {
         "id": 1,
@@ -56,14 +59,23 @@ let currentUser = { id: 1, username: "lincolnpepper" }
 const onUserExercisesChanged = jest.fn().mockImplementation(async () => { })
 
 beforeEach(
-    async () =>
+    () =>
     {
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
         removeUserExercise.mockImplementation(async () => { })
         getUserExerciseByUserIdAndExerciseId.mockImplementation(async () => fakeUserExercises)
+        getCompletedExerciseByExerciseIdAndUserId.mockImplementation(async () => fakeCompletedExercise)
     }
 )
 
+afterEach(
+    () =>
+    {
+        cleanup()
+        jest.clearAllMocks()
+        jest.restoreAllMocks()
+    }
+)
 
 const testRender = async () =>
 {

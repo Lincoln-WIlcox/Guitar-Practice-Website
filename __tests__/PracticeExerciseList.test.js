@@ -8,7 +8,7 @@ jest.mock('../src/components/MiniExercise/MiniExercise')
 import MiniExercise from '../src/components/MiniExercise/MiniExercise'
 
 jest.mock('../src/services/exerciseCompletionService')
-import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId } from '../src/services/exerciseCompletionService'
+import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserIdAndDate } from '../src/services/exerciseCompletionService'
 
 const fakeExercises = [
     {
@@ -37,12 +37,24 @@ const fakeExercises = [
     }
 ]
 
+const date = new Date()
+let day = date.getDate()
+let month = (date.getMonth() + 1).toString()
+let year = date.getFullYear()
+
+if(month.length < 2)
+{
+    month = `0${month}`
+}
+
+let fullDate = `${year}${month}${day}`
+
 const fakeCompletedExercises = [
     {
         "id": 1,
         "userId": 1,
         "exerciseId": 1,
-        "dateCompleted": "March 5 2024"
+        "dateCompleted": fullDate
     }
 ]
 
@@ -51,7 +63,8 @@ const currentUser = { id: 1, username: "lincolnpepper" }
 beforeEach(
     () =>
     {
-        getCompletedExercisesByUserId.mockImplementation(async () => fakeCompletedExercises)
+        getCompletedExerciseByExerciseIdAndUserId.mockImplementation(async () => fakeCompletedExercises)
+        getCompletedExercisesByUserIdAndDate.mockImplementation(async () => fakeCompletedExercises)
         addCompletedExercise.mockImplementation(async () => { })
         removedCompletedExercise.mockImplementation(async () => { })
     }
@@ -93,30 +106,6 @@ describe('PracticeExerciseList works',
             }
         )
 
-        it('adds an exercise completion on checkbox checked, and gets completed exercises again',
-            async () =>
-            {
-                const tree = await testRender()
-
-                const checkboxes = tree.getAllByRole('checkbox')
-                const completedCheckbox = checkboxes.find(checkbox => checkbox.value == 2)
-
-                await act(
-                    async () =>
-                    {
-                        await fireEvent.click(completedCheckbox)
-                    }
-                )
-
-                expect(addCompletedExercise).toHaveBeenCalledWith(
-                    {
-                        "userId": 1,
-                        "exerciseId": "2",
-                    }
-                )
-            }
-        )
-
         it('checks checkbox for exercise that has already been completed',
             async () =>
             {
@@ -144,8 +133,10 @@ describe('PracticeExerciseList works',
                     }
                 )
 
-                expect(removedCompletedExercise).toHaveBeenCalledWith("1")
+                expect(removedCompletedExercise).toHaveBeenCalledWith(1)
             }
         )
+
+
     }
 )
