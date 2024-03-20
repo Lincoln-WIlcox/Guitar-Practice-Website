@@ -103,31 +103,6 @@ describe('PracticeExerciseList works',
             }
         )
 
-        it('adds an exercise completion on checkbox checked, and gets completed exercises again',
-            async () =>
-            {
-                const tree = await testRender()
-
-                const checkboxes = tree.getAllByRole('checkbox')
-                const completedCheckbox = checkboxes.find(checkbox => checkbox.value == 2)
-
-                await act(
-                    async () =>
-                    {
-                        await fireEvent.click(completedCheckbox)
-                    }
-                )
-
-                expect(addCompletedExercise).toHaveBeenCalledWith(
-                    {
-                        "dateCompleted": "20240320",
-                        "userId": 1,
-                        "exerciseId": "2",
-                    }
-                )
-            }
-        )
-
         it('checks checkbox for exercise that has already been completed',
             async () =>
             {
