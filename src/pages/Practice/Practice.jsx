@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import PracticeExerciseList from "../../components/PracticeExerciseList/PracticeExerciseList"
-import { getExercisesByUserId } from "../../services/exerciseServices"
+import { getUserExercisesByUserId } from "../../services/userExerciseService"
 
 const Practice = ({ currentUser }) =>
 {
@@ -9,10 +9,11 @@ const Practice = ({ currentUser }) =>
     useEffect(
         () =>
         {
-            getExercisesByUserId(currentUser.id).then(
-                (gottenExercises) =>
+            getUserExercisesByUserId(currentUser.id).then(
+                (gottenUserExercises) =>
                 {
-                    console.log(gottenExercises)
+                    gottenUserExercises.sort((a, b) => b.order - a.order);
+                    const gottenExercises = gottenUserExercises.map(userExercise => userExercise.exercise)
                     setExercises(gottenExercises)
                 }
             )

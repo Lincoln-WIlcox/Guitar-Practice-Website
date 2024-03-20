@@ -17,7 +17,6 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
         getUserExercisesByUserId(currentUser.id).then(
             (gottenUserExercises) =>
             {
-
                 setUserExercises(gottenUserExercises)
             }
         )

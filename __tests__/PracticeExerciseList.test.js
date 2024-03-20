@@ -8,7 +8,7 @@ jest.mock('../src/components/MiniExercise/MiniExercise')
 import MiniExercise from '../src/components/MiniExercise/MiniExercise'
 
 jest.mock('../src/services/exerciseCompletionService')
-import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId } from '../src/services/exerciseCompletionService'
+import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId, getCompletedExerciseByExerciseIdAndUserId } from '../src/services/exerciseCompletionService'
 
 const fakeExercises = [
     {
@@ -46,11 +46,21 @@ const fakeCompletedExercises = [
     }
 ]
 
+const fakeCompletedExercise = [
+    {
+        "userId": 1,
+        "exerciseId": "1",
+        "dateCompleted": "2024320",
+        "id": 1
+    }
+]
+
 const currentUser = { id: 1, username: "lincolnpepper" }
 
 beforeEach(
     () =>
     {
+        getCompletedExerciseByExerciseIdAndUserId.mockImplementation(async () => fakeCompletedExercise)
         getCompletedExercisesByUserId.mockImplementation(async () => fakeCompletedExercises)
         addCompletedExercise.mockImplementation(async () => { })
         removedCompletedExercise.mockImplementation(async () => { })
@@ -110,6 +120,7 @@ describe('PracticeExerciseList works',
 
                 expect(addCompletedExercise).toHaveBeenCalledWith(
                     {
+                        "dateCompleted": "20240320",
                         "userId": 1,
                         "exerciseId": "2",
                     }
@@ -144,7 +155,7 @@ describe('PracticeExerciseList works',
                     }
                 )
 
-                expect(removedCompletedExercise).toHaveBeenCalledWith("1")
+                expect(removedCompletedExercise).toHaveBeenCalledWith(1)
             }
         )
     }
