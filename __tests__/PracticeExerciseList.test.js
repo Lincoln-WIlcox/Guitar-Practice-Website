@@ -9,6 +9,7 @@ import MiniExercise from '../src/components/MiniExercise/MiniExercise'
 
 jest.mock('../src/services/exerciseCompletionService')
 import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserIdAndDate } from '../src/services/exerciseCompletionService'
+import { getDate } from '../src/scripts/getDate'
 
 const fakeExercises = [
     {
@@ -37,17 +38,7 @@ const fakeExercises = [
     }
 ]
 
-const date = new Date()
-let day = date.getDate()
-let month = (date.getMonth() + 1).toString()
-let year = date.getFullYear()
-
-if(month.length < 2)
-{
-    month = `0${month}`
-}
-
-let fullDate = `${year}${month}${day}`
+const fullDate = getDate()
 
 const fakeCompletedExercises = [
     {
