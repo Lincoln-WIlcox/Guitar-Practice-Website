@@ -18,7 +18,6 @@ const PracticeComplete = ({ currentUser }) =>
                 getLevelAndExpOfUserBeforeToday(currentUser.id).then(
                     (levelAndExpBeforeToday) =>
                     {
-                        debugger
                         if(levelAndExp.level > levelAndExpBeforeToday.level)
                         {
                             setLeveledUp(true)
@@ -43,7 +42,10 @@ const PracticeComplete = ({ currentUser }) =>
     useEffect(
         () =>
         {
-            getAndSetLevelAndExp()
+            if(currentUser)
+            {
+                getAndSetLevelAndExp()
+            }
         }, [currentUser]
     )
 
