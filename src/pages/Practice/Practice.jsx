@@ -9,6 +9,7 @@ const Practice = ({ currentUser }) =>
     const [exercises, setExercises] = useState([])
     const [level, setLevel] = useState(0)
     const [expPercentage, setExpPercentage] = useState(0)
+    const [exp, setExp] = useState(0)
 
     const navigate = useNavigate()
 
@@ -18,7 +19,7 @@ const Practice = ({ currentUser }) =>
             (levelAndExp) =>
             {
                 setLevel(levelAndExp.level)
-
+                setExp(levelAndExp.exp)
                 setExpPercentage((levelAndExp.exp / levelAndExp.expToLevelUp) * 100)
             }
         )
@@ -55,7 +56,8 @@ const Practice = ({ currentUser }) =>
     return <div className="flex flex-col items-center">
         <p>Level: {level}</p>
         <div className="flex w-96 justify-start">
-            <div className="expBar h-5 bg-cyan-600" style={{width: `${expPercentage}%`}}/>
+            <div className="flex justify-center expBar h-5 bg-cyan-600" style={{width: `${expPercentage}%`}}/>
+            <p className="absolute text-center w-96">XP - {exp}</p>
         </div>
         <button onClick={onPracticeClicked}>Start Practicing</button>
         <PracticeExerciseList exercises={exercises} currentUser={currentUser} onCompletedExercisesChanged={getAndSetLevelAndExp} />
