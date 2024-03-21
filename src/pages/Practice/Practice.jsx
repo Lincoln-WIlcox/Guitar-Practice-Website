@@ -21,6 +21,7 @@ const Practice = ({ currentUser }) =>
     )
 
     return <div className="flex justify-center">
+        
         <PracticeExerciseList exercises={exercises} currentUser={currentUser} />
     </div>
 }
