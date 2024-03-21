@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import MiniExercise from "../MiniExercise/MiniExercise"
-import { addCompletedExercise, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserId, getCompletedExercisesByUserIdAndDate, removedCompletedExercise } from "../../services/exerciseCompletionService"
+import { addCompletedExercise, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserIdAndDate, removedCompletedExercise } from "../../services/exerciseCompletionService"
+import { getDate } from "../../scripts/getDate"
 
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
 const marginAroundListClass = "w-4/12"
@@ -43,17 +43,7 @@ const PracticeExerciseList = ({ currentUser, exercises }) =>
     {
         if(event.target.checked)
         {
-            const date = new Date()
-            let day = date.getDate()
-            let month = (date.getMonth() + 1).toString()
-            let year = date.getFullYear()
-
-            if(month.length < 2)
-            {
-                month = `0${month}`
-            }
-
-            let fullDate = `${year}${month}${day}`
+            const fullDate = getDate()
 
             const completedExercise =
             {

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { getUserById } from "./services/userService"
 import Playlist from "./pages/Playlist/Playlist"
 import Practice from "./pages/Practice/Practice"
+import DecideWhatToPractice from "./pages/DecideWhatToPractice/DecideWhatToPractice"
 
 const AppViews = () =>
 {
@@ -44,6 +45,7 @@ const AppViews = () =>
             <Route path="practice">
                 <Route index element={<Practice currentUser={currentUser} />} />
             </Route>
+            <Route path="practice-exercises" element={<DecideWhatToPractice currentUser={currentUser} />} />
         </Route>
     </Routes>
 }
