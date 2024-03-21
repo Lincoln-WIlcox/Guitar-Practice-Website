@@ -40,20 +40,20 @@ const Home = ({ currentUser }) =>
             <div className="flex flex-col justify-evenly w-3/12 min-w-60 min-h-80 items-center 
             bg-stone-800  border-solid border-gray-300 border-2 my-shadow-dark">
                 <button className="w-fit h-fit p-5 text-2xl m-2 
-                border-solid border-gray-300 border-2 rounded-lg bg-violet-900 my-shadow-light" 
+                border-solid border-gray-300 border-2 rounded-lg my-button-alt my-shadow-light" 
                 data-testid="navigate-start" onClick={onStartPracticingClicked}>Start Practicing</button>
                 <div className="w-11/12 flex flex-wrap justify-center m-2">
                     <button className="w-fit h-fit p-4 m-2 text-lg 
-                    border-solid border-gray-300 border-2 rounded-lg bg-violet-900 my-shadow-light" 
+                    border-solid border-gray-300 border-2 rounded-lg my-shadow-light my-button" 
                     data-testid="navigate-playlist" onClick={onPlaylistClicked}>Playlist</button>
                     <button className="w-fit h-fit p-4 m-2 text-lg 
-                    border-solid border-gray-300 border-2 rounded-lg bg-violet-900 my-shadow-light" 
+                    border-solid border-gray-300 border-2 rounded-lg my-shadow-light my-button" 
                     data-testid="navigate-practice" onClick={onPracticeClicked}>Practice</button>
                     <button className="w-fit h-fit p-4 m-2 text-lg 
-                    border-solid border-gray-300 border-2 rounded-lg bg-violet-900 my-shadow-light" 
+                    border-solid border-gray-300 border-2 rounded-lg my-shadow-light my-button" 
                     data-testid="navigate-logout" onClick={onLogoutClicked}>Logout</button>
                     <button className="w-fit h-fit p-4 m-2 text-lg 
-                    border-solid border-gray-300 border-2 rounded-lg bg-violet-900 my-shadow-light" 
+                    border-solid border-gray-300 border-2 rounded-lg  my-shadow-light my-button" 
                     data-testid="navigate-exercise" onClick={onExercisesClicked}>Exercises</button>
                 </div>
             </div>
