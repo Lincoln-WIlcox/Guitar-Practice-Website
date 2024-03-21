@@ -13,6 +13,9 @@ import { getUserExercisesByUserId } from '../src/services/userExerciseService'
 jest.mock('react-router-dom')
 import { useNavigate } from 'react-router-dom'
 
+jest.mock('../src/scripts/Experience')
+import { getLevelAndExpOfUser } from '../src/scripts/Experience'
+
 const fakeUserExercises = [
     {
         "id": 1,
@@ -48,9 +51,12 @@ const currentUser = { id: 1, username: "lincolnpepper" }
 
 const mockNavigate = jest.fn()
 
+const levelAndExp = { level: 1, exp: 50 }
+
 beforeEach(
     () =>
     {
+        getLevelAndExpOfUser.mockImplementation(async () => levelAndExp)
         useNavigate.mockImplementation(() => mockNavigate)
         getUserExercisesByUserId.mockImplementation(async () => fakeUserExercises)
     }

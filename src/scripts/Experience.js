@@ -1,6 +1,6 @@
 import { getCompletedExercisesByUserId } from "../services/exerciseCompletionService"
 
-const totalExpMultipler = 50
+const totalExpMultiplier = 50
 
 const initialExpToLevelUp = 200
 const expToLevelUpAdder = 50
@@ -10,23 +10,24 @@ export const getLevelAndExpOfUser = async (userId) =>
 {
     const completedExercisesForUser = await getCompletedExercisesByUserId(userId)
 
-    let remainingExp = completedExercisesForUser.length * totalExpMultipler
+    let remainingExp = completedExercisesForUser.length * totalExpMultiplier
 
-    let xpToLevelUp = initialExpToLevelUp
+    let expToLevelUp = initialExpToLevelUp
 
     let level = 0
 
-    while(remainingExp > xpToLevelUp)
+    while(remainingExp > expToLevelUp)
     {
         level++
-        remainingExp -= xpToLevelUp
-        xpToLevelUp = Math.round((xpToLevelUp + expToLevelUpAdder) * expToLevelUpMultiplier)
+        remainingExp -= expToLevelUp
+        expToLevelUp = Math.round((expToLevelUp + expToLevelUpAdder) * expToLevelUpMultiplier)
     }
 
     const levelAndExp =
     {
         level: level,
-        xp: remainingExp
+        exp: remainingExp,
+        expToLevelUp: expToLevelUp
     }
 
     return levelAndExp

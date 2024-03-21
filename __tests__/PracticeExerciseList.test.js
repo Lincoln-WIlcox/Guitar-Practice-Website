@@ -8,7 +8,7 @@ jest.mock('../src/components/MiniExercise/MiniExercise')
 import MiniExercise from '../src/components/MiniExercise/MiniExercise'
 
 jest.mock('../src/services/exerciseCompletionService')
-import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserId, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserIdAndDate } from '../src/services/exerciseCompletionService'
+import { addCompletedExercise, removedCompletedExercise, getCompletedExercisesByUserIdAndDate, getCompletedExerciseByExerciseIdAndUserIdAndDate } from '../src/services/exerciseCompletionService'
 import { getDate } from '../src/scripts/getDate'
 
 const fakeExercises = [
@@ -49,12 +49,14 @@ const fakeCompletedExercises = [
     }
 ]
 
+const mockOnCompletedExercisesChanged = jest.fn()
+
 const currentUser = { id: 1, username: "lincolnpepper" }
 
 beforeEach(
     () =>
     {
-        getCompletedExerciseByExerciseIdAndUserId.mockImplementation(async () => fakeCompletedExercises)
+        getCompletedExerciseByExerciseIdAndUserIdAndDate.mockImplementation(async () => fakeCompletedExercises)
         getCompletedExercisesByUserIdAndDate.mockImplementation(async () => fakeCompletedExercises)
         addCompletedExercise.mockImplementation(async () => { })
         removedCompletedExercise.mockImplementation(async () => { })
@@ -67,7 +69,7 @@ const testRender = async () =>
     await act(
         async () =>
         {
-            returnRender = await render(<PracticeExerciseList exercises={fakeExercises} currentUser={currentUser} />)
+            returnRender = await render(<PracticeExerciseList exercises={fakeExercises} currentUser={currentUser} onCompletedExercisesChanged={mockOnCompletedExercisesChanged} />)
         }
     )
     return returnRender

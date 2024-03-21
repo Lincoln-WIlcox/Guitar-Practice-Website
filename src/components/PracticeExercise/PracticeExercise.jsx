@@ -17,9 +17,9 @@ const PracticeExercise = ({ currentUser, exercise, onExerciseCompleted }) =>
         addCompletedExercise(completedExercise).then(onExerciseCompleted)
     }
 
-    return <div className="flex flex-col space-y-5">
-        <h1>{exercise.name}</h1>
-        <p>{exercise.description}</p>
+    return <div className="flex w-7/12 flex-col space-y-5 justify-center items-center">
+        <h1 className="text-center">{exercise.name}</h1>
+        <p className="text-left w-fit">{exercise.description}</p>
         <button onClick={onCompleteClicked}>Complete</button>
     </div>
 }
