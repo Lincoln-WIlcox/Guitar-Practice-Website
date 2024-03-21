@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import MiniExercise from "../MiniExercise/MiniExercise"
-import { addCompletedExercise, getCompletedExerciseByExerciseIdAndUserId, getCompletedExercisesByUserIdAndDate, removedCompletedExercise } from "../../services/exerciseCompletionService"
+import { addCompletedExercise, getCompletedExerciseByExerciseIdAndUserId, getCompletedExerciseByExerciseIdAndUserIdAndDate, getCompletedExercisesByUserIdAndDate, removedCompletedExercise } from "../../services/exerciseCompletionService"
 import { getDate } from "../../scripts/getDate"
 
 //the left and right sides of the exercises list needs to be the same width, so i'm using a shared variable so i don't have to remember to do that to both
 const marginAroundListClass = "w-4/12"
 
-const PracticeExerciseList = ({ currentUser, exercises }) =>
+const PracticeExerciseList = ({ currentUser, exercises, onCompletedExercisesChanged }) =>
 {
     const [completedExercises, setCompletedExercises] = useState([])
 
@@ -39,33 +39,42 @@ const PracticeExerciseList = ({ currentUser, exercises }) =>
         }, [currentUser]
     )
 
-    const onCompletedCheckboxChanged = (event) =>
+    const onCompletedCheckboxChanged = async (event) =>
     {
         if(event.target.checked)
         {
-            const fullDate = getDate()
-
             const completedExercise =
             {
                 userId: currentUser.id,
                 exerciseId: event.target.value,
-                dateCompleted: fullDate
+                dateCompleted: getDate()
             }
 
-            addCompletedExercise(completedExercise).then(getAndSetCompletedExercises)
+            addCompletedExercise(completedExercise).then(
+                () =>
+                {
+                    getAndSetCompletedExercises()
+                    onCompletedExercisesChanged()
+                }
+            )
         } else
         {
-            getCompletedExerciseByExerciseIdAndUserId(event.target.value, currentUser.id).then(
+
+            getCompletedExerciseByExerciseIdAndUserIdAndDate(event.target.value, currentUser.id, getDate()).then(
                 (gottenCompletedExercises) =>
                 {
                     if(gottenCompletedExercises.length === 1)
                     {
-
-                        removedCompletedExercise(gottenCompletedExercises[0].id).then(getAndSetCompletedExercises)
+                        removedCompletedExercise(gottenCompletedExercises[0].id).then(
+                            () =>
+                            {
+                                getAndSetCompletedExercises()
+                                onCompletedExercisesChanged()
+                            }
+                        )
                     }
                 }
             )
-
         }
     }
 
