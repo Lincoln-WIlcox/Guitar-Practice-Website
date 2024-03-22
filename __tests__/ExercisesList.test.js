@@ -126,7 +126,7 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const addToPlaylistButton = tree.getAllByRole('button', { name: /add to playlist/i })[0]
+                const addToPlaylistButton = tree.getAllByTestId('add')[0]
 
                 expect(addToPlaylistButton).toBeInTheDocument()
             }
@@ -137,7 +137,7 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const editButton = tree.getAllByRole('button', { name: /edit/i })[0]
+                const editButton = tree.getAllByTestId('edit')[0]
 
                 expect(editButton).toBeInTheDocument()
             }
@@ -148,7 +148,7 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const addToPlaylistButton = tree.getAllByRole('button', { name: /add to playlist/i })[0]
+                const addToPlaylistButton = tree.getAllByTestId('add')[0]
                 await act(
                     async () =>
                     {
@@ -170,7 +170,7 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const removeFromPlaylistButton = tree.getAllByRole('button', { name: /remove from playlist/i })[0]
+                const removeFromPlaylistButton = tree.getAllByTestId('remove')[0]
 
                 expect(removeFromPlaylistButton).toBeInTheDocument()
             }
@@ -181,7 +181,7 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const removeFromPlaylistButton = tree.getAllByRole('button', { name: /remove from playlist/i })[0]
+                const removeFromPlaylistButton = tree.getAllByTestId('remove')[0]
                 await act(
                     async () =>
                     {
@@ -198,7 +198,7 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const addToPlaylistButton = tree.getAllByRole('button', { name: /add to playlist/i })[0]
+                const addToPlaylistButton = tree.getAllByTestId('add')[0]
                 await act(
                     async () =>
                     {
@@ -215,7 +215,7 @@ describe('ExerciseList works',
             {
                 const tree = await testRender()
 
-                const removeFromPlaylistButton = tree.getAllByRole('button', { name: /remove from playlist/i })[0]
+                const removeFromPlaylistButton = tree.getAllByTestId('remove')[0]
                 await act(
                     async () =>
                     {

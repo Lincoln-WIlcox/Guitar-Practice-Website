@@ -44,7 +44,7 @@ it('should render mini exercise',
         await act(
             async () =>
             {
-                miniExercise = render(<MiniExercise />)
+                miniExercise = render(<MiniExercise/>)
             }
         )
 
@@ -63,7 +63,7 @@ describe('testing expanding an exercise',
                 async () =>
                 {
                     returnRender = render(
-                        <MiniExercise />
+                        <MiniExercise description="test description" />
                     )
                 }
             )
@@ -73,19 +73,19 @@ describe('testing expanding an exercise',
         it('toggles expanded when clicked',
             async () =>
             {
+                const description = "test description"
                 const tree = await testRender()
 
                 const miniExercise = tree.getByTestId('MiniExercise')
 
-                expect(miniExercise.classList.contains('expanded')).toBeFalsy()
+                await act(
+                    async () =>
+                    {
+                        await fireEvent.click(miniExercise)
+                    }
+                )
 
-                fireEvent.click(miniExercise)
-
-                expect(miniExercise.classList.contains('expanded')).toBeTruthy()
-
-                fireEvent.click(miniExercise)
-
-                expect(miniExercise.classList.contains('expanded')).toBeFalsy()
+                expect(tree.getByText(description)).toBeInTheDocument()
             }
         )
     }
@@ -94,14 +94,14 @@ describe('testing expanding an exercise',
 describe('testing passing arguments',
     () =>
     {
-        const testRender = async (title, skill, author, description) =>
+        const testRender = async (title, skill, author) =>
         {
             let returnRender
             await act(
                 async () =>
                 {
                     returnRender = await render(
-                        <MiniExercise title={title} skill={skill} author={author} description={description} />
+                        <MiniExercise title={title} skill={skill} author={author} />
                     )
                 }
             )
@@ -114,13 +114,11 @@ describe('testing passing arguments',
                 const title = "test title"
                 const skill = 2
                 const author = 1
-                const description = "test description"
-                const tree = await testRender(title, skill, author, description)
+                const tree = await testRender(title, skill, author)
 
                 expect(tree.getByText(title)).toBeInTheDocument()
                 expect(tree.getByText("skill 2")).toBeInTheDocument()
                 expect(tree.getByText("Made By lincolnpepper")).toBeInTheDocument()
-                expect(tree.getByText(description)).toBeInTheDocument()
             }
         )
     }

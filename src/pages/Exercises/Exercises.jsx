@@ -72,7 +72,9 @@ const Exercises = ({ currentUser }) =>
         <div className="">
             <div className="flex justify-center items-center flex-col">
                 <ExercisesFilters onSkillSelected={onSkillSelected} onSearchQueryChanged={onSearchQueryChanged} onShowMyExercisesChanged={onShowMyExercisesChanged} />
-                <CreateExerciseButton />
+                <div className="w-5/12">
+                    <CreateExerciseButton />
+                </div>
                 <ExercisesList currentUser={currentUser} exercises={exercises} />
             </div>
 

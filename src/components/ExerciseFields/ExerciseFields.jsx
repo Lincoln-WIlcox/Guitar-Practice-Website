@@ -14,7 +14,7 @@ const ExerciseFields = ({ skills, skill, description, title, onExerciseTitleChan
         onDescriptionChanged(event.target.value)
     }
 
-    return <div>
+    return <div className="flex flex-col w-full items-center mt-10 space-y-5">
         <input className="bg-gray-900" type="text" placeholder="Exercise Title" value={title ? title : ""} onChange={onTitleInputChanged} />
         <input className="bg-gray-900" type="text" placeholder="Exercise Description" value={description ? description : ""} onChange={onDescriptionInputChanged} />
         <SkillSelect selectedSkill={skill} skills={skills} onSkillSelected={onSkillSelected} />
