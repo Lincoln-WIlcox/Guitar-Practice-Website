@@ -84,7 +84,7 @@ const PracticeExerciseList = ({ currentUser, exercises, onCompletedExercisesChan
                 exercises?.map(
                     (exercise) =>
                     {
-                        let completedCheckbox = <input type="checkbox" checked={
+                        let completedCheckbox = <input type="checkbox" className="size-4" checked={
                             completedExercises.find(completedExercise => completedExercise.exerciseId == exercise.id) ? true : false
                         } onChange={onCompletedCheckboxChanged} value={exercise.id} />
 
@@ -92,7 +92,7 @@ const PracticeExerciseList = ({ currentUser, exercises, onCompletedExercisesChan
                             <div className="flex w-9/12 justify-center" key={exercise.id}>
                                 <div className={marginAroundListClass}></div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
-                                <div className={`flex ${marginAroundListClass}`}>
+                                <div className={`flex ${marginAroundListClass} items-center`}>
                                     {completedCheckbox}
                                 </div>
                             </div>

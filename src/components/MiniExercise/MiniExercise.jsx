@@ -44,7 +44,7 @@ const MiniExercise = ({ title, skill, author, description }) =>
     }
 
     return (
-        <div data-testid="MiniExercise" onClick={onExerciseClicked} className={"w-full overflow-hidden m-2 "}>
+        <div data-testid="MiniExercise" onClick={onExerciseClicked} className="w-full m-2">
             {
                 width > 600 ?
                     <div className="flex justify-center w-full max-w-full mb-2 flex-wrap lg:flex-nowrap my-border bg-stone-800 my-shadow-dark -z-10">

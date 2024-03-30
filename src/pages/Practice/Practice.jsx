@@ -51,15 +51,18 @@ const Practice = ({ currentUser }) =>
         navigate('/practice-exercises')
     }
 
-    const expBarClass = "2"
-
-    return <div className="flex flex-col items-center">
-        <p>Level: {level}</p>
-        <div className="flex w-96 justify-start">
-            <div className="flex justify-center expBar h-5 bg-cyan-600" style={{width: `${expPercentage}%`}}/>
-            <p className="absolute text-center w-96">XP - {exp}</p>
+    return <div className="flex flex-col items-center h-screen">
+        <div className="flex flex-col items-center p-3 h-1/6 justify-around">
+            <p className="text-2xl">Level: {level}</p>
+            <div className="flex w-96 justify-center items-center">
+                <div className="w-full my-border bg-gray-900 my-shadow-light">
+                    <div className="flex justify-center expBar h-5 bg-cyan-600" style={{ width: `${expPercentage}%` }} />
+                </div>
+                <p className="absolute text-center w-96">XP - {exp}</p>
+            </div>
         </div>
-        <button onClick={onPracticeClicked}>Start Practicing</button>
+
+        <button className="my-button p-2 text-lg m-4 my-shadow-light" onClick={onPracticeClicked}>Start Practicing</button>
         <PracticeExerciseList exercises={exercises} currentUser={currentUser} onCompletedExercisesChanged={getAndSetLevelAndExp} />
     </div>
 }

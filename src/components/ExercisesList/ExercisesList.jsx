@@ -53,6 +53,7 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
 
     const onRemoveFromPlaylistPressed = (userExerciseId) =>
     {
+        debugger
         removeUserExercise(userExerciseId).then(
             () =>
             {
@@ -81,19 +82,22 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
                             addOrRemoveExerciseButton = <button className="mr-2 w-8 h-8 bg-rose-800 rounded my-border 
                             hover:bg-rose-500 active:bg-rose-200
                             transition active:transition-none"
-                                onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }} data-testid="remove"><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+                                onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }} data-testid="remove"><i className="fa fa-trash-o" aria-hidden="true"/></button>
                         } else
                         {
                             addOrRemoveExerciseButton = <button className="mr-2 w-8 h-8 bg-green-700 rounded my-border 
                             hover:bg-green-500 active:bg-green-200
                             transition active:transition-none"
-                                onClick={() => { onAddToPlaylistPressed(exercise.id) }} data-testid="add"><i className="fa fa-plus" aria-hidden="true"></i></button>
+                                onClick={() => { onAddToPlaylistPressed(exercise.id) }} data-testid="add"><i className="fa fa-plus" aria-hidden="true" /></button>
                         }
 
                         let editButton = <></>
                         if(exercise.userId == currentUser.id)
                         {
-                            editButton = <button className="mr-2 w-8 h-8 bg-blue-600 rounded my-border hover:bg-blue-400 active:bg-blue-200" onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }} data-testid="edit"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                            editButton = <button className="mr-2 w-8 h-8 bg-blue-600 rounded my-border hover:bg-blue-400 active:bg-blue-200"
+                                onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }} data-testid="edit">
+                                <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                            </button>
                         }
 
                         return (

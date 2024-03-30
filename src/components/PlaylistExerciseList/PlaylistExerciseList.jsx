@@ -29,17 +29,9 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
         }, [currentUser]
     )
 
-    const onRemoveFromPlaylistPressed = (exerciseId) =>
+    const onRemoveFromPlaylistPressed = (userExerciseId) =>
     {
-        getUserExerciseByUserIdAndExerciseId(exerciseId, currentUser.id).then(
-            (gottenExercises) =>
-            {
-                if(gottenExercises.length > 0)
-                {
-                    removeUserExercise(gottenExercises[0].id).then(onUserExercisesChanged)
-                }
-            }
-        )
+        removeUserExercise(userExerciseId).then(onUserExercisesChanged)
     }
 
     const onUserExerciseSorted = () =>
@@ -59,7 +51,10 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                         let editButton = <></>
                         if(exercise.userId == currentUser.id)
                         {
-                            editButton = <button onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }}>Edit</button>
+                            editButton = <button className="mr-2 w-8 h-8 bg-blue-600 rounded my-border hover:bg-blue-400 active:bg-blue-200 my-shadow-light"
+                                onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }} data-testid="edit">
+                                <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                            </button>
                         }
 
                         return (
@@ -68,8 +63,11 @@ const PlaylistExerciseList = ({ currentUser, exercises, onUserExercisesChanged }
                                     {thisUserExercise && <SortButtons userExercise={thisUserExercise} onUserExerciseSorted={onUserExerciseSorted} />}
                                 </div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
-                                <div className={`flex ${marginAroundListClass}`}>
-                                    <button className="mr-2" onClick={() => { onRemoveFromPlaylistPressed(exercise.id) }}>Remove From Playlist</button>
+                                <div className={`flex ${marginAroundListClass} items-center`}>
+                                    <button className="mr-2 w-8 h-8 bg-rose-800 rounded my-border 
+                            hover:bg-rose-500 active:bg-rose-200
+                            transition active:transition-none my-shadow-light"
+                                        onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }} data-testid="remove"><i className="fa fa-trash-o" aria-hidden="true" /></button>
                                     {editButton}
                                 </div>
                             </div>

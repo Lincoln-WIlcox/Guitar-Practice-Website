@@ -61,12 +61,12 @@ const DecideWhatToPractice = ({ currentUser }) =>
 
     if(exercisesComplete)
     {
-        return <div className="flex justify-center mt-5">
+        return <div className="flex justify-center h-screen">
             <PracticeComplete currentUser={currentUser}/>
         </div>
     } else
     {
-        return <div className="flex justify-center mt-5">
+        return <div className="flex justify-center items-center h-screen">
             <PracticeExercise currentUser={currentUser} exercise={currentExercise} onExerciseCompleted={getAndSetCurrentExercise} />
         </div>
     }
