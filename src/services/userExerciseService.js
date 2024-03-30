@@ -69,10 +69,14 @@ export const getUserExerciseByOrder = (order) =>
     return fetch(`http://localhost:8088/userExercises?order=${order}`).then(res => res.json())
 }
 
+export const getUserExerciseByOrderAndUserId = (order, userId) =>
+{
+    return fetch(`http://localhost:8088/userExercises?order=${order}&userId=${userId}`).then(res => res.json())
+}
+
 export const switchOrderWithExerciseAbove = async (userExercise) =>
 {
-    debugger
-    const userExercisesAbove = await getUserExerciseByOrder(parseInt(userExercise.order) + 1)
+    const userExercisesAbove = await getUserExerciseByOrderAndUserId(parseInt(userExercise.order) + 1, userExercise.userId)
 
     if(userExercisesAbove.length === 1)
     {
@@ -114,7 +118,7 @@ export const switchOrderWithExerciseAbove = async (userExercise) =>
 
 export const switchOrderWithExerciseBelow = async (userExercise) =>
 {
-    const userExercisesBelow = await getUserExerciseByOrder(parseInt(userExercise.order) - 1)
+    const userExercisesBelow = await getUserExerciseByOrderAndUserId(parseInt(userExercise.order) - 1, userExercise.userId)
 
     if(userExercisesBelow.length === 1)
     {

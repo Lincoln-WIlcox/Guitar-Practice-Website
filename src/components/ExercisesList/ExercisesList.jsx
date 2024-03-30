@@ -53,6 +53,7 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
 
     const onRemoveFromPlaylistPressed = (userExerciseId) =>
     {
+        debugger
         removeUserExercise(userExerciseId).then(
             () =>
             {
@@ -68,7 +69,7 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
     }
 
     return (
-        <div className="flex justify-center items-center flex-col w-full">
+        <div className="flex justify-center items-center flex-col w-full exercise-list">
             {
                 exercises?.map(
                     (exercise) =>
@@ -78,21 +79,30 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
                         let addOrRemoveExerciseButton = <></>
                         if(thisUserExerciseIsInUserExercise)
                         {
-                            addOrRemoveExerciseButton = <button className="mr-2" onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }}>Remove From Playlist</button>
+                            addOrRemoveExerciseButton = <button className="mr-2 w-8 h-8 bg-rose-800 rounded my-border 
+                            hover:bg-rose-500 active:bg-rose-200
+                            transition active:transition-none"
+                                onClick={() => { onRemoveFromPlaylistPressed(thisUserExercise.id) }} data-testid="remove"><i className="fa fa-trash-o" aria-hidden="true"/></button>
                         } else
                         {
-                            addOrRemoveExerciseButton = <button className="mr-2" onClick={() => { onAddToPlaylistPressed(exercise.id) }}>Add To Playlist</button>
+                            addOrRemoveExerciseButton = <button className="mr-2 w-8 h-8 bg-green-700 rounded my-border 
+                            hover:bg-green-500 active:bg-green-200
+                            transition active:transition-none"
+                                onClick={() => { onAddToPlaylistPressed(exercise.id) }} data-testid="add"><i className="fa fa-plus" aria-hidden="true" /></button>
                         }
 
                         let editButton = <></>
                         if(exercise.userId == currentUser.id)
                         {
-                            editButton = <button onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }}>Edit</button>
+                            editButton = <button className="mr-2 w-8 h-8 bg-blue-600 rounded my-border hover:bg-blue-400 active:bg-blue-200"
+                                onClick={() => { navigate(`/edit-exercise/${exercise.id}`) }} data-testid="edit">
+                                <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                            </button>
                         }
 
                         return (
-                            <div className="flex w-9/12 justify-center" key={exercise.id}>
-                                <div className={marginAroundListClass}></div>
+                            <div className="flex w-full lg:w-9/12 items-center justify-center" key={exercise.id}>
+                                <div className=" lg:w-4/12"></div>
                                 <MiniExercise title={exercise.name} skill={exercise.skillId} author={exercise.userId} description={exercise.description} />
                                 <div className={`flex ${marginAroundListClass}`}>
                                     {addOrRemoveExerciseButton}
@@ -103,7 +113,7 @@ const ExercisesList = ({ currentUser, exercises, onUserExercisesChanged }) =>
                     }
                 )
             }
-        </div>
+        </div >
     )
 }
 

@@ -10,6 +10,19 @@ const ExercisesFilters = ({ onSkillSelected, onSearchQueryChanged, onShowMyExerc
     const [showMyExercisesChecked, setShowMyExercisesChecked] = useState(false)
     const [allSkills, setAllSkills] = useState([])
 
+    const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
+    const updateDimensions = () =>
+    {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight);
+    }
+    useEffect(() =>
+    {
+        window.addEventListener("resize", updateDimensions);
+        return () => window.removeEventListener("resize", updateDimensions);
+    }, []);
+
     useEffect(
         () =>
         {
@@ -60,14 +73,14 @@ const ExercisesFilters = ({ onSkillSelected, onSearchQueryChanged, onShowMyExerc
         setShowMyExercisesChecked(false)
     }
 
-    return <div className="flex space-x-4 mt-2">
+    return <div className={"flex " + (width < 500 ? "flex-col space-y-3 " : "flex-wrap space-x-4") + " justify-center items-center m-4 mt-0 my-border border-t-0 p-4 bg-stone-800 my-shadow-dark"}>
         <SkillSelect onSkillSelected={setSelectedSkill} skills={allSkills} selectedSkill={selectedSkill} />
-        <input type="search" placeholder="filter by name" className="text-black" onChange={onSearchChanged} value={searchQuery} />
-        <div>
-            <label name="showMyExercises">Show My Exercises</label>
+        <input type="search" placeholder="filter by name" className="text-black rounded my-shadow-light p-1" onChange={onSearchChanged} value={searchQuery} />
+        <div className="my-border rounded p-1 my-shadow-light">
+            <label name="showMyExercises" className="mr-1">Show My Exercises</label>
             <input type="checkbox" name="showMyExercises" checked={showMyExercisesChecked} onChange={onShowMyExercisesCheckboxChanged} />
         </div>
-        <button onClick={onShowAllButtonClicked}>Show All</button>
+        <button className="my-button p-1 my-shadow-light" onClick={onShowAllButtonClicked}>Show All</button>
     </div>
 }
 

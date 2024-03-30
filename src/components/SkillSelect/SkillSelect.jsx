@@ -8,8 +8,7 @@ const SkillSelect = ({ selectedSkill, skills, onSkillSelected }) =>
         onSkillSelected(event.target.value)
     }
 
-    return <div>
-        <select className="bg-gray-900" onChange={onSelectChanged} value={selectedSkill}>
+    return<select className="bg-gray-900 my-border rounded p-1 my-shadow-light" onChange={onSelectChanged} value={selectedSkill}>
             <option value={0} key={0}>No Skill Selected</option>
             {
                 skills.map(
@@ -19,8 +18,8 @@ const SkillSelect = ({ selectedSkill, skills, onSkillSelected }) =>
                     }
                 )
             }
-        </select>
-    </div>
+    </select>
+    
 }
 
 export default SkillSelect

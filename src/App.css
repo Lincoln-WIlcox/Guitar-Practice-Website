@@ -1,6 +1,6 @@
 body 
 {
-    background-color: #202020;
+    background-color: #1b1a1a;
     color: #fff;
 }
 
@@ -14,14 +14,23 @@ body
     filter: drop-shadow(0 5px 7px rgb(0, 0, 0, 0.35)) drop-shadow(0 3px 2px rgba(0, 0, 0, 0.15));	
 }
 
-.my-button-alt
-{
-    background-color: #5b267a;
-}
-
 .my-button
 {
     background-color: #301980;
+
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+
+    border-style: solid;
+    border-color: rgb(209 213 219);
+    border-width: 2px;
+    border-radius: 0.5rem;
+}
+
+.my-button:active
+{
+    transition-property: none;
 }
 
 .my-button:hover, .my-button-alt:hover
@@ -32,4 +41,11 @@ body
 .my-button:active, .my-button-alt:active
 {
     background-color: #bb94d2;
+}
+
+.my-border
+{
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(209 213 219);
 }

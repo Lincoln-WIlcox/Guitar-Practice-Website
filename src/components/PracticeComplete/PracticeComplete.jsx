@@ -53,18 +53,25 @@ const PracticeComplete = ({ currentUser }) =>
 
 
 
-    return <div className="flex flex-col items-center">
-        <h1>You're done!</h1>
-        {
-            leveledUp &&
-            <p>You leveled up to {level}!</p>
-        }
-        <p>You earned {expEarnedToday} exp today</p>
+    return <div className="flex h-screen w-screen justify-center">
+        <div className="flex flex-col h-1/3 w-1/3 min-h-80 mt-36 p-2 items-center my-border justify-around bg-stone-800">
+            <div>
+                <h1 className="text-2xl m-4">You're done!</h1>
+                {
+                    leveledUp &&
+                    <p>You leveled up to {level}!</p>
+                }
+                <p>You earned {expEarnedToday} exp today</p>
+            </div>
 
-        <button onClick={() => { navigate('/practice') }}>
-            Return To Practice
-        </button>
+
+            <button className="my-button p-2 text-lg"
+                onClick={() => { navigate('/practice') }}>
+                Return To Practice
+            </button>
+        </div>
     </div>
+
 }
 
 export default PracticeComplete
