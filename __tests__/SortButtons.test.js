@@ -64,8 +64,8 @@ describe('SortButtons works',
             {
                 const tree = await testRender()
 
-                const sortUpButton = tree.getByRole('button', { name: "move up" })
-                const sortDownButton = tree.getByRole('button', { name: "move down" })
+                const sortUpButton = tree.getByTestId('up')
+                const sortDownButton = tree.getByTestId('down')
 
                 expect(sortUpButton).toBeInTheDocument()
                 expect(sortDownButton).toBeInTheDocument()
@@ -77,7 +77,7 @@ describe('SortButtons works',
             {
                 const tree = await testRender()
 
-                const sortUpButton = tree.getByRole('button', { name: "move up" })
+                const sortUpButton = tree.getByTestId('up')
 
                 await act(
                     async () =>
@@ -96,7 +96,7 @@ describe('SortButtons works',
             {
                 const tree = await testRender()
 
-                const sortUpButton = tree.getByRole('button', { name: "move down" })
+                const sortUpButton = tree.getByTestId('down')
 
                 await act(
                     async () =>

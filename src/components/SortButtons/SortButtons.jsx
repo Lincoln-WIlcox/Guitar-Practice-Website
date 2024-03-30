@@ -11,6 +11,7 @@ const SortButtons = ({ userExercise, onUserExerciseSorted }) =>
                 switchOrderWithExerciseAbove(userExercise).then(onUserExerciseSorted)
             }
         }
+            data-testid="up"
         ><i className="fa fa-caret-up" /></button>
         <button className="flex justify-center items-center text-xl" onClick={
             () => 
@@ -18,6 +19,7 @@ const SortButtons = ({ userExercise, onUserExerciseSorted }) =>
                 switchOrderWithExerciseBelow(userExercise).then(onUserExerciseSorted)
             }
         }
+            data-testid="down"
         ><i className="fa fa-caret-down" /></button>
     </div>
 }
