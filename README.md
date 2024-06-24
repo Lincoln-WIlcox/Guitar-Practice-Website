@@ -1,1 +1,28 @@
-It can be difficult to make yourself sit down and practice guitar. I believe there are two reasons for this: practicing guitar isn’t fun, and you have to spend extra brain power on organizing which exercises you want to do. Guitar Practice Website will solve both of these problems. You will be able to search an existing list of exercises and add them to a playlist of exercises you want to do. Once your playlist is set up, you may log in each day and the website will tell you which exercises to do, how to do them, and which order to do them in. Additionally, you will earn experience points each time you complete an exercise, and will level up when enough experience is gained. This gamifies the guitar practice process, making it more fun. If an exercise you want to do isn’t in the list, you can also create your own exercises.
+# Guitar Practice Website
+
+Guitar Practice Website is designed to help guitarists organize their exercises and gamify the practicing process. By using this website, guitarists can practice regularly and have more fun doing it.
+
+# Overview
+
+Guitar Practice Website is a tool for guitarists to manage their practice routines efficiently. It allows users to create, organize, and practice exercises while providing a gamified experience to keep motivation high.
+Purpose and Motivation
+
+The goal of this website is to help guitarists practice regularly and enjoy the process. It is especially useful for those who struggle to maintain a consistent practice schedule.
+Installation
+
+To set up the Guitar Practice Website, you will need npm to install packages and JSON-server for the API and database.
+Prerequisites
+
+- Node.js and npm installed on your machine.
+- JSON-server to simulate a REST API.
+
+# Usage
+## Basic Usage
+
+- Exercises Page: Add exercises to your playlist and create new exercises.
+- Practice Page: Use this page to practice the exercises in your playlist.
+
+## Advanced Features
+
+- Sorting Exercises: Change the order of exercises in your playlist.
+- Gamification: Earn experience points and level up to stay motivated.
